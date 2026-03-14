@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Purple Book V1</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="authScreen" class="screen active"></div>
+
+  <div id="appScreen" class="screen hidden">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge">PB</div>
+        <div>
+          <h1>Purple Book</h1>
+          <p>Private Madden League Sportsbook</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div id="weekPill" class="pill">Week 4</div>
+        <button id="adminLink" class="ghost">Admin</button>
+        <button id="logoutBtn" class="ghost">Logout</button>
+      </div>
+    </header>
+
+    <nav class="nav">
+      <button class="nav-btn active" data-page="home">Home</button>
+      <button class="nav-btn" data-page="sportsbook">Sportsbook</button>
+      <button class="nav-btn" data-page="mybets">My Bets</button>
+      <button class="nav-btn" data-page="leaderboard">Leaderboard</button>
+      <button class="nav-btn" data-page="results">Results</button>
+      <button class="nav-btn" data-page="rules">Rules</button>
+    </nav>
+
+    <main class="layout">
+      <section class="content">
+        <section id="home" class="page active"></section>
+        <section id="sportsbook" class="page"></section>
+        <section id="mybets" class="page"></section>
+        <section id="leaderboard" class="page"></section>
+        <section id="results" class="page"></section>
+        <section id="rules" class="page"></section>
+        <section id="admin" class="page"></section>
+      </section>
+
+      <aside class="betslip">
+        <div class="betslip-header">
+          <div>
+            <div class="betslip-title">Bet Slip</div>
+            <div id="slipMeta" class="muted">0 picks</div>
+          </div>
+          <button id="clearSlipBtn" class="ghost small">Clear</button>
+        </div>
+        <div id="slipBody" class="slip-body"></div>
+        <div class="slip-footer">
+          <label class="label">Stake
+            <input id="stakeInput" type="number" min="10" step="10" value="10" />
+          </label>
+          <div class="summary-row"><span>Odds</span><strong id="slipOdds">—</strong></div>
+          <div class="summary-row"><span>Payout</span><strong id="slipPayout">$0.00</strong></div>
+          <button id="placeBetBtn" class="primary wide">Place Bet</button>
+          <p class="tiny">Pregame betting only. Weekly users cannot bet on their own team.</p>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
