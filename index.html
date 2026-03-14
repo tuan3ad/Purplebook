@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Purple Book Sportsbook</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="authScreen" class="screen active"></div>
+    <div id="mainScreen" class="screen hidden">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">PB</div>
+          <div>
+            <div class="brand-title">Purple Book</div>
+            <div class="brand-sub">Private Madden League Sportsbook</div>
+          </div>
+        </div>
+        <div class="top-actions">
+          <div class="week-chip" id="weekChip">Week 4</div>
+          <button class="ghost-btn" id="adminNavBtn">Admin</button>
+          <button class="ghost-btn" id="logoutBtn">Logout</button>
+        </div>
+      </header>
+
+      <nav class="main-nav">
+        <button class="nav-btn active" data-page="homePage">Home</button>
+        <button class="nav-btn" data-page="sportsbookPage">Sportsbook</button>
+        <button class="nav-btn" data-page="myBetsPage">My Bets</button>
+        <button class="nav-btn" data-page="leaderboardPage">Leaderboard</button>
+        <button class="nav-btn" data-page="resultsPage">Results</button>
+        <button class="nav-btn" data-page="rulesPage">Rules</button>
+      </nav>
+
+      <main class="layout">
+        <section class="content">
+          <section id="homePage" class="page active"></section>
+          <section id="sportsbookPage" class="page"></section>
+          <section id="myBetsPage" class="page"></section>
+          <section id="leaderboardPage" class="page"></section>
+          <section id="resultsPage" class="page"></section>
+          <section id="rulesPage" class="page"></section>
+          <section id="adminPage" class="page"></section>
+        </section>
+
+        <aside class="betslip">
+          <div class="betslip-header">
+            <div>
+              <div class="betslip-title">Bet Slip</div>
+              <div class="betslip-sub" id="slipCount">0 picks</div>
+            </div>
+            <button class="ghost-btn small" id="clearSlipBtn">Clear</button>
+          </div>
+          <div id="slipBody" class="slip-body"></div>
+          <div class="slip-footer">
+            <label class="field-label">Stake
+              <input id="stakeInput" type="number" min="10" step="10" value="10" />
+            </label>
+            <div class="slip-kv">
+              <div><span>Odds</span><strong id="slipOdds">—</strong></div>
+              <div><span>Payout</span><strong id="slipPayout">$0.00</strong></div>
+            </div>
+            <button id="submitSlipBtn" class="primary-btn wide">Place Bet</button>
+            <div class="tiny-note">Users cannot bet on their own team for weekly bets. Minimum stake is $10.</div>
+          </div>
+        </aside>
+      </main>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
