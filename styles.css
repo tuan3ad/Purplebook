@@ -1,9 +1,0 @@
-
-body{font-family:system-ui;background:#0b0f17;color:#fff;margin:0;padding:0}
-header{background:#1e73ff;padding:16px}
-#board{padding:16px}
-.game{background:#111827;border-radius:12px;margin-bottom:20px;padding:12px}
-.game h2{margin:0 0 6px 0}
-.type{color:#9ca3af;font-size:14px;margin-bottom:10px}
-.markets{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.btn{background:#1f2937;border:1px solid #374151;padding:10px;border-radius:8px;text-align:center}
