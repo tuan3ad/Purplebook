@@ -1,0 +1,28 @@
+:root{
+--bg:#0b0b14;--panel:#151526;--text:#f8fafc;--muted:#9ca3af;--purple:#8b5cf6;--purple2:#6c2bd9;--blue:#3b82f6;
+}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;padding-bottom:86px}
+.hidden{display:none!important}.header{padding:20px;background:linear-gradient(45deg,var(--purple2),var(--purple));position:sticky;top:0;z-index:15}
+.h1{font-size:28px;font-weight:900}.sub{margin-top:4px;color:#ede9fe}.wrap{padding:14px;max-width:980px;margin:0 auto}
+.card{background:var(--panel);border:1px solid #2b2d42;border-radius:16px;padding:14px;margin-bottom:14px}
+.loginCard{max-width:420px;margin:40px auto;background:var(--panel);border:1px solid #2b2d42;border-radius:18px;padding:18px}
+input,select,textarea{width:100%;padding:13px;border-radius:12px;border:1px solid #374151;background:#0f172a;color:#fff;margin-top:8px}
+button{cursor:pointer;font:inherit}.primary{background:linear-gradient(45deg,var(--purple2),var(--purple));border:none;color:#fff;padding:13px 16px;border-radius:12px;font-weight:800}
+.ghost{background:#1f2937;border:1px solid #374151;color:#fff;padding:10px 12px;border-radius:12px}
+.sectionTitle{font-size:22px;font-weight:900;margin-bottom:8px}.small{color:var(--muted);font-size:13px}.flex{display:flex;gap:10px;align-items:center}
+.bankTable{width:100%;border-collapse:collapse;font-size:14px}.bankTable th,.bankTable td{padding:10px;border-bottom:1px solid #262b35;text-align:left}.bankTable th{color:#cbd5e1}
+.boardCard{background:var(--panel);border-radius:18px;overflow:hidden;margin-bottom:14px;border:1px solid #23283a}.boardTop{display:flex;justify-content:space-between;align-items:center;padding:14px 14px 10px;border-bottom:1px solid #23283a}
+.matchup{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}.matchup img{width:34px;height:34px}.gameTheme{height:5px}
+.marketGrid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:10px;padding:12px}.marketHdr{color:#94a3b8;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.teamCell{display:flex;align-items:center;gap:10px;font-weight:700}.teamCell img{width:28px;height:28px}
+.oddsBtn{background:#0f172a;border:1px solid var(--blue);border-radius:12px;padding:10px;text-align:center;color:#fff;min-height:58px}.oddsBtn.selected{border-color:var(--purple);box-shadow:0 0 0 2px rgba(139,92,246,.35) inset}
+.oddsBtn .line1{display:block;font-size:13px;color:#dbeafe;white-space:pre-line}
+.tabBar{display:flex;gap:8px;overflow:auto;padding-bottom:10px}.tabBar button{white-space:nowrap;background:#1f2937;border:1px solid #374151;color:#fff;border-radius:999px;padding:8px 12px}.tabBar button.active{background:var(--purple);border-color:var(--purple)}
+.leg{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border:1px solid #2a3140;border-radius:12px;margin-bottom:8px;background:#0f172a}.legName{font-size:14px;font-weight:700}.legOdds{color:#93c5fd;font-weight:800}
+.ticket{background:#101522;border:1px solid #2a3140;border-radius:16px;padding:14px;margin-bottom:12px}.ticketTop{display:flex;justify-content:space-between;gap:12px}
+.badge{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}.badge.OPEN{background:#312e81;color:#ddd6fe}.badge.WON{background:#14532d;color:#bbf7d0}.badge.LOST{background:#7f1d1d;color:#fecaca}
+.legsList{margin:10px 0 0 0;padding-left:18px}
+.bottomNav{position:fixed;left:0;right:0;bottom:0;background:#0f172a;border-top:1px solid #263041;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:8px;z-index:20}.navBtn{background:transparent;border:none;color:#cbd5e1;padding:10px;border-radius:10px}.navBtn.active{background:#1f2937;color:#fff}
+.betSlip{position:fixed;left:0;right:0;bottom:68px;background:#111827;border-top-left-radius:18px;border-top-right-radius:18px;border-top:3px solid var(--purple);padding:14px;z-index:19;max-height:48vh;overflow:auto;box-shadow:0 -12px 40px rgba(0,0,0,.45)}.betSlipItem{padding:10px 0;border-bottom:1px solid #263041}
+.ruleList li{margin-bottom:6px}
+@media (max-width:720px){.marketGrid{grid-template-columns:1.2fr repeat(3,1fr);gap:8px}.matchup{font-size:18px}.oddsBtn{padding:8px;min-height:54px}}
