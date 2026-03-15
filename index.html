@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purple Book</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="top">
+<h1>Purple Book</h1>
+<p>Private Madden League Sportsbook</p>
+</header>
+
+<section class="featured">
+<h2>Featured QBs</h2>
+
+<div class="players">
+
+<div class="player" onclick="openPlayer('Trevor Lawrence')">
+<img src="https://static.www.nfl.com/image/private/t_headshot_desktop/league/f3vhqf9w9ubavq4r1hzf">
+<span>Trevor Lawrence</span>
+</div>
+
+<div class="player" onclick="openPlayer('Jaxson Dart')">
+<img src="https://a.espncdn.com/i/headshots/college-football/players/full/4429013.png">
+<span>Jaxson Dart</span>
+</div>
+
+<div class="player" onclick="openPlayer('Justin Fields')">
+<img src="https://static.www.nfl.com/image/private/t_headshot_desktop/league/qzv9hy9xjcr6sn7nwy0x">
+<span>Justin Fields</span>
+</div>
+
+<div class="player" onclick="openPlayer('Lamar Jackson')">
+<img src="https://static.www.nfl.com/image/private/t_headshot_desktop/league/rk3i1k6kg2h0tdnplzrh">
+<span>Lamar Jackson</span>
+</div>
+
+<div class="player" onclick="openPlayer('JJ McCarthy')">
+<img src="https://a.espncdn.com/i/headshots/college-football/players/full/4567048.png">
+<span>JJ McCarthy</span>
+</div>
+
+</div>
+</section>
+
+
+<section class="games">
+
+<h2>Week 4 Games</h2>
+
+<div class="game">
+<h3>Jets vs Dolphins</h3>
+<div class="markets">
+<button>Jets ML</button>
+<button>Dolphins ML</button>
+<button>Jets +3.5</button>
+<button>Dolphins -3.5</button>
+<button>Over 48.5</button>
+<button>Under 48.5</button>
+</div>
+</div>
+
+<div class="game">
+<h3>Buccaneers vs Eagles</h3>
+<div class="markets">
+<button>Bucs ML</button>
+<button>Eagles ML</button>
+<button>Bucs +2.5</button>
+<button>Eagles -2.5</button>
+<button>Over 47.5</button>
+<button>Under 47.5</button>
+</div>
+</div>
+
+<div class="game">
+<h3>Saints vs Bills</h3>
+<div class="markets">
+<button>Saints ML</button>
+<button>Bills ML</button>
+<button>Over 49</button>
+<button>Under 49</button>
+</div>
+</div>
+
+<div class="game">
+<h3>Falcons vs CPU</h3>
+<div class="markets">
+<button>Falcons ML</button>
+<button>Falcons -4</button>
+<button>Over 45</button>
+<button>Under 45</button>
+</div>
+</div>
+
+</section>
+
+<div id="playerScreen" class="playerScreen hidden">
+<div class="playerCard">
+<h2 id="playerName"></h2>
+
+<div class="props">
+<button>Over Passing Yards</button>
+<button>Under Passing Yards</button>
+<button>Over 1.5 TD</button>
+<button>Under 1.5 TD</button>
+<button>Throws INT</button>
+<button>No INT</button>
+</div>
+
+<button onclick="closePlayer()">Close</button>
+</div>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
