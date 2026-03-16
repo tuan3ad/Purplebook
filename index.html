@@ -7,499 +7,300 @@
   <style>
     :root{
       --bg1:#070b1a;
-      --bg2:#111a48;
-      --bg3:#3d1d72;
-      --card:rgba(31,32,80,.72);
-      --card2:rgba(16,18,49,.78);
-      --stroke:rgba(144,118,255,.28);
-      --text:#f4f2ff;
-      --muted:#beb6ea;
-      --chip:#2f2960;
-      --btn:#6f48f5;
-      --btn2:#2a2556;
-      --good:#1ea672;
-      --bad:#c44c6d;
-      --warn:#c99b2e;
-      --shadow:0 20px 50px rgba(0,0,0,.35);
+      --bg2:#131b44;
+      --bg3:#3b1e73;
+      --glass:rgba(24,26,58,.72);
+      --glass2:rgba(14,18,40,.82);
+      --stroke:rgba(144,118,255,.22);
+      --text:#f5f3ff;
+      --muted:#bdb6eb;
+      --accent:#7a56f5;
+      --accent2:#4b7dff;
+      --green:#1fb878;
+      --red:#d75b78;
+      --yellow:#d8a136;
+      --shadow:0 18px 40px rgba(0,0,0,.35);
       --radius:24px;
     }
-
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;background:#060915;color:var(--text);min-height:100%}
+    html,body{margin:0;padding:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;background:#050814;color:var(--text)}
     body{overflow-x:hidden}
-
-    .app-bg{
+    .bg{
       position:fixed; inset:0; z-index:0;
       background:
-        radial-gradient(circle at 20% 10%, rgba(134,76,255,.30), transparent 28%),
-        radial-gradient(circle at 80% 18%, rgba(57,111,255,.18), transparent 24%),
-        linear-gradient(180deg, #1d1340 0%, #131942 30%, #0a102d 58%, #050915 100%);
-    }
-    .app-bg::after{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        linear-gradient(transparent 0%, rgba(255,255,255,.02) 49%, transparent 50%, transparent 100%);
-      background-size:100% 14px;
-      opacity:.25;
+        radial-gradient(circle at 15% 10%, rgba(122,86,245,.28), transparent 28%),
+        radial-gradient(circle at 85% 15%, rgba(75,125,255,.18), transparent 26%),
+        linear-gradient(180deg, #201145 0%, #141a43 35%, #0b1230 70%, #050814 100%);
       pointer-events:none;
     }
-
-    #app{position:relative; z-index:1; padding:14px; max-width:1500px; margin:0 auto}
+    .bg:after{
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(transparent 0, rgba(255,255,255,.02) 49%, transparent 50%);
+      background-size:100% 14px;
+      opacity:.18;
+    }
+    #app{position:relative; z-index:1; padding:12px; max-width:1500px; margin:0 auto}
     .hidden{display:none !important}
-
     .glass{
-      background:linear-gradient(180deg, rgba(73,52,145,.58), rgba(20,24,61,.78));
-      backdrop-filter: blur(16px);
+      background:linear-gradient(180deg,var(--glass),var(--glass2));
+      backdrop-filter:blur(16px);
       border:1px solid var(--stroke);
       box-shadow:var(--shadow);
+      border-radius:var(--radius);
     }
-
     .topbar{
       display:flex; align-items:center; justify-content:space-between; gap:14px;
-      border-radius:28px; padding:14px 16px; margin-bottom:14px; position:sticky; top:8px; z-index:20;
+      padding:14px 16px; margin-bottom:14px; position:sticky; top:8px; z-index:20;
     }
-    .brand-wrap{display:flex; align-items:center; gap:14px; min-width:0}
-    .menu-btn{
-      width:54px;height:42px;border-radius:16px;border:1px solid rgba(255,255,255,.18);
-      background:rgba(255,255,255,.9); color:#111; font-size:22px; cursor:pointer;
-    }
+    .brand{display:flex; align-items:center; gap:14px; min-width:0}
     .brand-mark{
-      width:70px;height:70px;border-radius:22px; display:grid; place-items:center;
-      background:linear-gradient(180deg,#8c5cff,#6739f0); font-weight:900; font-size:28px;
-      box-shadow:0 14px 30px rgba(111,72,245,.45)
+      width:60px; height:60px; border-radius:18px; display:grid; place-items:center;
+      background:linear-gradient(180deg,var(--accent),#5f3cea); font-weight:900; font-size:24px;
+      box-shadow:0 12px 28px rgba(122,86,245,.4);
     }
-    .brand-text h1{margin:0;font-size:28px;line-height:1.05}
-    .brand-text p{margin:4px 0 0;color:var(--muted);font-size:17px}
-    .top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-    .chip{
-      border-radius:999px; padding:10px 16px; background:rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.08); color:var(--text)
+    .brand h1{margin:0;font-size:26px;line-height:1}
+    .brand p{margin:4px 0 0;color:var(--muted);font-size:14px}
+    .top-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .chip, .pill-btn, .btn{
+      border:none; border-radius:999px; color:#fff; font-weight:800; cursor:pointer;
     }
-    .pill-btn,.btn{
-      border:0; cursor:pointer; color:#fff; border-radius:999px; padding:12px 18px;
-      font-size:16px; font-weight:700;
-    }
-    .pill-btn{background:rgba(110,87,210,.75); border:1px solid rgba(255,255,255,.08)}
-    .btn.primary{background:linear-gradient(180deg,#7f5cff,#633df0)}
-    .btn.secondary{background:var(--btn2); border:1px solid rgba(255,255,255,.09)}
-    .btn.good{background:var(--good)}
-    .btn.bad{background:var(--bad)}
-    .btn.warn{background:var(--warn); color:#17120a}
-    .btn.ghost{background:#3b355f}
-    .btn.small{padding:9px 12px;font-size:14px}
-    .btn:disabled{opacity:.45;cursor:not-allowed}
-
-    .layout{
-      display:grid;
-      grid-template-columns:300px minmax(0,1fr);
-      gap:14px;
-    }
-
-    .sidebar{
-      border-radius:28px; padding:16px; height:calc(100vh - 120px); overflow:auto; position:sticky; top:102px;
-    }
-    .sidebar h2{margin:0 0 10px;font-size:16px;color:#ddd4ff;text-transform:uppercase;letter-spacing:.05em}
+    .chip{padding:10px 14px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08)}
+    .pill-btn{padding:10px 14px; background:rgba(122,86,245,.75)}
+    .btn{padding:12px 16px; font-size:15px}
+    .btn.primary{background:linear-gradient(180deg,var(--accent),#603bea)}
+    .btn.secondary{background:#2a2755; border:1px solid rgba(255,255,255,.08)}
+    .btn.good{background:var(--green)}
+    .btn.bad{background:var(--red)}
+    .btn.warn{background:var(--yellow); color:#1d1403}
+    .btn.ghost{background:#4a466e}
+    .btn.small{padding:8px 12px; font-size:13px}
+    .layout{display:grid; grid-template-columns:290px minmax(0,1fr); gap:14px}
+    .sidebar{padding:16px; height:calc(100vh - 108px); overflow:auto; position:sticky; top:100px}
+    .sidebar h3{margin:0 0 10px; font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:#e1d8ff}
     .sidebar-section{margin-bottom:18px}
     .nav-btn{
-      width:100%; text-align:left; margin-bottom:8px; background:rgba(255,255,255,.03); color:var(--text);
-      border:1px solid rgba(255,255,255,.06); border-radius:16px; padding:13px 14px; cursor:pointer; font-size:16px; font-weight:700
+      width:100%; text-align:left; padding:12px 14px; margin-bottom:8px; border:none; cursor:pointer;
+      background:rgba(255,255,255,.04); color:#fff; border-radius:16px; font-weight:800;
+      border:1px solid rgba(255,255,255,.06)
     }
-    .nav-btn.active{background:linear-gradient(180deg,#7b57f2,#5f39ea)}
-    .list-item{
-      background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.06);
-      border-radius:18px; padding:14px; margin-bottom:10px;
-    }
-    .list-item h4{margin:0 0 6px;font-size:16px}
-    .list-item p{margin:0;color:var(--muted)}
-    .rules-list{padding-left:18px;margin:0;color:var(--muted)}
-    .rules-list li{margin-bottom:8px}
-
+    .nav-btn.active{background:linear-gradient(180deg,var(--accent),#603bea)}
+    .rules{padding-left:18px; margin:0; color:var(--muted)}
+    .rules li{margin-bottom:8px}
     .main{min-width:0}
     .view{display:block}
-    .hero{
-      border-radius:32px; padding:28px;
-    }
-    .eyebrow{font-size:14px; text-transform:uppercase; letter-spacing:.08em; color:#ded4ff}
-    .hero h2{margin:10px 0 0;font-size:56px;line-height:.95}
-    .hero p{margin:16px 0 0; font-size:22px; color:#ebe5ff; max-width:960px}
-    .card{
-      border-radius:30px; padding:22px; margin-top:14px;
-    }
-    .section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-    .section-head h3,.section-head h4,.section-title{margin:0}
-    .subtle,.muted{color:var(--muted)}
-    .stats-grid{
-      display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:14px;
-    }
-    .stat-box{
-      background:rgba(14,17,45,.8); border:1px solid rgba(255,255,255,.05);
-      border-radius:20px; padding:18px;
-    }
-    .stat-box .k{color:var(--muted);font-size:15px}
-    .stat-box .v{font-size:20px;font-weight:900;margin-top:6px}
-    .stack{display:block}
-    .chip-row{display:flex;gap:10px;flex-wrap:wrap}
-    .btn-grid{
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px;
-    }
+    .hero{padding:24px}
+    .eyebrow{font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:#e5ddff}
+    .hero h2{margin:8px 0 0; font-size:44px; line-height:.95}
+    .hero p{margin:12px 0 0; font-size:18px; color:#ece7ff; max-width:900px}
+    .card{padding:20px; margin-top:14px}
+    .section-head{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap}
+    .section-head h3,.section-head h4{margin:0}
+    .subtle{color:var(--muted)}
+    .stats-grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:14px}
+    .stat-box{padding:18px; border-radius:20px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06)}
+    .stat-box .k{font-size:14px; color:var(--muted)}
+    .stat-box .v{font-size:20px; font-weight:900; margin-top:6px}
+    .stack > * + *{margin-top:12px}
+    .chip-row{display:flex; gap:10px; flex-wrap:wrap}
+    .btn-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px}
     .input,.select,.textarea{
-      width:100%; background:#0d1230; color:#fff; border:1px solid rgba(255,255,255,.08);
-      border-radius:16px; padding:14px 16px; font-size:16px;
+      width:100%; padding:14px 16px; border-radius:16px; border:1px solid rgba(255,255,255,.08);
+      background:#0d1230; color:#fff; font-size:16px
     }
-    .textarea{min-height:150px; resize:vertical}
-    .label{display:block; margin:0 0 8px; color:#d7cff9; font-weight:700}
-    .empty-state{
-      text-align:center; color:var(--muted); padding:22px;
-      background:rgba(255,255,255,.03); border:1px dashed rgba(255,255,255,.12); border-radius:18px;
+    .textarea{min-height:140px; resize:vertical}
+    .label{display:block; margin:0 0 8px; color:#ddd5ff; font-weight:800}
+    .empty{padding:18px; border-radius:18px; color:var(--muted); background:rgba(255,255,255,.03); border:1px dashed rgba(255,255,255,.1)}
+    .list-item{padding:14px; border-radius:18px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06)}
+    .list-item h4{margin:0 0 6px}
+    .list-item p{margin:0; color:var(--muted)}
+    .fanduel{margin-top:14px; border-radius:22px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:rgba(5,9,27,.55)}
+    .fd-head,.fd-row{
+      display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:12px; align-items:stretch;
     }
-    .mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-14{margin-top:14px}.mt-16{margin-top:16px}.mt-20{margin-top:20px}
-
-    .game-card .top{
-      display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap
-    }
-    .status-open,.status-closed{
-      padding:8px 12px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:.06em
-    }
-    .status-open{background:rgba(30,166,114,.18);color:#9bf2cd;border:1px solid rgba(30,166,114,.35)}
-    .status-closed{background:rgba(196,76,109,.18);color:#ffb6c8;border:1px solid rgba(196,76,109,.35)}
-
-    .fanduel-board{
-      margin-top:14px; border:1px solid rgba(255,255,255,.08); border-radius:22px; overflow:hidden;
-      background:rgba(5,9,27,.55)
-    }
-    .fd-header,.fd-row{
-      display:grid;
-      grid-template-columns:1.45fr 1fr 1fr 1fr;
-      gap:12px;
-      align-items:stretch;
-    }
-    .fd-header{
-      background:rgba(255,255,255,.04); color:#cabfff; font-size:13px; font-weight:800;
-      text-transform:uppercase; letter-spacing:.06em; padding:14px;
-    }
-    .fd-row{
-      padding:14px; border-top:1px solid rgba(255,255,255,.06);
-    }
-    .fd-team{
-      display:flex; align-items:center; gap:12px; font-weight:800; font-size:22px;
-    }
+    .fd-head{padding:14px; background:rgba(255,255,255,.04); color:#d8d0ff; font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:.06em}
+    .fd-row{padding:14px; border-top:1px solid rgba(255,255,255,.06)}
+    .team{display:flex; align-items:center; gap:12px; font-size:20px; font-weight:900}
     .team-dot{
-      width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:900;
+      width:44px; height:44px; border-radius:50%; display:grid; place-items:center; font-size:13px; font-weight:900;
       background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.06));
       border:1px solid rgba(255,255,255,.08)
     }
-    .odd-cell button{
-      width:100%; height:100%; min-height:72px;
-      background:linear-gradient(180deg,#0a173f,#091333);
-      border:2px solid #447cff; color:#eef3ff; border-radius:22px; cursor:pointer;
-      font-size:20px; font-weight:900;
+    .odd button{
+      width:100%; min-height:70px; border-radius:20px; border:2px solid #447cff; background:linear-gradient(180deg,#0a173f,#091333);
+      color:#eef3ff; font-size:18px; font-weight:900; cursor:pointer;
     }
-    .odd-cell button small{display:block;font-size:16px;color:#b8caf7;font-weight:700}
-
-    .bet-leg{
-      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); border-radius:16px; padding:12px
+    .odd button small{display:block; color:#b8caf7; font-size:15px; font-weight:700}
+    .status{
+      padding:8px 12px; border-radius:999px; font-size:12px; font-weight:900; letter-spacing:.06em
     }
-    .bet-leg-title{font-weight:800}
-    .bet-leg-copy{color:var(--muted);margin-top:4px;font-size:14px}
-    .pill{
-      padding:7px 10px; border-radius:999px; text-transform:uppercase; font-size:12px; font-weight:900;
-      background:rgba(255,255,255,.08)
+    .status.open{background:rgba(31,184,120,.18); color:#adf4d2; border:1px solid rgba(31,184,120,.3)}
+    .status.closed{background:rgba(215,91,120,.18); color:#ffc0cf; border:1px solid rgba(215,91,120,.3)}
+    .bet-leg{padding:12px; border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06)}
+    .bet-leg-title{font-weight:900}
+    .bet-leg-copy{margin-top:4px; color:var(--muted); font-size:14px}
+    .pill{padding:7px 10px; border-radius:999px; font-size:12px; font-weight:900; text-transform:uppercase; background:rgba(255,255,255,.08)}
+    .pill.open,.pill.win{color:#abf3d4}
+    .pill.loss{color:#ffc0cf}
+    .pill.push,.pill.void{color:#ffe7a1}
+    .kv{display:flex; justify-content:space-between; gap:12px; margin-bottom:8px}
+    .overlay{
+      position:fixed; inset:0; background:rgba(2,4,12,.72); backdrop-filter:blur(8px); z-index:60; padding:14px;
     }
-    .pill.open{color:#abf3d4}
-    .pill.win{color:#abf3d4}
-    .pill.loss{color:#ffc0cc}
-    .pill.push,.pill.void{color:#ffefae}
-    .kv{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}
-
-    .drawer,.modal{
-      position:fixed; inset:0; z-index:60; background:rgba(2,4,12,.72); backdrop-filter:blur(8px);
-      padding:14px;
-    }
-    .drawer .panel{
-      position:absolute; right:14px; bottom:14px; width:min(380px,calc(100vw - 28px)); max-height:86vh; overflow:auto
-    }
-    .modal .panel{
-      max-width:1180px; margin:0 auto; max-height:92vh; overflow:auto
-    }
-
-    .auth-users{
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-top:14px
-    }
-    .user-pick{
-      border:none; border-radius:20px; padding:18px; cursor:pointer; color:#fff; font-size:20px; font-weight:900;
-      background:linear-gradient(180deg,#7c59f3,#603aeb)
-    }
-
-    table{width:100%;border-collapse:collapse}
-    th,td{padding:14px 12px;text-align:left;border-bottom:1px solid rgba(255,255,255,.08)}
-    th{color:#d8d0ff;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
-    td{color:#f6f4ff}
-    .table-wrap{overflow:auto}
-
+    .overlay .panel{max-width:1180px; margin:0 auto; max-height:92vh; overflow:auto}
+    .drawer .panel{position:absolute; right:14px; bottom:14px; width:min(390px, calc(100vw - 28px))}
     .toast{
       position:fixed; left:50%; transform:translateX(-50%); bottom:18px; z-index:100;
-      background:#151936; color:#fff; border:1px solid rgba(255,255,255,.1);
-      padding:12px 16px; border-radius:999px; box-shadow:var(--shadow)
+      padding:12px 16px; border-radius:999px; background:#151936; border:1px solid rgba(255,255,255,.1)
     }
-
     @media (max-width: 980px){
       .layout{grid-template-columns:1fr}
       .sidebar{display:none}
-      .hero h2{font-size:42px}
-      .hero p{font-size:18px}
+      .hero h2{font-size:34px}
       .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
-    @media (max-width: 700px){
+    @media (max-width: 720px){
       #app{padding:10px}
       .topbar{padding:12px}
-      .brand-mark{width:48px;height:48px;font-size:22px;border-radius:16px}
-      .brand-text h1{font-size:22px}
-      .brand-text p{font-size:14px}
-      .hero{padding:22px}
+      .brand-mark{width:48px;height:48px;font-size:20px}
+      .brand h1{font-size:22px}
       .hero h2{font-size:28px}
       .hero p{font-size:16px}
       .stats-grid{grid-template-columns:1fr 1fr}
-      .fd-header,.fd-row{grid-template-columns:1fr}
-      .fd-header{display:none}
-      .fd-row{gap:10px}
-      .fd-team{font-size:18px}
-      .odd-cell button{min-height:62px;font-size:18px}
-      .top-actions{justify-content:flex-start}
+      .fd-head{display:none}
+      .fd-row{grid-template-columns:1fr; gap:10px}
+      .team{font-size:18px}
+      .odd button{min-height:62px}
     }
   </style>
 </head>
 <body>
-  <div class="app-bg"></div>
+  <div class="bg"></div>
   <div id="app"></div>
 
   <script>
-    const PIN_KEY = "purplebook_singlefile_pins_v1";
+    const PIN_KEY = "purplebook_onefile_pins_v2";
 
     const STATE = {
-      app: {
-        name: "Purplebook",
-        sportsbookName: "Madden SportsBook",
-        subtitle: "Private Madden League Sportsbook",
-        week: 4,
-        seasonWeekLock: 3
-      },
-      rules: {
-        startingBankroll: 1000,
-        maxSeason: 400,
-        maxWeekly: 500,
-        maxParlay: 150,
-        minLegs: 2,
-        maxSeasonLegs: 3,
-        maxWeeklyLegs: 5,
-        seasonParlaysAllowed: false
-      },
-      currentUser: null,
-      users: [
-        { id: "tuane", name: "Tuane", team: "Buccaneers", bankroll: 1250, start: 1000, wagered: 150, openBets: 1, admin: true },
-        { id: "des", name: "Des", team: "Jets", bankroll: 700, start: 1000, wagered: 300, openBets: 3, admin: false },
-        { id: "romeo", name: "Romeo", team: "Falcons", bankroll: 900, start: 1000, wagered: 100, openBets: 1, admin: false },
-        { id: "rob", name: "Rob", team: "Bills", bankroll: 850, start: 1000, wagered: 150, openBets: 3, admin: false },
-        { id: "don", name: "Don", team: "Saints", bankroll: 930, start: 1000, wagered: 70, openBets: 2, admin: false }
+      app: { name:"Purplebook", sportsbookName:"Madden SportsBook", subtitle:"Private Madden League Sportsbook", week:4, seasonWeekLock:3 },
+      rules: { startingBankroll:1000, maxSeason:400, maxWeekly:500, maxParlay:150, minLegs:2, maxSeasonLegs:3, maxWeeklyLegs:5, seasonParlaysAllowed:false },
+      currentUser:null,
+      users:[
+        { id:"tuane", name:"Tuane", team:"Buccaneers", bankroll:1250, start:1000, wagered:150, openBets:1, admin:true },
+        { id:"des", name:"Des", team:"Jets", bankroll:700, start:1000, wagered:300, openBets:3, admin:false },
+        { id:"romeo", name:"Romeo", team:"Falcons", bankroll:900, start:1000, wagered:100, openBets:1, admin:false },
+        { id:"rob", name:"Rob", team:"Bills", bankroll:850, start:1000, wagered:150, openBets:3, admin:false },
+        { id:"don", name:"Don", team:"Saints", bankroll:930, start:1000, wagered:70, openBets:2, admin:false }
       ],
-      games: [
-        {
-          id: "game1",
-          away: "Eagles",
-          home: "Buccaneers",
-          awayUser: null,
-          homeUser: "Tuane",
-          userGame: true,
-          status: "open",
-          lines: { spreadAway: "+2.5", spreadHome: "-2.5", mlAway: "+120", mlHome: "-140", totalOver: "50.5", totalUnder: "50.5" }
-        },
-        {
-          id: "game2",
-          away: "Saints",
-          home: "Bills",
-          awayUser: "Don",
-          homeUser: "Rob",
-          userGame: true,
-          status: "open",
-          lines: { spreadAway: "+4.0", spreadHome: "-4.0", mlAway: "+150", mlHome: "-170", totalOver: "49.0", totalUnder: "49.0" }
-        },
-        {
-          id: "game3",
-          away: "Jets",
-          home: "Dolphins",
-          awayUser: "Des",
-          homeUser: null,
-          userGame: true,
-          status: "open",
-          lines: { spreadAway: "+3.5", spreadHome: "-3.5", mlAway: "+135", mlHome: "-155", totalOver: "48.5", totalUnder: "48.5" }
-        },
-        {
-          id: "game4",
-          away: "Commanders",
-          home: "Falcons",
-          awayUser: null,
-          homeUser: "Romeo",
-          userGame: true,
-          status: "closed",
-          lines: { spreadAway: "+4.0", spreadHome: "-4.0", mlAway: "+150", mlHome: "-170", totalOver: "47.5", totalUnder: "47.5" }
-        }
+      games:[
+        { id:"game1", away:"Eagles", home:"Buccaneers", status:"open", lines:{ spreadAway:"+2.5", spreadHome:"-2.5", mlAway:"+120", mlHome:"-140", totalOver:"50.5", totalUnder:"50.5" } },
+        { id:"game2", away:"Saints", home:"Bills", status:"open", lines:{ spreadAway:"+4.0", spreadHome:"-4.0", mlAway:"+150", mlHome:"-170", totalOver:"49.0", totalUnder:"49.0" } },
+        { id:"game3", away:"Jets", home:"Dolphins", status:"open", lines:{ spreadAway:"+3.5", spreadHome:"-3.5", mlAway:"+135", mlHome:"-155", totalOver:"48.5", totalUnder:"48.5" } },
+        { id:"game4", away:"Commanders", home:"Falcons", status:"closed", lines:{ spreadAway:"+4.0", spreadHome:"-4.0", mlAway:"+150", mlHome:"-170", totalOver:"47.5", totalUnder:"47.5" } }
       ],
-      props: [
-        { id:"g1p1", gameId:"game1", player:"Trevor Lawrence", market:"Passing Yards", line:274.5, side:"Over", odds:-115, label:"Trevor Lawrence Over 274.5 Passing Yards" },
-        { id:"g1p2", gameId:"game1", player:"Trevor Lawrence", market:"Passing TDs", line:1.5, side:"Over", odds:-120, label:"Trevor Lawrence Over 1.5 Passing TDs" },
-        { id:"g1p3", gameId:"game1", player:"Jonathan Taylor", market:"Rushing Yards", line:84.5, side:"Over", odds:-118, label:"Jonathan Taylor Over 84.5 Rushing Yards" },
-        { id:"g1p4", gameId:"game1", player:"Jonathan Taylor", market:"Anytime TD", line:0.5, side:"Yes", odds:+115, label:"Jonathan Taylor Anytime TD" },
-        { id:"g1p5", gameId:"game1", player:"DK Metcalf", market:"Receiving Yards", line:74.5, side:"Over", odds:-115, label:"DK Metcalf Over 74.5 Receiving Yards" },
-        { id:"g1p6", gameId:"game1", player:"DK Metcalf", market:"Anytime TD", line:0.5, side:"Yes", odds:+135, label:"DK Metcalf Anytime TD" },
-        { id:"g1p7", gameId:"game1", player:"Christian Watson", market:"Receiving Yards", line:49.5, side:"Over", odds:-110, label:"Christian Watson Over 49.5 Receiving Yards" },
-        { id:"g1p8", gameId:"game1", player:"Tucker Kraft", market:"Receiving Yards", line:34.5, side:"Over", odds:-105, label:"Tucker Kraft Over 34.5 Receiving Yards" },
-        { id:"g1p9", gameId:"game1", player:"Jack Campbell", market:"Tackles", line:7.5, side:"Over", odds:-120, label:"Jack Campbell Over 7.5 Tackles" },
-        { id:"g1p10", gameId:"game1", player:"Bryce Huff", market:"Sacks", line:0.5, side:"Over", odds:+150, label:"Bryce Huff Over 0.5 Sacks" },
+      props:[
+        { id:"g1p1", gameId:"game1", player:"Trevor Lawrence", market:"Passing Yards", odds:-115, label:"Trevor Lawrence Over 274.5 Passing Yards" },
+        { id:"g1p2", gameId:"game1", player:"Trevor Lawrence", market:"Passing TDs", odds:-120, label:"Trevor Lawrence Over 1.5 Passing TDs" },
+        { id:"g1p3", gameId:"game1", player:"Jonathan Taylor", market:"Rushing Yards", odds:-118, label:"Jonathan Taylor Over 84.5 Rushing Yards" },
+        { id:"g1p4", gameId:"game1", player:"Jonathan Taylor", market:"Anytime TD", odds:+115, label:"Jonathan Taylor Anytime TD" },
+        { id:"g1p5", gameId:"game1", player:"DK Metcalf", market:"Receiving Yards", odds:-115, label:"DK Metcalf Over 74.5 Receiving Yards" },
+        { id:"g1p6", gameId:"game1", player:"DK Metcalf", market:"Anytime TD", odds:+135, label:"DK Metcalf Anytime TD" },
+        { id:"g1p7", gameId:"game1", player:"Christian Watson", market:"Receiving Yards", odds:-110, label:"Christian Watson Over 49.5 Receiving Yards" },
+        { id:"g1p8", gameId:"game1", player:"Tucker Kraft", market:"Receiving Yards", odds:-105, label:"Tucker Kraft Over 34.5 Receiving Yards" },
+        { id:"g1p9", gameId:"game1", player:"Jack Campbell", market:"Tackles", odds:-120, label:"Jack Campbell Over 7.5 Tackles" },
+        { id:"g1p10", gameId:"game1", player:"Bryce Huff", market:"Sacks", odds:+150, label:"Bryce Huff Over 0.5 Sacks" },
 
-        { id:"g2p1", gameId:"game2", player:"Lamar Jackson", market:"Passing Yards", line:265.5, side:"Over", odds:-112, label:"Lamar Jackson Over 265.5 Passing Yards" },
-        { id:"g2p2", gameId:"game2", player:"Lamar Jackson", market:"Passing TDs", line:2.5, side:"Over", odds:+135, label:"Lamar Jackson Over 2.5 Passing TDs" },
-        { id:"g2p3", gameId:"game2", player:"Lamar Jackson", market:"Interceptions", line:0.5, side:"Over", odds:+120, label:"Lamar Jackson Over 0.5 Interceptions" },
-        { id:"g2p4", gameId:"game2", player:"Quinshon Judkins", market:"Rushing Yards", line:88.5, side:"Over", odds:-118, label:"Quinshon Judkins Over 88.5 Rushing Yards" },
-        { id:"g2p5", gameId:"game2", player:"Laviska Shenault Jr", market:"Receiving Yards", line:82.5, side:"Over", odds:-110, label:"Laviska Shenault Jr Over 82.5 Receiving Yards" },
-        { id:"g2p6", gameId:"game2", player:"Tee Higgins", market:"Receiving Yards", line:75.5, side:"Over", odds:-110, label:"Tee Higgins Over 75.5 Receiving Yards" },
-        { id:"g2p7", gameId:"game2", player:"Justin Fields", market:"Passing Yards", line:312.5, side:"Over", odds:-110, label:"Justin Fields Over 312.5 Passing Yards" },
-        { id:"g2p8", gameId:"game2", player:"Justin Fields", market:"Passing TDs", line:2.5, side:"Over", odds:+120, label:"Justin Fields Over 2.5 Passing TDs" },
-        { id:"g2p9", gameId:"game2", player:"Trey Benson", market:"Rushing Yards", line:88.5, side:"Over", odds:-115, label:"Trey Benson Over 88.5 Rushing Yards" },
-        { id:"g2p10", gameId:"game2", player:"Kyle Pitts", market:"Receiving Yards", line:82.5, side:"Over", odds:-112, label:"Kyle Pitts Over 82.5 Receiving Yards" },
-        { id:"g2p11", gameId:"game2", player:"Kyle Pitts", market:"Anytime TD", line:0.5, side:"Yes", odds:+145, label:"Kyle Pitts Anytime TD" },
-        { id:"g2p12", gameId:"game2", player:"Dont'e Thornton Jr", market:"Receiving Yards", line:44.5, side:"Over", odds:-108, label:"Dont'e Thornton Jr Over 44.5 Receiving Yards" },
-        { id:"g2p13", gameId:"game2", player:"Jonas Sanker", market:"Tackles", line:4.5, side:"Over", odds:-120, label:"Jonas Sanker Over 4.5 Tackles" },
-        { id:"g2p14", gameId:"game2", player:"Devin Lloyd", market:"Sacks", line:0.5, side:"Over", odds:+170, label:"Devin Lloyd Over 0.5 Sacks" },
-        { id:"g2p15", gameId:"game2", player:"Foyesade Oluokun", market:"Interceptions Defense", line:0.5, side:"Over", odds:+400, label:"Foyesade Oluokun To Record An Interception" },
+        { id:"g2p1", gameId:"game2", player:"Lamar Jackson", market:"Passing Yards", odds:-112, label:"Lamar Jackson Over 265.5 Passing Yards" },
+        { id:"g2p2", gameId:"game2", player:"Lamar Jackson", market:"Passing TDs", odds:+135, label:"Lamar Jackson Over 2.5 Passing TDs" },
+        { id:"g2p3", gameId:"game2", player:"Quinshon Judkins", market:"Rushing Yards", odds:-118, label:"Quinshon Judkins Over 88.5 Rushing Yards" },
+        { id:"g2p4", gameId:"game2", player:"Laviska Shenault Jr", market:"Receiving Yards", odds:-110, label:"Laviska Shenault Jr Over 82.5 Receiving Yards" },
+        { id:"g2p5", gameId:"game2", player:"Tee Higgins", market:"Receiving Yards", odds:-110, label:"Tee Higgins Over 75.5 Receiving Yards" },
+        { id:"g2p6", gameId:"game2", player:"Justin Fields", market:"Passing Yards", odds:-110, label:"Justin Fields Over 312.5 Passing Yards" },
+        { id:"g2p7", gameId:"game2", player:"Justin Fields", market:"Passing TDs", odds:+120, label:"Justin Fields Over 2.5 Passing TDs" },
+        { id:"g2p8", gameId:"game2", player:"Trey Benson", market:"Rushing Yards", odds:-115, label:"Trey Benson Over 88.5 Rushing Yards" },
+        { id:"g2p9", gameId:"game2", player:"Kyle Pitts", market:"Receiving Yards", odds:-112, label:"Kyle Pitts Over 82.5 Receiving Yards" },
+        { id:"g2p10", gameId:"game2", player:"Kyle Pitts", market:"Anytime TD", odds:+145, label:"Kyle Pitts Anytime TD" },
+        { id:"g2p11", gameId:"game2", player:"Dont'e Thornton Jr", market:"Receiving Yards", odds:-108, label:"Dont'e Thornton Jr Over 44.5 Receiving Yards" },
+        { id:"g2p12", gameId:"game2", player:"Jonas Sanker", market:"Tackles", odds:-120, label:"Jonas Sanker Over 4.5 Tackles" },
+        { id:"g2p13", gameId:"game2", player:"Devin Lloyd", market:"Sacks", odds:+170, label:"Devin Lloyd Over 0.5 Sacks" },
 
-        { id:"g3p1", gameId:"game3", player:"Jaxson Dart", market:"Passing Yards", line:302.5, side:"Over", odds:-112, label:"Jaxson Dart Over 302.5 Passing Yards" },
-        { id:"g3p2", gameId:"game3", player:"Jaxson Dart", market:"Passing TDs", line:2.5, side:"Over", odds:+120, label:"Jaxson Dart Over 2.5 Passing TDs" },
-        { id:"g3p3", gameId:"game3", player:"Cam Skattebo", market:"Rushing Yards", line:78.5, side:"Over", odds:-118, label:"Cam Skattebo Over 78.5 Rushing Yards" },
-        { id:"g3p4", gameId:"game3", player:"Cam Skattebo", market:"Anytime TD", line:0.5, side:"Yes", odds:+145, label:"Cam Skattebo Anytime TD" },
-        { id:"g3p5", gameId:"game3", player:"Elic Ayomanor", market:"Receiving Yards", line:88.5, side:"Over", odds:-115, label:"Elic Ayomanor Over 88.5 Receiving Yards" },
-        { id:"g3p6", gameId:"game3", player:"Parker Washington", market:"Receiving Yards", line:39.5, side:"Over", odds:-108, label:"Parker Washington Over 39.5 Receiving Yards" },
-        { id:"g3p7", gameId:"game3", player:"George Pickens", market:"Receiving Yards", line:49.5, side:"Over", odds:-112, label:"George Pickens Over 49.5 Receiving Yards" },
-        { id:"g3p8", gameId:"game3", player:"Nick Cross", market:"Tackles", line:7.5, side:"Over", odds:-120, label:"Nick Cross Over 7.5 Tackles" },
-        { id:"g3p9", gameId:"game3", player:"Kamari Lassiter", market:"Interceptions Defense", line:0.5, side:"Over", odds:+220, label:"Kamari Lassiter To Record An Interception" },
-        { id:"g3p10", gameId:"game3", player:"Tykee Williams", market:"Sacks", line:0.5, side:"Over", odds:+145, label:"Tyleik Williams Over 0.5 Sacks" },
-        { id:"g3p11", gameId:"game3", player:"Micah Parsons", market:"Sacks", line:0.5, side:"Over", odds:+115, label:"Micah Parsons Over 0.5 Sacks" },
-        { id:"g3p12", gameId:"game3", player:"Jordan Battle", market:"Tackles", line:6.0, side:"Over", odds:-115, label:"Jordan Battle Over 6.0 Tackles" },
+        { id:"g3p1", gameId:"game3", player:"Jaxson Dart", market:"Passing Yards", odds:-112, label:"Jaxson Dart Over 302.5 Passing Yards" },
+        { id:"g3p2", gameId:"game3", player:"Jaxson Dart", market:"Passing TDs", odds:+120, label:"Jaxson Dart Over 2.5 Passing TDs" },
+        { id:"g3p3", gameId:"game3", player:"Cam Skattebo", market:"Rushing Yards", odds:-118, label:"Cam Skattebo Over 78.5 Rushing Yards" },
+        { id:"g3p4", gameId:"game3", player:"Cam Skattebo", market:"Anytime TD", odds:+145, label:"Cam Skattebo Anytime TD" },
+        { id:"g3p5", gameId:"game3", player:"Elic Ayomanor", market:"Receiving Yards", odds:-115, label:"Elic Ayomanor Over 88.5 Receiving Yards" },
+        { id:"g3p6", gameId:"game3", player:"Parker Washington", market:"Receiving Yards", odds:-108, label:"Parker Washington Over 39.5 Receiving Yards" },
+        { id:"g3p7", gameId:"game3", player:"George Pickens", market:"Receiving Yards", odds:-112, label:"George Pickens Over 49.5 Receiving Yards" },
+        { id:"g3p8", gameId:"game3", player:"Nick Cross", market:"Tackles", odds:-120, label:"Nick Cross Over 7.5 Tackles" },
+        { id:"g3p9", gameId:"game3", player:"Kamari Lassiter", market:"Interceptions Defense", odds:+220, label:"Kamari Lassiter To Record An Interception" },
+        { id:"g3p10", gameId:"game3", player:"Micah Parsons", market:"Sacks", odds:+115, label:"Micah Parsons Over 0.5 Sacks" },
 
-        { id:"g4p1", gameId:"game4", player:"JJ McCarthy", market:"Passing Yards", line:312.5, side:"Over", odds:-112, label:"JJ McCarthy Over 312.5 Passing Yards" },
-        { id:"g4p2", gameId:"game4", player:"JJ McCarthy", market:"Passing TDs", line:2.5, side:"Over", odds:+135, label:"JJ McCarthy Over 2.5 Passing TDs" },
-        { id:"g4p3", gameId:"game4", player:"JJ McCarthy", market:"Interceptions", line:1.5, side:"Over", odds:-140, label:"JJ McCarthy Over 1.5 Interceptions" },
-        { id:"g4p4", gameId:"game4", player:"Keaton Mitchell", market:"Rushing Yards", line:32.5, side:"Over", odds:-110, label:"Keaton Mitchell Over 32.5 Rushing Yards" },
-        { id:"g4p5", gameId:"game4", player:"Ja'Marr Chase", market:"Receiving Yards", line:104.5, side:"Over", odds:-110, label:"Ja'Marr Chase Over 104.5 Receiving Yards" },
-        { id:"g4p6", gameId:"game4", player:"Ja'Marr Chase", market:"Receptions", line:6.5, side:"Over", odds:-110, label:"Ja'Marr Chase Over 6.5 Receptions" },
-        { id:"g4p7", gameId:"game4", player:"Ja'Marr Chase", market:"Anytime TD", line:0.5, side:"Yes", odds:-120, label:"Ja'Marr Chase Anytime TD" },
-        { id:"g4p8", gameId:"game4", player:"Kayshon Boutte", market:"Receiving Yards", line:49.5, side:"Over", odds:-110, label:"Kayshon Boutte Over 49.5 Receiving Yards" },
-        { id:"g4p9", gameId:"game4", player:"Patrick Queen", market:"Tackles", line:8.5, side:"Over", odds:-120, label:"Patrick Queen Over 8.5 Tackles" },
-        { id:"g4p10", gameId:"game4", player:"Arden Key", market:"Sacks", line:0.5, side:"Over", odds:+170, label:"Arden Key Over 0.5 Sacks" },
-        { id:"g4p11", gameId:"game4", player:"Jessie Bates III", market:"Interceptions Defense", line:0.5, side:"Over", odds:+220, label:"Jessie Bates III To Record An Interception" }
+        { id:"g4p1", gameId:"game4", player:"JJ McCarthy", market:"Passing Yards", odds:-112, label:"JJ McCarthy Over 312.5 Passing Yards" },
+        { id:"g4p2", gameId:"game4", player:"JJ McCarthy", market:"Interceptions", odds:-140, label:"JJ McCarthy Over 1.5 Interceptions" },
+        { id:"g4p3", gameId:"game4", player:"Ja'Marr Chase", market:"Receiving Yards", odds:-110, label:"Ja'Marr Chase Over 104.5 Receiving Yards" },
+        { id:"g4p4", gameId:"game4", player:"Ja'Marr Chase", market:"Anytime TD", odds:-120, label:"Ja'Marr Chase Anytime TD" },
+        { id:"g4p5", gameId:"game4", player:"Patrick Queen", market:"Tackles", odds:-120, label:"Patrick Queen Over 8.5 Tackles" }
       ],
-      betSlip: { legs: [], betType: "weekly", stake: 0 },
-      bets: [
-        {
-          id: "BET-005",
-          user: "Tuane",
-          type: "Weekly Parlay",
-          stake: 150,
-          status: "open",
-          odds: "+705",
-          payout: 1207.5,
-          legs: [
-            "Justin Fields Over 1.5 Passing TD",
-            "Kyle Pitts Anytime TD",
-            "Panthers Moneyline"
-          ]
-        },
-        {
-          id: "BET-006",
-          user: "Tuane",
-          type: "Weekly Parlay",
-          stake: 50,
-          status: "open",
-          odds: "+236",
-          payout: 168,
-          legs: [
-            "Bills Defense Over 1.5 Sacks",
-            "Derrick Henry Over 2.5 Rushing Attempts",
-            "Jonas Sanker Over 1.5 Tackles"
-          ]
-        }
+      createalayMarkets:["Passing Yards","Passing TDs","Rushing Yards","Receiving Yards","Anytime TD","Tackles","Sacks","Interceptions Defense"],
+      betSlip:{ legs:[], betType:"weekly", stake:0 },
+      bets:[
+        { id:"BET-005", user:"Tuane", type:"Weekly Parlay", stake:150, status:"open", odds:"+705", payout:1207.5, legs:["Justin Fields Over 1.5 Passing TD","Kyle Pitts Anytime TD","Panthers Moneyline"] },
+        { id:"BET-006", user:"Tuane", type:"Weekly Parlay", stake:50, status:"open", odds:"+236", payout:168, legs:["Bills Defense Over 1.5 Sacks","Derrick Henry Over 2.5 Rushing Attempts","Jonas Sanker Over 1.5 Tackles"] }
       ],
-      commandLog: []
+      commandLog:[]
     };
 
     const APP = {
       state: JSON.parse(JSON.stringify(STATE)),
-      ui: {
-        view: "auth",
-        filter: "open",
-        currentGameId: null,
-        createalayGameId: null,
-        createalayMarket: null
-      }
+      ui: { view:"auth", filter:"open", createalayGameId:null, createalayMarket:null }
     };
 
-    function getPins(){
-      try { return JSON.parse(localStorage.getItem(PIN_KEY) || "{}"); }
-      catch { return {}; }
-    }
-    function savePins(pins){ localStorage.setItem(PIN_KEY, JSON.stringify(pins)); }
-    function money(n){ return "$" + Number(n).toFixed(0); }
-    function currentUser(){ return APP.state.users.find(u => u.id === APP.state.currentUser) || null; }
+    function pins(){ try{return JSON.parse(localStorage.getItem(PIN_KEY)||"{}")}catch{return {}} }
+    function savePins(p){ localStorage.setItem(PIN_KEY, JSON.stringify(p)); }
+    function currentUser(){ return APP.state.users.find(u=>u.id===APP.state.currentUser)||null; }
     function isAdmin(){ return !!currentUser()?.admin; }
-    function gameById(id){ return APP.state.games.find(g => g.id === id); }
-    function propsByGame(id){ return APP.state.props.filter(p => p.gameId === id); }
-    function oddsText(odds){ return typeof odds === "string" ? odds : (odds > 0 ? "+" + odds : "" + odds); }
-    function decimalOdds(odds){
-      const n = Number(odds);
-      if (Number.isNaN(n)) return 1;
-      if (n > 0) return 1 + n / 100;
-      return 1 + 100 / Math.abs(n);
-    }
+    function gameById(id){ return APP.state.games.find(g=>g.id===id); }
+    function propsByGame(id){ return APP.state.props.filter(p=>p.gameId===id); }
+    function money(n){ return "$"+Number(n).toFixed(0); }
+    function oddsText(o){ return typeof o==="string" ? o : (o>0?`+${o}`:`${o}`); }
+    function decOdds(o){ const n=Number(o); if(Number.isNaN(n)) return 1; return n>0 ? 1+n/100 : 1+100/Math.abs(n); }
     function combinedOdds(legs){
-      if (!legs.length) return "+0";
-      const dec = legs.reduce((a,l)=>a*decimalOdds(l.odds),1);
-      const us = dec >= 2 ? Math.round((dec - 1) * 100) : Math.round(-100 / (dec - 1));
-      return us > 0 ? "+" + us : "" + us;
+      if(!legs.length) return "+0";
+      const dec = legs.reduce((a,l)=>a*decOdds(l.odds),1);
+      const us = dec >= 2 ? Math.round((dec-1)*100) : Math.round(-100/(dec-1));
+      return us>0?`+${us}`:`${us}`;
     }
     function payout(stake, odds){
       const n = Number(odds);
-      if (!stake || Number.isNaN(n)) return 0;
-      if (n > 0) return stake + stake * n / 100;
-      return stake + stake * 100 / Math.abs(n);
+      if(!stake || Number.isNaN(n)) return 0;
+      return n>0 ? stake + stake*n/100 : stake + stake*100/Math.abs(n);
     }
     function toast(msg){
-      const t = document.getElementById("toast");
-      t.textContent = msg;
+      const t=document.getElementById("toast");
+      t.textContent=msg;
       t.classList.remove("hidden");
       clearTimeout(window.__toast);
-      window.__toast = setTimeout(()=>t.classList.add("hidden"), 2200);
+      window.__toast=setTimeout(()=>t.classList.add("hidden"), 2200);
     }
 
-    function setView(view){
-      APP.ui.view = view;
-      document.querySelectorAll(".view").forEach(v => v.classList.add("hidden"));
-      const active = document.getElementById("view-" + view);
-      if (active) active.classList.remove("hidden");
-      document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.toggle("active", btn.dataset.view === view));
+    function setView(v){
+      APP.ui.view=v;
+      document.querySelectorAll(".view").forEach(el=>el.classList.add("hidden"));
+      const active=document.getElementById("view-"+v);
+      if(active) active.classList.remove("hidden");
+      document.querySelectorAll(".nav-btn").forEach(btn=>btn.classList.toggle("active", btn.dataset.view===v));
     }
 
     function render(){
-      const root = document.getElementById("app");
-      root.innerHTML = `
+      document.getElementById("app").innerHTML = `
         <div class="topbar glass">
-          <div class="brand-wrap">
-            <button class="menu-btn" id="menuBtn">≡</button>
+          <div class="brand">
             <div class="brand-mark">PB</div>
-            <div class="brand-text">
+            <div>
               <h1>Purplebook</h1>
               <p>Private Madden League Sportsbook</p>
             </div>
           </div>
-
           <div class="top-actions">
             <div class="chip">Week ${APP.state.app.week}</div>
             <button class="pill-btn" id="topCreatealay">Createalay</button>
@@ -510,9 +311,9 @@
         </div>
 
         <div class="layout">
-          <aside class="sidebar glass" id="sidebar">
+          <aside class="sidebar glass">
             <div class="sidebar-section">
-              <h2>Navigation</h2>
+              <h3>Navigation</h3>
               <button class="nav-btn active" data-view="home">Home</button>
               <button class="nav-btn" data-view="games">Games</button>
               <button class="nav-btn" data-view="myBets">My Bets</button>
@@ -521,15 +322,13 @@
               <button class="nav-btn" data-view="createalay">Createalay</button>
               <button class="nav-btn ${isAdmin() ? "" : "hidden"}" data-view="admin">Command Center</button>
             </div>
-
             <div class="sidebar-section">
-              <h2>Week 4 Locked Games</h2>
+              <h3>Week 4 Locked Games</h3>
               <div id="sidebarGames"></div>
             </div>
-
             <div class="sidebar-section">
-              <h2>League Rules</h2>
-              <ul class="rules-list">
+              <h3>League Rules</h3>
+              <ul class="rules">
                 <li>$1000 starting bankroll</li>
                 <li>Season max: $400</li>
                 <li>Weekly max: $500</li>
@@ -547,7 +346,7 @@
               <div class="hero glass">
                 <div class="eyebrow">Private Madden League</div>
                 <h2>Madden SportsBook</h2>
-                <p>FanDuel-style private book for league games, same game parlays, Createalay builder, locked bankroll rules, and admin command center.</p>
+                <p>Choose your name, create a PIN, and get into Purplebook.</p>
               </div>
               <div class="card glass" id="authStage"></div>
             </section>
@@ -558,22 +357,19 @@
                 <h2 id="homeName">User</h2>
                 <p id="homeSub">Locked in for Week 4.</p>
               </div>
-
               <div class="stats-grid">
                 <div class="stat-box"><div class="k">Bankroll</div><div class="v" id="homeBankroll">$0</div></div>
                 <div class="stat-box"><div class="k">Open Bets</div><div class="v" id="homeOpenBets">0</div></div>
                 <div class="stat-box"><div class="k">Week Limit Left</div><div class="v" id="homeWeeklyLeft">$0</div></div>
                 <div class="stat-box"><div class="k">Season Parlays</div><div class="v">${APP.state.rules.seasonParlaysAllowed ? "Open" : "Closed"}</div></div>
               </div>
-
               <div class="card glass">
                 <div class="section-head"><div><h3>Week 4 Games</h3><div class="subtle">Only the 4 locked matchups</div></div></div>
-                <div id="homeGames" class="stack"></div>
+                <div id="homeGames"></div>
               </div>
-
               <div class="card glass">
                 <div class="section-head"><div><h3>Trending Props</h3></div></div>
-                <div id="trendingProps" class="chip-row mt-12"></div>
+                <div id="trendingProps" class="chip-row" style="margin-top:12px"></div>
               </div>
             </section>
 
@@ -601,7 +397,12 @@
             <section class="view hidden" id="view-bankroll">
               <div class="card glass">
                 <div class="section-head"><div><h3>League Bankroll</h3></div></div>
-                <div class="table-wrap"><table><thead><tr><th>User</th><th>Start</th><th>Wagered</th><th>Available</th><th>Open Bets</th></tr></thead><tbody id="bankrollBody"></tbody></table></div>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr><th>User</th><th>Start</th><th>Wagered</th><th>Available</th><th>Open Bets</th></tr></thead>
+                    <tbody id="bankrollBody"></tbody>
+                  </table>
+                </div>
               </div>
             </section>
 
@@ -615,25 +416,21 @@
             <section class="view hidden" id="view-createalay">
               <div class="card glass">
                 <div class="section-head"><div><h3>Createalay</h3><div class="subtle">Buttons only. No text entry.</div></div></div>
-
-                <div class="mt-16">
-                  <h4 class="section-title">1. Pick Game</h4>
-                  <div id="createalayGames" class="btn-grid mt-12"></div>
+                <div style="margin-top:16px">
+                  <h4>1. Pick Game</h4>
+                  <div id="createalayGames" class="btn-grid" style="margin-top:12px"></div>
                 </div>
-
-                <div class="mt-20">
-                  <h4 class="section-title">2. Pick Market</h4>
-                  <div id="createalayMarkets" class="btn-grid mt-12"></div>
+                <div style="margin-top:20px">
+                  <h4>2. Pick Market</h4>
+                  <div id="createalayMarkets" class="btn-grid" style="margin-top:12px"></div>
                 </div>
-
-                <div class="mt-20">
-                  <h4 class="section-title">3. Pick Leg</h4>
-                  <div id="createalayLegs" class="btn-grid mt-12"></div>
+                <div style="margin-top:20px">
+                  <h4>3. Pick Leg</h4>
+                  <div id="createalayLegs" class="btn-grid" style="margin-top:12px"></div>
                 </div>
-
-                <div class="mt-20">
-                  <h4 class="section-title">4. Output</h4>
-                  <div id="createalayOutput" class="empty-state mt-12">Select a game, market, and leg.</div>
+                <div style="margin-top:20px">
+                  <h4>4. Output</h4>
+                  <div id="createalayOutput" class="empty" style="margin-top:12px">Select a game, market, and leg.</div>
                 </div>
               </div>
             </section>
@@ -642,19 +439,19 @@
               <div class="card glass">
                 <div class="section-head"><div><h3>Command Center</h3><div class="subtle">Admin only for Tuane</div></div></div>
 
-                <div class="card glass mt-16">
-                  <h4 class="section-title">Paste Update Board</h4>
-                  <textarea id="commandInput" class="textarea mt-12" placeholder='Paste command JSON here...'></textarea>
-                  <div class="chip-row mt-12">
+                <div class="card glass" style="margin-top:16px">
+                  <h4 style="margin:0">Paste Update Board</h4>
+                  <textarea id="commandInput" class="textarea" style="margin-top:12px" placeholder='Paste command JSON here...'></textarea>
+                  <div class="chip-row" style="margin-top:12px">
                     <button class="btn primary" id="applyCommand">Apply Update</button>
                     <button class="btn secondary" id="clearCommand">Clear</button>
                   </div>
                 </div>
 
-                <div class="card glass mt-16">
-                  <h4 class="section-title">Grade Bet</h4>
-                  <select id="adminBetSelect" class="select mt-12"></select>
-                  <div class="btn-grid mt-12">
+                <div class="card glass" style="margin-top:16px">
+                  <h4 style="margin:0">Grade Bet</h4>
+                  <select id="adminBetSelect" class="select" style="margin-top:12px"></select>
+                  <div class="btn-grid" style="margin-top:12px">
                     <button class="btn good" id="gradeWin">Win</button>
                     <button class="btn bad" id="gradeLoss">Loss</button>
                     <button class="btn warn" id="gradePush">Push</button>
@@ -662,30 +459,30 @@
                   </div>
                 </div>
 
-                <div class="card glass mt-16">
-                  <h4 class="section-title">Game Controls</h4>
-                  <div id="adminGamesList" class="mt-12"></div>
+                <div class="card glass" style="margin-top:16px">
+                  <h4 style="margin:0">Game Controls</h4>
+                  <div id="adminGamesList" style="margin-top:12px"></div>
                 </div>
 
-                <div class="card glass mt-16">
-                  <h4 class="section-title">Command Log</h4>
-                  <div id="commandLog" class="mt-12"></div>
+                <div class="card glass" style="margin-top:16px">
+                  <h4 style="margin:0">Command Log</h4>
+                  <div id="commandLog" style="margin-top:12px"></div>
                 </div>
               </div>
             </section>
           </main>
         </div>
 
-        <div class="drawer hidden" id="slipDrawer">
-          <div class="panel glass card">
+        <div class="overlay drawer hidden" id="slipDrawer">
+          <div class="panel card glass">
             <div class="section-head">
               <div><h3>Bet Slip</h3></div>
               <button class="btn secondary small" id="closeSlip">Close</button>
             </div>
 
-            <div id="betSlipLegs" class="empty-state mt-16">No legs added yet.</div>
+            <div id="slipLegs" class="empty" style="margin-top:16px">No legs added yet.</div>
 
-            <div class="mt-16">
+            <div style="margin-top:16px">
               <label class="label">Bet Type</label>
               <select id="betTypeSelect" class="select">
                 <option value="weekly">Weekly</option>
@@ -694,169 +491,143 @@
               </select>
             </div>
 
-            <div class="mt-16">
+            <div style="margin-top:16px">
               <label class="label">Stake</label>
               <input id="stakeInput" class="input" type="number" min="0" step="1" placeholder="0" />
             </div>
 
-            <div class="card glass mt-16">
+            <div class="card glass" style="margin-top:16px">
               <div class="kv"><span>Combined Odds</span><strong id="slipOdds">+0</strong></div>
               <div class="kv"><span>Potential Payout</span><strong id="slipPayout">$0</strong></div>
             </div>
 
-            <div class="btn-grid mt-16">
+            <div class="btn-grid" style="margin-top:16px">
               <button class="btn secondary" id="clearSlip">Clear Slip</button>
               <button class="btn primary" id="placeBet">Place Bet</button>
             </div>
           </div>
         </div>
 
-        <div class="modal hidden" id="gameModal">
-          <div class="panel glass card">
+        <div class="overlay hidden" id="gameModal">
+          <div class="panel card glass">
             <div class="section-head">
               <div><div class="eyebrow">Game Board</div><h3 id="modalTitle">Game</h3></div>
               <button class="btn secondary small" id="closeModal">Close</button>
             </div>
-
-            <div id="modalBoard" class="mt-16"></div>
-
-            <div class="mt-20">
+            <div id="modalBoard" style="margin-top:16px"></div>
+            <div style="margin-top:20px">
               <div class="section-head"><div><h4>Same Game Parlay</h4><div class="subtle">Add legs from this game only</div></div></div>
-              <div id="modalProps" class="mt-12"></div>
+              <div id="modalProps" style="margin-top:12px"></div>
             </div>
           </div>
         </div>
 
         <div id="toast" class="toast hidden"></div>
       `;
-
       bindBase();
       renderSidebarGames();
       renderAuth();
     }
 
     function bindBase(){
-      document.getElementById("menuBtn").onclick = () => {
-        const sidebar = document.getElementById("sidebar");
-        sidebar.style.display = sidebar.style.display === "block" ? "" : "block";
-      };
+      document.getElementById("topCreatealay").addEventListener("click", ()=>setView("createalay"));
+      document.getElementById("topSlip").addEventListener("click", ()=>toggleSlip(true));
+      const adminBtn = document.getElementById("topAdmin");
+      if(adminBtn) adminBtn.addEventListener("click", ()=>setView("admin"));
+      const logoutBtn = document.getElementById("logoutBtn");
+      if(logoutBtn) logoutBtn.addEventListener("click", logoutUser);
 
-      document.getElementById("topCreatealay").onclick = () => setView("createalay");
-      document.getElementById("topSlip").onclick = () => toggleSlip(true);
-      const topAdmin = document.getElementById("topAdmin");
-      if (topAdmin) topAdmin.onclick = () => setView("admin");
-      const logout = document.getElementById("logoutBtn");
-      if (logout) logout.onclick = logoutUser;
-
-      document.querySelectorAll(".nav-btn").forEach(btn => {
-        btn.onclick = () => {
-          const v = btn.dataset.view;
-          if (v === "admin" && !isAdmin()) return;
-          setView(v);
-        };
+      document.querySelectorAll(".nav-btn").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          const view = btn.dataset.view;
+          if(view === "admin" && !isAdmin()) return;
+          setView(view);
+        });
       });
 
-      document.getElementById("filterOpen").onclick = () => { APP.ui.filter = "open"; renderGames(); };
-      document.getElementById("filterClosed").onclick = () => { APP.ui.filter = "closed"; renderGames(); };
-      document.getElementById("filterAll").onclick = () => { APP.ui.filter = "all"; renderGames(); };
+      document.getElementById("filterOpen").addEventListener("click", ()=>{ APP.ui.filter="open"; renderGames(); });
+      document.getElementById("filterClosed").addEventListener("click", ()=>{ APP.ui.filter="closed"; renderGames(); });
+      document.getElementById("filterAll").addEventListener("click", ()=>{ APP.ui.filter="all"; renderGames(); });
 
-      document.getElementById("closeSlip").onclick = () => toggleSlip(false);
-      document.getElementById("clearSlip").onclick = clearSlip;
-      document.getElementById("placeBet").onclick = placeBet;
-      document.getElementById("stakeInput").oninput = renderSlip;
-      document.getElementById("betTypeSelect").onchange = renderSlip;
+      document.getElementById("closeSlip").addEventListener("click", ()=>toggleSlip(false));
+      document.getElementById("clearSlip").addEventListener("click", clearSlip);
+      document.getElementById("placeBet").addEventListener("click", placeBet);
+      document.getElementById("stakeInput").addEventListener("input", renderSlip);
+      document.getElementById("betTypeSelect").addEventListener("change", renderSlip);
 
-      document.getElementById("closeModal").onclick = closeModal;
+      document.getElementById("closeModal").addEventListener("click", closeModal);
 
-      document.getElementById("applyCommand").onclick = applyCommand;
-      document.getElementById("clearCommand").onclick = () => document.getElementById("commandInput").value = "";
-      document.getElementById("gradeWin").onclick = () => gradeBet("win");
-      document.getElementById("gradeLoss").onclick = () => gradeBet("loss");
-      document.getElementById("gradePush").onclick = () => gradeBet("push");
-      document.getElementById("gradeVoid").onclick = () => gradeBet("void");
-    }
-
-    function renderSidebarGames(){
-      const wrap = document.getElementById("sidebarGames");
-      wrap.innerHTML = "";
-      APP.state.games.forEach(g => {
-        const el = document.createElement("div");
-        el.className = "list-item";
-        el.innerHTML = "<h4>" + g.away + " @ " + g.home + "</h4><p>" + g.status.toUpperCase() + "</p>";
-        wrap.appendChild(el);
-      });
+      document.getElementById("applyCommand").addEventListener("click", applyCommand);
+      document.getElementById("clearCommand").addEventListener("click", ()=>document.getElementById("commandInput").value="");
+      document.getElementById("gradeWin").addEventListener("click", ()=>gradeBet("win"));
+      document.getElementById("gradeLoss").addEventListener("click", ()=>gradeBet("loss"));
+      document.getElementById("gradePush").addEventListener("click", ()=>gradeBet("push"));
+      document.getElementById("gradeVoid").addEventListener("click", ()=>gradeBet("void"));
     }
 
     function renderAuth(){
       setView("auth");
       const stage = document.getElementById("authStage");
       stage.innerHTML = `
-        <h3 class="section-title">Choose Your Name</h3>
-        <p class="subtle mt-8">Select your profile to continue.</p>
-        <div class="auth-users" id="authUsers"></div>
+        <h3 style="margin:0">Choose Your Name</h3>
+        <p class="subtle" style="margin-top:8px">Create a PIN the first time. Enter it after that.</p>
+        <div class="btn-grid" id="authUsers" style="margin-top:14px"></div>
       `;
-      const users = document.getElementById("authUsers");
-      APP.state.users.forEach(user => {
+      const wrap = document.getElementById("authUsers");
+      APP.state.users.forEach(user=>{
         const btn = document.createElement("button");
-        btn.className = "user-pick";
+        btn.className = "btn primary";
         btn.textContent = user.name;
-        btn.onclick = () => {
-          const pins = getPins();
-          if (pins[user.id]) renderPinEntry(user);
+        btn.addEventListener("click", ()=>{
+          const p = pins();
+          if(p[user.id]) renderPinEntry(user);
           else renderPinCreate(user);
-        };
-        users.appendChild(btn);
+        });
+        wrap.appendChild(btn);
       });
     }
 
     function renderPinCreate(user){
       const stage = document.getElementById("authStage");
       stage.innerHTML = `
-        <h3 class="section-title">Create PIN</h3>
-        <p class="subtle mt-8">${user.name}, create and confirm your 4-digit PIN.</p>
-        <div class="mt-16">
-          <input id="pin1" class="input" maxlength="4" placeholder="Create PIN" />
-        </div>
-        <div class="mt-12">
-          <input id="pin2" class="input" maxlength="4" placeholder="Confirm PIN" />
-        </div>
-        <div class="btn-grid mt-16">
-          <button class="btn secondary" id="backUsers">Back</button>
-          <button class="btn primary" id="savePin">Confirm</button>
+        <h3 style="margin:0">Create PIN</h3>
+        <p class="subtle" style="margin-top:8px">${user.name}, create and confirm your 4-digit PIN.</p>
+        <div style="margin-top:16px"><input id="pin1" class="input" maxlength="4" placeholder="Create PIN" /></div>
+        <div style="margin-top:12px"><input id="pin2" class="input" maxlength="4" placeholder="Confirm PIN" /></div>
+        <div class="btn-grid" style="margin-top:16px">
+          <button class="btn secondary" id="authBack">Back</button>
+          <button class="btn primary" id="authSavePin">Confirm</button>
         </div>
       `;
-      document.getElementById("backUsers").onclick = renderAuth;
-      document.getElementById("savePin").onclick = () => {
+      document.getElementById("authBack").addEventListener("click", renderAuth);
+      document.getElementById("authSavePin").addEventListener("click", ()=>{
         const p1 = document.getElementById("pin1").value.trim();
         const p2 = document.getElementById("pin2").value.trim();
-        if (!/^\\d{4}$/.test(p1)) return toast("PIN must be 4 digits");
-        if (p1 !== p2) return toast("PINs do not match");
-        const pins = getPins();
-        pins[user.id] = p1;
-        savePins(pins);
+        if(!/^\d{4}$/.test(p1)) return toast("PIN must be 4 digits");
+        if(p1 !== p2) return toast("PINs do not match");
+        const p = pins();
+        p[user.id] = p1;
+        savePins(p);
         login(user.id);
-      };
+      });
     }
 
     function renderPinEntry(user){
       const stage = document.getElementById("authStage");
       stage.innerHTML = `
-        <h3 class="section-title">Enter PIN</h3>
-        <p class="subtle mt-8">${user.name}, enter your 4-digit PIN.</p>
-        <div class="mt-16">
-          <input id="pinEntry" class="input" maxlength="4" placeholder="Enter PIN" />
-        </div>
-        <div class="btn-grid mt-16">
-          <button class="btn secondary" id="backUsers">Back</button>
-          <button class="btn primary" id="enterPin">Enter</button>
+        <h3 style="margin:0">Enter PIN</h3>
+        <p class="subtle" style="margin-top:8px">${user.name}, enter your 4-digit PIN.</p>
+        <div style="margin-top:16px"><input id="pinEntry" class="input" maxlength="4" placeholder="Enter PIN" /></div>
+        <div class="btn-grid" style="margin-top:16px">
+          <button class="btn secondary" id="authBack">Back</button>
+          <button class="btn primary" id="authEnterPin">Enter</button>
         </div>
       `;
-      document.getElementById("backUsers").onclick = renderAuth;
-      document.getElementById("enterPin").onclick = () => {
-        const pins = getPins();
-        if (pins[user.id] !== document.getElementById("pinEntry").value.trim()) return toast("Wrong PIN");
+      document.getElementById("authBack").addEventListener("click", renderAuth);
+      document.getElementById("authEnterPin").addEventListener("click", ()=>{
+        if(pins()[user.id] !== document.getElementById("pinEntry").value.trim()) return toast("Wrong PIN");
         login(user.id);
-      };
+      });
     }
 
     function login(userId){
@@ -877,13 +648,27 @@
       APP.state.currentUser = null;
       APP.state.betSlip.legs = [];
       APP.state.betSlip.stake = 0;
+      APP.ui.createalayGameId = null;
+      APP.ui.createalayMarket = null;
       render();
       toast("Logged out");
     }
 
+    function renderSidebarGames(){
+      const wrap = document.getElementById("sidebarGames");
+      if(!wrap) return;
+      wrap.innerHTML = "";
+      APP.state.games.forEach(g=>{
+        const el = document.createElement("div");
+        el.className = "list-item";
+        el.innerHTML = `<h4>${g.away} @ ${g.home}</h4><p>${g.status.toUpperCase()}</p>`;
+        wrap.appendChild(el);
+      });
+    }
+
     function renderHome(){
       const user = currentUser();
-      if (!user) return;
+      if(!user) return;
       document.getElementById("homeName").textContent = user.name;
       document.getElementById("homeBankroll").textContent = money(user.bankroll);
       document.getElementById("homeOpenBets").textContent = user.openBets;
@@ -891,105 +676,98 @@
 
       const homeGames = document.getElementById("homeGames");
       homeGames.innerHTML = "";
-      APP.state.games.forEach(g => homeGames.appendChild(buildGameCard(g)));
+      APP.state.games.forEach(g=>homeGames.appendChild(buildGameCard(g)));
 
       const trending = document.getElementById("trendingProps");
       trending.innerHTML = "";
-      APP.state.props.slice(0,10).forEach(p => {
-        const chip = document.createElement("div");
-        chip.className = "chip";
-        chip.textContent = p.player + " • " + p.market;
-        trending.appendChild(chip);
+      APP.state.props.slice(0,10).forEach(p=>{
+        const c = document.createElement("div");
+        c.className = "chip";
+        c.textContent = `${p.player} • ${p.market}`;
+        trending.appendChild(c);
       });
     }
 
     function buildGameCard(game){
       const card = document.createElement("div");
-      card.className = "card glass game-card";
+      card.className = "card glass";
       card.innerHTML = `
-        <div class="top">
+        <div class="section-head">
           <div>
             <h3 style="margin:0">${game.away} @ ${game.home}</h3>
-            <div class="subtle mt-8">Tracked matchup</div>
+            <div class="subtle" style="margin-top:8px">Tracked matchup</div>
           </div>
-          <div class="${game.status === "open" ? "status-open" : "status-closed"}">${game.status.toUpperCase()}</div>
+          <div class="status ${game.status}">${game.status.toUpperCase()}</div>
         </div>
 
-        <div class="fanduel-board">
-          <div class="fd-header">
+        <div class="fanduel">
+          <div class="fd-head">
             <div>Matchup</div>
             <div>Spread</div>
             <div>Moneyline</div>
             <div>Total</div>
           </div>
-
           <div class="fd-row">
-            <div class="fd-team"><div class="team-dot">${game.away.slice(0,2).toUpperCase()}</div>${game.away}</div>
-            <div class="odd-cell"><button data-type="line" data-label="${game.away} ${game.lines.spreadAway}" data-odds="-110">${game.lines.spreadAway}<small>-110</small></button></div>
-            <div class="odd-cell"><button data-type="line" data-label="${game.away} ML ${game.lines.mlAway}" data-odds="${game.lines.mlAway}">${game.lines.mlAway}</button></div>
-            <div class="odd-cell"><button data-type="line" data-label="Over ${game.lines.totalOver}" data-odds="-110">O ${game.lines.totalOver}<small>-110</small></button></div>
+            <div class="team"><div class="team-dot">${game.away.slice(0,2).toUpperCase()}</div>${game.away}</div>
+            <div class="odd"><button data-label="${game.away} ${game.lines.spreadAway}" data-odds="-110">${game.lines.spreadAway}<small>-110</small></button></div>
+            <div class="odd"><button data-label="${game.away} ML ${game.lines.mlAway}" data-odds="${game.lines.mlAway}">${game.lines.mlAway}</button></div>
+            <div class="odd"><button data-label="Over ${game.lines.totalOver}" data-odds="-110">O ${game.lines.totalOver}<small>-110</small></button></div>
           </div>
-
           <div class="fd-row">
-            <div class="fd-team"><div class="team-dot">${game.home.slice(0,2).toUpperCase()}</div>${game.home}</div>
-            <div class="odd-cell"><button data-type="line" data-label="${game.home} ${game.lines.spreadHome}" data-odds="-110">${game.lines.spreadHome}<small>-110</small></button></div>
-            <div class="odd-cell"><button data-type="line" data-label="${game.home} ML ${game.lines.mlHome}" data-odds="${game.lines.mlHome}">${game.lines.mlHome}</button></div>
-            <div class="odd-cell"><button data-type="line" data-label="Under ${game.lines.totalUnder}" data-odds="-110">U ${game.lines.totalUnder}<small>-110</small></button></div>
+            <div class="team"><div class="team-dot">${game.home.slice(0,2).toUpperCase()}</div>${game.home}</div>
+            <div class="odd"><button data-label="${game.home} ${game.lines.spreadHome}" data-odds="-110">${game.lines.spreadHome}<small>-110</small></button></div>
+            <div class="odd"><button data-label="${game.home} ML ${game.lines.mlHome}" data-odds="${game.lines.mlHome}">${game.lines.mlHome}</button></div>
+            <div class="odd"><button data-label="Under ${game.lines.totalUnder}" data-odds="-110">U ${game.lines.totalUnder}<small>-110</small></button></div>
           </div>
         </div>
 
-        <div class="chip-row mt-16">
+        <div class="chip-row" style="margin-top:16px">
           <button class="btn primary openGame">Open Game</button>
-          <button class="btn secondary openCreatealay">Createalay</button>
+          <button class="btn secondary openCreate">Createalay</button>
         </div>
       `;
 
-      card.querySelectorAll('button[data-type="line"]').forEach(btn => {
-        btn.onclick = () => addLeg({
-          id: "line-" + btn.dataset.label,
-          label: btn.dataset.label,
-          odds: btn.dataset.odds
+      card.querySelectorAll(".odd button").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          addLeg({ id:"line-"+btn.dataset.label, label:btn.dataset.label, odds:btn.dataset.odds });
         });
       });
-
-      card.querySelector(".openGame").onclick = () => openGameModal(game.id);
-      card.querySelector(".openCreatealay").onclick = () => {
+      card.querySelector(".openGame").addEventListener("click", ()=>openGameModal(game.id));
+      card.querySelector(".openCreate").addEventListener("click", ()=>{
         APP.ui.createalayGameId = game.id;
         APP.ui.createalayMarket = null;
         renderCreatealay();
         setView("createalay");
-      };
-
+      });
       return card;
     }
 
     function renderGames(){
       const board = document.getElementById("gamesBoard");
-      if (!board) return;
+      if(!board) return;
       board.innerHTML = "";
       let games = [...APP.state.games];
-      if (APP.ui.filter === "open") games = games.filter(g => g.status === "open");
-      if (APP.ui.filter === "closed") games = games.filter(g => g.status === "closed");
-      games.forEach(g => board.appendChild(buildGameCard(g)));
+      if(APP.ui.filter === "open") games = games.filter(g=>g.status==="open");
+      if(APP.ui.filter === "closed") games = games.filter(g=>g.status==="closed");
+      games.forEach(g=>board.appendChild(buildGameCard(g)));
     }
 
     function openGameModal(gameId){
       const game = gameById(gameId);
       const props = propsByGame(gameId);
-      document.getElementById("modalTitle").textContent = game.away + " @ " + game.home;
-
+      document.getElementById("modalTitle").textContent = `${game.away} @ ${game.home}`;
       const board = document.getElementById("modalBoard");
       board.innerHTML = "";
       board.appendChild(buildGameCard(game));
 
-      const modalProps = document.getElementById("modalProps");
-      modalProps.innerHTML = "";
-      props.forEach(prop => {
+      const wrap = document.getElementById("modalProps");
+      wrap.innerHTML = "";
+      props.forEach(p=>{
         const row = document.createElement("div");
         row.className = "list-item";
-        row.innerHTML = "<h4>" + prop.label + "</h4><p>" + oddsText(prop.odds) + "</p>";
-        row.onclick = () => addLeg({ id: prop.id, label: prop.label, odds: prop.odds });
-        modalProps.appendChild(row);
+        row.innerHTML = `<h4>${p.label}</h4><p>${oddsText(p.odds)}</p>`;
+        row.addEventListener("click", ()=>addLeg({ id:p.id, label:p.label, odds:p.odds }));
+        wrap.appendChild(row);
       });
 
       document.getElementById("gameModal").classList.remove("hidden");
@@ -1001,26 +779,26 @@
 
     function renderMyBets(){
       const wrap = document.getElementById("myBetsList");
-      if (!wrap || !currentUser()) return;
+      if(!wrap || !currentUser()) return;
       wrap.innerHTML = "";
-      const bets = APP.state.bets.filter(b => b.user === currentUser().name);
-      if (!bets.length){
-        wrap.innerHTML = '<div class="empty-state">No bets yet.</div>';
+      const bets = APP.state.bets.filter(b=>b.user===currentUser().name);
+      if(!bets.length){
+        wrap.innerHTML = `<div class="empty">No bets yet.</div>`;
         return;
       }
-      bets.forEach(bet => {
+      bets.forEach(b=>{
         const card = document.createElement("div");
         card.className = "card glass";
         card.innerHTML = `
           <div class="section-head">
-            <div><h4 style="margin:0">${bet.id}</h4><div class="subtle mt-8">${bet.type}</div></div>
-            <div class="pill ${bet.status}">${bet.status}</div>
+            <div><h4 style="margin:0">${b.id}</h4><div class="subtle" style="margin-top:8px">${b.type}</div></div>
+            <div class="pill ${b.status}">${b.status}</div>
           </div>
-          <div class="stats-grid mt-16">
-            <div class="stat-box"><div class="k">Stake</div><div class="v">${money(bet.stake)}</div></div>
-            <div class="stat-box"><div class="k">Odds</div><div class="v">${bet.odds}</div></div>
+          <div style="margin-top:16px" class="chip-row">
+            <div class="chip">Stake ${money(b.stake)}</div>
+            <div class="chip">Odds ${b.odds}</div>
           </div>
-          <div class="mt-16">${bet.legs.map(l => '<div class="bet-leg"><div class="bet-leg-title">'+l+'</div></div>').join("")}</div>
+          <div style="margin-top:16px">${b.legs.map(l=>`<div class="bet-leg"><div class="bet-leg-title">${l}</div></div>`).join("")}</div>
         `;
         wrap.appendChild(card);
       });
@@ -1028,9 +806,9 @@
 
     function renderBankroll(){
       const body = document.getElementById("bankrollBody");
-      if (!body) return;
+      if(!body) return;
       body.innerHTML = "";
-      APP.state.users.forEach(u => {
+      APP.state.users.forEach(u=>{
         const tr = document.createElement("tr");
         tr.innerHTML = `<td>${u.name}</td><td>${money(u.start)}</td><td>${money(u.wagered)}</td><td>${money(u.bankroll)}</td><td>${u.openBets}</td>`;
         body.appendChild(tr);
@@ -1039,9 +817,9 @@
 
     function renderLeaderboard(){
       const wrap = document.getElementById("leaderboardList");
-      if (!wrap) return;
+      if(!wrap) return;
       wrap.innerHTML = "";
-      [...APP.state.users].sort((a,b)=>b.bankroll-a.bankroll).forEach((u,i) => {
+      [...APP.state.users].sort((a,b)=>b.bankroll-a.bankroll).forEach((u,i)=>{
         const row = document.createElement("div");
         row.className = "list-item";
         row.innerHTML = `<h4>#${i+1} ${u.name}</h4><p>${u.team} • ${money(u.bankroll)}</p>`;
@@ -1053,62 +831,61 @@
       const gamesWrap = document.getElementById("createalayGames");
       const marketsWrap = document.getElementById("createalayMarkets");
       const legsWrap = document.getElementById("createalayLegs");
-      const output = document.getElementById("createalayOutput");
-      if (!gamesWrap) return;
+      const out = document.getElementById("createalayOutput");
+      if(!gamesWrap) return;
 
       gamesWrap.innerHTML = "";
       marketsWrap.innerHTML = "";
       legsWrap.innerHTML = "";
-      output.innerHTML = "Select a game, market, and leg.";
+      out.innerHTML = "Select a game, market, and leg.";
 
-      APP.state.games.forEach(g => {
+      APP.state.games.forEach(g=>{
         const btn = document.createElement("button");
         btn.className = "btn secondary";
-        btn.textContent = `${g.away} @ ${g.home}${g.status === "closed" ? " (Closed)" : ""}`;
-        btn.disabled = g.status === "closed";
-        btn.onclick = () => {
+        btn.textContent = `${g.away} @ ${g.home}${g.status==="closed" ? " (Closed)" : ""}`;
+        btn.disabled = g.status==="closed";
+        btn.addEventListener("click", ()=>{
           APP.ui.createalayGameId = g.id;
           APP.ui.createalayMarket = null;
           renderCreatealay();
-        };
+        });
         gamesWrap.appendChild(btn);
       });
 
-      if (!APP.ui.createalayGameId) return;
+      if(!APP.ui.createalayGameId) return;
 
       const props = propsByGame(APP.ui.createalayGameId);
-      const markets = [...new Set(props.map(p => p.market))];
-
-      markets.forEach(m => {
+      const markets = [...new Set(props.map(p=>p.market))];
+      markets.forEach(m=>{
         const btn = document.createElement("button");
         btn.className = "btn secondary";
         btn.textContent = m;
-        btn.onclick = () => {
+        btn.addEventListener("click", ()=>{
           APP.ui.createalayMarket = m;
           renderCreatealay();
-        };
+        });
         marketsWrap.appendChild(btn);
       });
 
-      if (!APP.ui.createalayMarket) return;
+      if(!APP.ui.createalayMarket) return;
 
-      props.filter(p => p.market === APP.ui.createalayMarket).forEach(leg => {
+      props.filter(p=>p.market===APP.ui.createalayMarket).forEach(p=>{
         const btn = document.createElement("button");
         btn.className = "btn secondary";
-        btn.textContent = `${leg.player} • ${oddsText(leg.odds)}`;
-        btn.onclick = () => {
-          output.innerHTML = `
+        btn.textContent = `${p.player} • ${oddsText(p.odds)}`;
+        btn.addEventListener("click", ()=>{
+          out.innerHTML = `
             <div class="bet-leg">
-              <div class="bet-leg-title">${leg.label}</div>
-              <div class="bet-leg-copy">Suggested Odds: ${oddsText(leg.odds)}</div>
+              <div class="bet-leg-title">${p.label}</div>
+              <div class="bet-leg-copy">Suggested Odds: ${oddsText(p.odds)}</div>
             </div>
-            <div class="mt-12"><button class="btn primary" id="addCreatealayLeg">Add To Slip</button></div>
+            <div style="margin-top:12px"><button class="btn primary" id="addCreatealay">Add To Slip</button></div>
           `;
-          document.getElementById("addCreatealayLeg").onclick = () => {
-            addLeg({ id: leg.id, label: leg.label, odds: leg.odds });
+          document.getElementById("addCreatealay").addEventListener("click", ()=>{
+            addLeg({ id:p.id, label:p.label, odds:p.odds });
             toast("Createalay leg added");
-          };
-        };
+          });
+        });
         legsWrap.appendChild(btn);
       });
     }
@@ -1119,7 +896,7 @@
     }
 
     function addLeg(leg){
-      if (APP.state.betSlip.legs.some(l => l.id === leg.id)) return toast("Leg already added");
+      if(APP.state.betSlip.legs.some(l=>l.id===leg.id)) return toast("Leg already added");
       APP.state.betSlip.legs.push(leg);
       renderSlip();
       toggleSlip(true);
@@ -1129,23 +906,23 @@
       APP.state.betSlip.legs = [];
       APP.state.betSlip.stake = 0;
       const stake = document.getElementById("stakeInput");
-      if (stake) stake.value = "";
+      if(stake) stake.value = "";
       renderSlip();
     }
 
     function renderSlip(){
-      const wrap = document.getElementById("betSlipLegs");
-      if (!wrap) return;
+      const wrap = document.getElementById("slipLegs");
+      if(!wrap) return;
 
       APP.state.betSlip.betType = document.getElementById("betTypeSelect").value;
       APP.state.betSlip.stake = Number(document.getElementById("stakeInput").value || 0);
 
-      if (!APP.state.betSlip.legs.length){
-        wrap.className = "empty-state mt-16";
+      if(!APP.state.betSlip.legs.length){
+        wrap.className = "empty";
         wrap.textContent = "No legs added yet.";
       } else {
-        wrap.className = "mt-16";
-        wrap.innerHTML = APP.state.betSlip.legs.map(l => `
+        wrap.className = "";
+        wrap.innerHTML = APP.state.betSlip.legs.map(l=>`
           <div class="bet-leg">
             <div class="bet-leg-title">${l.label}</div>
             <div class="bet-leg-copy">${oddsText(l.odds)}</div>
@@ -1160,30 +937,29 @@
 
     function placeBet(){
       const user = currentUser();
-      if (!user) return toast("Log in first");
-
+      if(!user) return toast("Log in first");
       const legs = APP.state.betSlip.legs;
       const stake = APP.state.betSlip.stake;
       const type = APP.state.betSlip.betType;
 
-      if (legs.length < APP.state.rules.minLegs) return toast("Need at least 2 legs");
-      if (type === "season" && !APP.state.rules.seasonParlaysAllowed) return toast("Season parlays are closed");
-      if (legs.length > (type === "season" ? APP.state.rules.maxSeasonLegs : APP.state.rules.maxWeeklyLegs)) return toast("Too many legs");
-      if (!stake || stake > APP.state.rules.maxParlay) return toast("Invalid stake");
-      if (stake > user.bankroll) return toast("Not enough bankroll");
+      if(legs.length < APP.state.rules.minLegs) return toast("Need at least 2 legs");
+      if(type==="season" && !APP.state.rules.seasonParlaysAllowed) return toast("Season parlays are closed");
+      if(legs.length > (type==="season" ? APP.state.rules.maxSeasonLegs : APP.state.rules.maxWeeklyLegs)) return toast("Too many legs");
+      if(!stake || stake > APP.state.rules.maxParlay) return toast("Invalid stake");
+      if(stake > user.bankroll) return toast("Not enough bankroll");
 
       const odds = combinedOdds(legs);
       const pay = payout(stake, Number(odds));
 
       APP.state.bets.push({
-        id: "BET-" + String(APP.state.bets.length + 1).padStart(3,"0"),
-        user: user.name,
-        type: type === "sgp" ? "Same Game Parlay" : type.charAt(0).toUpperCase() + type.slice(1) + " Parlay",
+        id:"BET-"+String(APP.state.bets.length+1).padStart(3,"0"),
+        user:user.name,
+        type:type==="sgp" ? "Same Game Parlay" : type.charAt(0).toUpperCase()+type.slice(1)+" Parlay",
         stake,
-        status: "open",
+        status:"open",
         odds,
-        payout: pay,
-        legs: legs.map(l => l.label)
+        payout:pay,
+        legs:legs.map(l=>l.label)
       });
 
       user.bankroll -= stake;
@@ -1191,73 +967,69 @@
       user.openBets += 1;
 
       clearSlip();
-      renderHome();
-      renderMyBets();
-      renderBankroll();
-      renderLeaderboard();
-      renderAdmin();
+      renderHome(); renderMyBets(); renderBankroll(); renderLeaderboard(); renderAdmin();
       toast("Bet placed");
     }
 
     function renderAdmin(){
-      if (!isAdmin()) return;
-
+      if(!isAdmin()) return;
       const select = document.getElementById("adminBetSelect");
-      const gamesWrap = document.getElementById("adminGamesList");
-      const logWrap = document.getElementById("commandLog");
-      if (!select || !gamesWrap || !logWrap) return;
+      const games = document.getElementById("adminGamesList");
+      const log = document.getElementById("commandLog");
+      if(!select || !games || !log) return;
 
       select.innerHTML = "";
-      APP.state.bets.forEach(b => {
+      APP.state.bets.forEach(b=>{
         const opt = document.createElement("option");
         opt.value = b.id;
         opt.textContent = `${b.id} • ${b.user} • ${b.status}`;
         select.appendChild(opt);
       });
 
-      gamesWrap.innerHTML = "";
-      APP.state.games.forEach(g => {
-        const box = document.createElement("div");
-        box.className = "list-item";
-        box.innerHTML = `<h4>${g.away} @ ${g.home}</h4><p>Status: ${g.status}</p>`;
+      games.innerHTML = "";
+      APP.state.games.forEach(g=>{
+        const item = document.createElement("div");
+        item.className = "list-item";
+        item.innerHTML = `<h4>${g.away} @ ${g.home}</h4><p>Status: ${g.status}</p>`;
         const row = document.createElement("div");
-        row.className = "chip-row mt-12";
+        row.className = "chip-row";
+        row.style.marginTop = "12px";
 
         const open = document.createElement("button");
         open.className = "btn good small";
         open.textContent = "Open";
-        open.onclick = () => {
+        open.addEventListener("click", ()=>{
           g.status = "open";
           logCommand(`Opened ${g.away} @ ${g.home}`);
           renderGames(); renderCreatealay(); renderAdmin(); renderSidebarGames();
-        };
+        });
 
         const close = document.createElement("button");
         close.className = "btn bad small";
         close.textContent = "Close";
-        close.onclick = () => {
+        close.addEventListener("click", ()=>{
           g.status = "closed";
           logCommand(`Closed ${g.away} @ ${g.home}`);
           renderGames(); renderCreatealay(); renderAdmin(); renderSidebarGames();
-        };
+        });
 
-        row.appendChild(open); row.appendChild(close); box.appendChild(row); gamesWrap.appendChild(box);
+        row.appendChild(open); row.appendChild(close); item.appendChild(row); games.appendChild(item);
       });
 
-      logWrap.innerHTML = APP.state.commandLog.length
-        ? APP.state.commandLog.map(item => `<div class="list-item"><h4>${item}</h4></div>`).join("")
-        : `<div class="empty-state">No command log yet.</div>`;
+      log.innerHTML = APP.state.commandLog.length
+        ? APP.state.commandLog.map(x=>`<div class="list-item"><h4>${x}</h4></div>`).join("")
+        : `<div class="empty">No command log yet.</div>`;
     }
 
     function gradeBet(result){
       const select = document.getElementById("adminBetSelect");
-      const bet = APP.state.bets.find(b => b.id === select.value);
-      if (!bet) return;
-      const user = APP.state.users.find(u => u.name === bet.user);
+      const bet = APP.state.bets.find(b=>b.id===select.value);
+      if(!bet) return;
+      const user = APP.state.users.find(u=>u.name===bet.user);
       bet.status = result;
-      if (user){
-        if (result === "win") user.bankroll += bet.payout;
-        if (result === "push" || result === "void") user.bankroll += bet.stake;
+      if(user){
+        if(result==="win") user.bankroll += bet.payout;
+        if(result==="push" || result==="void") user.bankroll += bet.stake;
         user.openBets = Math.max(0, user.openBets - 1);
       }
       logCommand(`Marked ${bet.id} as ${result.toUpperCase()}`);
@@ -1267,54 +1039,41 @@
 
     function applyCommand(){
       const raw = document.getElementById("commandInput").value.trim();
-      if (!raw) return toast("Paste a command first");
-
+      if(!raw) return toast("Paste a command first");
       let cmd;
       try { cmd = JSON.parse(raw); }
       catch { return toast("Invalid JSON"); }
 
-      if (cmd.type === "updateBankroll"){
-        const user = APP.state.users.find(u => u.name === cmd.user);
-        if (user && typeof cmd.amount === "number"){
+      if(cmd.type==="updateBankroll"){
+        const user = APP.state.users.find(u=>u.name===cmd.user);
+        if(user && typeof cmd.amount==="number"){
           user.bankroll = cmd.amount;
           logCommand(`Updated bankroll for ${cmd.user} to ${cmd.amount}`);
         }
       }
-
-      if (cmd.type === "openGame"){
-        const game = gameById(cmd.gameId);
-        if (game){
-          game.status = "open";
-          logCommand(`Opened ${game.away} @ ${game.home}`);
-        }
+      if(cmd.type==="openGame"){
+        const g = gameById(cmd.gameId);
+        if(g){ g.status="open"; logCommand(`Opened ${g.away} @ ${g.home}`); }
       }
-
-      if (cmd.type === "closeGame"){
-        const game = gameById(cmd.gameId);
-        if (game){
-          game.status = "closed";
-          logCommand(`Closed ${game.away} @ ${game.home}`);
-        }
+      if(cmd.type==="closeGame"){
+        const g = gameById(cmd.gameId);
+        if(g){ g.status="closed"; logCommand(`Closed ${g.away} @ ${g.home}`); }
       }
-
-      if (cmd.type === "addProp" && cmd.prop){
+      if(cmd.type==="addProp" && cmd.prop){
         APP.state.props.push(cmd.prop);
         logCommand(`Added prop ${cmd.prop.label}`);
       }
-
-      if (cmd.type === "removeProp" && cmd.propId){
-        APP.state.props = APP.state.props.filter(p => p.id !== cmd.propId);
+      if(cmd.type==="removeProp" && cmd.propId){
+        APP.state.props = APP.state.props.filter(p=>p.id!==cmd.propId);
         logCommand(`Removed prop ${cmd.propId}`);
       }
 
       document.getElementById("commandInput").value = "";
-      renderHome(); renderGames(); renderCreatealay(); renderAdmin();
+      renderHome(); renderGames(); renderCreatealay(); renderAdmin(); renderSidebarGames();
       toast("Command applied");
     }
 
-    function logCommand(text){
-      APP.state.commandLog.unshift(text);
-    }
+    function logCommand(text){ APP.state.commandLog.unshift(text); }
 
     render();
   </script>
