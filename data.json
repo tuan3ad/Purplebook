@@ -1,0 +1,1218 @@
+{
+  "app": {
+    "name": "Madden SportsBook",
+    "subtitle": "Private Madden League Sportsbook",
+    "currentWeek": 4,
+    "seasonCutoffWeek": 3,
+    "theme": {
+      "primary": "#7c3aed",
+      "secondary": "#1f2937"
+    }
+  },
+  "rules": {
+    "startingBankroll": 1000,
+    "seasonMaxExposure": 400,
+    "weeklyMaxExposure": 500,
+    "maxParlayStake": 150,
+    "minLegs": 2,
+    "maxSeasonLegs": 3,
+    "maxWeeklyLegs": 5,
+    "allowSeasonParlays": false
+  },
+  "users": [
+    {
+      "id": "u1",
+      "name": "Tuane",
+      "team": "Buccaneers",
+      "isAdmin": true,
+      "pin": "",
+      "start": 1000,
+      "bankroll": 1250,
+      "weeklyExposure": 150,
+      "seasonExposure": 300,
+      "openBets": 1
+    },
+    {
+      "id": "u2",
+      "name": "Des",
+      "team": "Jets",
+      "isAdmin": false,
+      "pin": "",
+      "start": 1000,
+      "bankroll": 700,
+      "weeklyExposure": 0,
+      "seasonExposure": 300,
+      "openBets": 3
+    },
+    {
+      "id": "u3",
+      "name": "Romeo",
+      "team": "Falcons",
+      "isAdmin": false,
+      "pin": "",
+      "start": 1000,
+      "bankroll": 900,
+      "weeklyExposure": 100,
+      "seasonExposure": 0,
+      "openBets": 1
+    },
+    {
+      "id": "u4",
+      "name": "Rob",
+      "team": "Bills",
+      "isAdmin": false,
+      "pin": "",
+      "start": 1000,
+      "bankroll": 850,
+      "weeklyExposure": 150,
+      "seasonExposure": 0,
+      "openBets": 3
+    },
+    {
+      "id": "u5",
+      "name": "Don",
+      "team": "Saints",
+      "isAdmin": false,
+      "pin": "",
+      "start": 1000,
+      "bankroll": 930,
+      "weeklyExposure": 70,
+      "seasonExposure": 0,
+      "openBets": 2
+    }
+  ],
+  "games": [
+    {
+      "id": "g1",
+      "away": "Commanders",
+      "home": "Falcons",
+      "userLabel": "Romeo \u2022 Falcons",
+      "status": "CLOSED",
+      "type": "User vs User",
+      "note": "Already played",
+      "theme": [
+        "#5a1414",
+        "#a71930"
+      ],
+      "lines": {
+        "awaySpread": "+4.0",
+        "awaySpreadOdds": "-110",
+        "homeSpread": "-4.0",
+        "homeSpreadOdds": "-110",
+        "awayML": "+150",
+        "homeML": "-170",
+        "over": "47.5",
+        "overOdds": "-110",
+        "under": "47.5",
+        "underOdds": "-110"
+      },
+      "createALay": {
+        "players": [
+          "JJ McCarthy",
+          "Derrick Henry",
+          "Ja'Marr Chase",
+          "Kayshon Boutte",
+          "Patrick Queen",
+          "Jessie Bates III",
+          "Arden Key"
+        ],
+        "categories": {
+          "Passing": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "199.5",
+              "224.5",
+              "249.5",
+              "274.5",
+              "299.5"
+            ]
+          },
+          "Rushing": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "49.5",
+              "64.5",
+              "79.5",
+              "94.5"
+            ]
+          },
+          "Receiving": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "39.5",
+              "54.5",
+              "69.5",
+              "84.5",
+              "99.5"
+            ]
+          },
+          "Tackles": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "4.5",
+              "5.5",
+              "6.5",
+              "7.5",
+              "8.5"
+            ]
+          },
+          "Sacks": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "0.5",
+              "1.5"
+            ]
+          },
+          "Anytime TD": {
+            "sides": [
+              "Yes"
+            ],
+            "lines": []
+          },
+          "Interception": {
+            "sides": [
+              "Yes"
+            ],
+            "lines": []
+          }
+        }
+      }
+    },
+    {
+      "id": "g2",
+      "away": "Eagles",
+      "home": "Buccaneers",
+      "userLabel": "Tuane \u2022 Buccaneers",
+      "status": "OPEN",
+      "type": "User vs User",
+      "note": "Main featured matchup",
+      "theme": [
+        "#004c54",
+        "#d50a0a"
+      ],
+      "lines": {
+        "awaySpread": "+2.5",
+        "awaySpreadOdds": "-110",
+        "homeSpread": "-2.5",
+        "homeSpreadOdds": "-110",
+        "awayML": "+120",
+        "homeML": "-140",
+        "over": "50.5",
+        "overOdds": "-110",
+        "under": "50.5",
+        "underOdds": "-110"
+      },
+      "createALay": {
+        "players": [
+          "Trevor Lawrence",
+          "Jonathan Taylor",
+          "DK Metcalf",
+          "Christian Watson",
+          "Tucker Kraft",
+          "Bryce Huff",
+          "Riley Moss",
+          "Jack Campbell"
+        ],
+        "categories": {
+          "Passing": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "224.5",
+              "249.5",
+              "274.5",
+              "299.5",
+              "324.5"
+            ]
+          },
+          "Passing TD": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "1.5",
+              "2.5",
+              "3.5"
+            ]
+          },
+          "Interceptions": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "0.5",
+              "1.5"
+            ]
+          },
+          "Rushing": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "54.5",
+              "64.5",
+              "74.5",
+              "84.5",
+              "94.5"
+            ]
+          },
+          "Receiving": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "49.5",
+              "64.5",
+              "79.5",
+              "94.5",
+              "109.5"
+            ]
+          },
+          "Receptions": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "3.5",
+              "4.5",
+              "5.5",
+              "6.5"
+            ]
+          },
+          "Tackles": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "5.5",
+              "6.5",
+              "7.5",
+              "8.5"
+            ]
+          },
+          "Sacks": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "0.5",
+              "1.5"
+            ]
+          },
+          "Anytime TD": {
+            "sides": [
+              "Yes"
+            ],
+            "lines": []
+          },
+          "Interception": {
+            "sides": [
+              "Yes"
+            ],
+            "lines": []
+          }
+        }
+      }
+    },
+    {
+      "id": "g3",
+      "away": "Saints",
+      "home": "Bills",
+      "userLabel": "Don \u2022 Saints / Rob \u2022 Bills",
+      "status": "OPEN",
+      "type": "User vs User",
+      "note": "User vs User",
+      "theme": [
+        "#d3bc8d",
+        "#00338d"
+      ],
+      "lines": {
+        "awaySpread": "+4.0",
+        "awaySpreadOdds": "-110",
+        "homeSpread": "-4.0",
+        "homeSpreadOdds": "-110",
+        "awayML": "+150",
+        "homeML": "-170",
+        "over": "49.0",
+        "overOdds": "-110",
+        "under": "49.0",
+        "underOdds": "-110"
+      },
+      "createALay": {
+        "players": [
+          "Lamar Jackson",
+          "Quinshon Judkins",
+          "Laviska Shenault Jr",
+          "Tee Higgins",
+          "Sam LaPorta",
+          "Kyle Dugger",
+          "Foyesade Oluokun",
+          "Greg Rousseau",
+          "Justin Fields",
+          "Trey Benson",
+          "Kyle Pitts Sr",
+          "Dont'e Thornton Jr",
+          "Adonai Mitchell",
+          "Jonas Sanker",
+          "Devin Lloyd"
+        ],
+        "categories": {
+          "Passing": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "199.5",
+              "224.5",
+              "249.5",
+              "274.5",
+              "299.5"
+            ]
+          },
+          "Passing TD": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "1.5",
+              "2.5",
+              "3.5"
+            ]
+          },
+          "Interceptions": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "0.5",
+              "1.5"
+            ]
+          },
+          "Rushing": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "49.5",
+              "64.5",
+              "79.5",
+              "94.5"
+            ]
+          },
+          "Receiving": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "39.5",
+              "54.5",
+              "69.5",
+              "84.5",
+              "99.5"
+            ]
+          },
+          "Receptions": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "3.5",
+              "4.5",
+              "5.5",
+              "6.5"
+            ]
+          },
+          "Tackles": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "4.5",
+              "5.5",
+              "6.5",
+              "7.5",
+              "8.5"
+            ]
+          },
+          "Sacks": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "0.5",
+              "1.5"
+            ]
+          },
+          "Anytime TD": {
+            "sides": [
+              "Yes"
+            ],
+            "lines": []
+          },
+          "Interception": {
+            "sides": [
+              "Yes"
+            ],
+            "lines": []
+          }
+        }
+      }
+    },
+    {
+      "id": "g4",
+      "away": "Jets",
+      "home": "Dolphins",
+      "userLabel": "Des \u2022 Jets",
+      "status": "OPEN",
+      "type": "User vs CPU",
+      "note": "Only tracked CPU matchup",
+      "theme": [
+        "#125740",
+        "#008e97"
+      ],
+      "lines": {
+        "awaySpread": "+3.5",
+        "awaySpreadOdds": "-110",
+        "homeSpread": "-3.5",
+        "homeSpreadOdds": "-110",
+        "awayML": "+135",
+        "homeML": "-155",
+        "over": "48.5",
+        "overOdds": "-110",
+        "under": "48.5",
+        "underOdds": "-110"
+      },
+      "createALay": {
+        "players": [
+          "Jaxson Dart",
+          "Cam Skattebo",
+          "Elic Ayomanor",
+          "Parker Washington",
+          "George Pickens",
+          "Darnell Washington",
+          "Tyleik Williams",
+          "Micah Parsons",
+          "Nolan Scourton",
+          "Kamari Lassiter",
+          "Tykee Smith",
+          "Nick Cross",
+          "Jordan Battle"
+        ],
+        "categories": {
+          "Passing": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "224.5",
+              "249.5",
+              "274.5",
+              "299.5",
+              "324.5"
+            ]
+          },
+          "Passing TD": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "1.5",
+              "2.5",
+              "3.5"
+            ]
+          },
+          "Interceptions": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "0.5",
+              "1.5"
+            ]
+          },
+          "Rushing": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "49.5",
+              "64.5",
+              "79.5",
+              "94.5"
+            ]
+          },
+          "Receiving": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "39.5",
+              "54.5",
+              "69.5",
+              "84.5",
+              "99.5"
+            ]
+          },
+          "Receptions": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "3.5",
+              "4.5",
+              "5.5",
+              "6.5"
+            ]
+          },
+          "Tackles": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "4.5",
+              "5.5",
+              "6.5",
+              "7.5",
+              "8.5"
+            ]
+          },
+          "Sacks": {
+            "sides": [
+              "Over",
+              "Under"
+            ],
+            "lines": [
+              "0.5",
+              "1.5"
+            ]
+          },
+          "Anytime TD": {
+            "sides": [
+              "Yes"
+            ],
+            "lines": []
+          },
+          "Interception": {
+            "sides": [
+              "Yes"
+            ],
+            "lines": []
+          }
+        }
+      }
+    }
+  ],
+  "props": [
+    {
+      "id": "prop_g2_1",
+      "gameId": "g2",
+      "player": "Trevor Lawrence",
+      "team": "Buccaneers",
+      "category": "Passing",
+      "stat": "Passing Yards Over",
+      "line": "274.5",
+      "odds": "-115",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g2_2",
+      "gameId": "g2",
+      "player": "Trevor Lawrence",
+      "team": "Buccaneers",
+      "category": "Passing TD",
+      "stat": "Passing TD Over",
+      "line": "1.5",
+      "odds": "-120",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g2_3",
+      "gameId": "g2",
+      "player": "Jonathan Taylor",
+      "team": "Buccaneers",
+      "category": "Rushing",
+      "stat": "Rushing Yards Over",
+      "line": "84.5",
+      "odds": "-118",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g2_4",
+      "gameId": "g2",
+      "player": "Jonathan Taylor",
+      "team": "Buccaneers",
+      "category": "Anytime TD",
+      "stat": "Anytime TD",
+      "line": "",
+      "odds": "+115",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g2_5",
+      "gameId": "g2",
+      "player": "DK Metcalf",
+      "team": "Buccaneers",
+      "category": "Receiving",
+      "stat": "Receiving Yards Over",
+      "line": "74.5",
+      "odds": "-115",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g2_6",
+      "gameId": "g2",
+      "player": "Christian Watson",
+      "team": "Buccaneers",
+      "category": "Receiving",
+      "stat": "Receiving Yards Over",
+      "line": "49.5",
+      "odds": "-110",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g2_7",
+      "gameId": "g2",
+      "player": "Tucker Kraft",
+      "team": "Buccaneers",
+      "category": "Anytime TD",
+      "stat": "Anytime TD",
+      "line": "",
+      "odds": "+280",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g2_8",
+      "gameId": "g2",
+      "player": "Jack Campbell",
+      "team": "Buccaneers",
+      "category": "Tackles",
+      "stat": "Tackles Over",
+      "line": "7.5",
+      "odds": "-120",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g2_9",
+      "gameId": "g2",
+      "player": "Riley Moss",
+      "team": "Buccaneers",
+      "category": "Interception",
+      "stat": "Interception",
+      "line": "",
+      "odds": "+260",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g2_10",
+      "gameId": "g2",
+      "player": "Bryce Huff",
+      "team": "Buccaneers",
+      "category": "Sacks",
+      "stat": "Sacks Over",
+      "line": "0.5",
+      "odds": "+165",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_1",
+      "gameId": "g3",
+      "player": "Lamar Jackson",
+      "team": "Saints",
+      "category": "Passing",
+      "stat": "Passing Yards Over",
+      "line": "265.5",
+      "odds": "-110",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_2",
+      "gameId": "g3",
+      "player": "Lamar Jackson",
+      "team": "Saints",
+      "category": "Passing TD",
+      "stat": "Passing TD Over",
+      "line": "2.5",
+      "odds": "+135",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_3",
+      "gameId": "g3",
+      "player": "Lamar Jackson",
+      "team": "Saints",
+      "category": "Rushing",
+      "stat": "Rushing Yards Over",
+      "line": "52.5",
+      "odds": "-115",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_4",
+      "gameId": "g3",
+      "player": "Quinshon Judkins",
+      "team": "Saints",
+      "category": "Rushing",
+      "stat": "Rushing Yards Over",
+      "line": "88.5",
+      "odds": "-118",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_5",
+      "gameId": "g3",
+      "player": "Laviska Shenault Jr",
+      "team": "Saints",
+      "category": "Receiving",
+      "stat": "Receiving Yards Over",
+      "line": "82.5",
+      "odds": "-110",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_6",
+      "gameId": "g3",
+      "player": "Laviska Shenault Jr",
+      "team": "Saints",
+      "category": "Receptions",
+      "stat": "Receptions Over",
+      "line": "5.5",
+      "odds": "+102",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_7",
+      "gameId": "g3",
+      "player": "Tee Higgins",
+      "team": "Saints",
+      "category": "Receiving",
+      "stat": "Receiving Yards Over",
+      "line": "75.5",
+      "odds": "-108",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_8",
+      "gameId": "g3",
+      "player": "Sam LaPorta",
+      "team": "Saints",
+      "category": "Anytime TD",
+      "stat": "Anytime TD",
+      "line": "",
+      "odds": "+210",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_9",
+      "gameId": "g3",
+      "player": "Kyle Dugger",
+      "team": "Saints",
+      "category": "Tackles",
+      "stat": "Tackles Over",
+      "line": "7.5",
+      "odds": "-122",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_10",
+      "gameId": "g3",
+      "player": "Foyesade Oluokun",
+      "team": "Saints",
+      "category": "Interception",
+      "stat": "Interception",
+      "line": "",
+      "odds": "+290",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_11",
+      "gameId": "g3",
+      "player": "Greg Rousseau",
+      "team": "Saints",
+      "category": "Sacks",
+      "stat": "Sacks Over",
+      "line": "0.5",
+      "odds": "+170",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_12",
+      "gameId": "g3",
+      "player": "Justin Fields",
+      "team": "Bills",
+      "category": "Passing",
+      "stat": "Passing Yards Over",
+      "line": "312.5",
+      "odds": "-112",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_13",
+      "gameId": "g3",
+      "player": "Justin Fields",
+      "team": "Bills",
+      "category": "Passing TD",
+      "stat": "Passing TD Over",
+      "line": "2.5",
+      "odds": "+120",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_14",
+      "gameId": "g3",
+      "player": "Trey Benson",
+      "team": "Bills",
+      "category": "Rushing",
+      "stat": "Rushing Yards Over",
+      "line": "88.5",
+      "odds": "-115",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_15",
+      "gameId": "g3",
+      "player": "Kyle Pitts Sr",
+      "team": "Bills",
+      "category": "Receiving",
+      "stat": "Receiving Yards Over",
+      "line": "82.5",
+      "odds": "-110",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_16",
+      "gameId": "g3",
+      "player": "Kyle Pitts Sr",
+      "team": "Bills",
+      "category": "Anytime TD",
+      "stat": "Anytime TD",
+      "line": "",
+      "odds": "+145",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_17",
+      "gameId": "g3",
+      "player": "Dont'e Thornton Jr",
+      "team": "Bills",
+      "category": "Receiving",
+      "stat": "Receiving Yards Over",
+      "line": "44.5",
+      "odds": "-108",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_18",
+      "gameId": "g3",
+      "player": "Adonai Mitchell",
+      "team": "Bills",
+      "category": "Anytime TD",
+      "stat": "Anytime TD",
+      "line": "",
+      "odds": "+210",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_19",
+      "gameId": "g3",
+      "player": "Jonas Sanker",
+      "team": "Bills",
+      "category": "Tackles",
+      "stat": "Tackles Over",
+      "line": "4.5",
+      "odds": "-120",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g3_20",
+      "gameId": "g3",
+      "player": "Devin Lloyd",
+      "team": "Bills",
+      "category": "Sacks",
+      "stat": "Sacks Over",
+      "line": "0.5",
+      "odds": "+165",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g4_1",
+      "gameId": "g4",
+      "player": "Jaxson Dart",
+      "team": "Jets",
+      "category": "Passing",
+      "stat": "Passing Yards Over",
+      "line": "302.5",
+      "odds": "-112",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g4_2",
+      "gameId": "g4",
+      "player": "Jaxson Dart",
+      "team": "Jets",
+      "category": "Passing TD",
+      "stat": "Passing TD Over",
+      "line": "2.5",
+      "odds": "+125",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g4_3",
+      "gameId": "g4",
+      "player": "Cam Skattebo",
+      "team": "Jets",
+      "category": "Rushing",
+      "stat": "Rushing Yards Over",
+      "line": "78.5",
+      "odds": "-115",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g4_4",
+      "gameId": "g4",
+      "player": "Elic Ayomanor",
+      "team": "Jets",
+      "category": "Receiving",
+      "stat": "Receiving Yards Over",
+      "line": "88.5",
+      "odds": "-110",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g4_5",
+      "gameId": "g4",
+      "player": "Elic Ayomanor",
+      "team": "Jets",
+      "category": "Anytime TD",
+      "stat": "Anytime TD",
+      "line": "",
+      "odds": "+150",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g4_6",
+      "gameId": "g4",
+      "player": "Parker Washington",
+      "team": "Jets",
+      "category": "Anytime TD",
+      "stat": "Anytime TD",
+      "line": "",
+      "odds": "+175",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g4_7",
+      "gameId": "g4",
+      "player": "George Pickens",
+      "team": "Jets",
+      "category": "Receiving",
+      "stat": "Receiving Yards Over",
+      "line": "61.5",
+      "odds": "-108",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g4_8",
+      "gameId": "g4",
+      "player": "Tyleik Williams",
+      "team": "Jets",
+      "category": "Sacks",
+      "stat": "Sacks Over",
+      "line": "0.5",
+      "odds": "+160",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g4_9",
+      "gameId": "g4",
+      "player": "Kamari Lassiter",
+      "team": "Jets",
+      "category": "Interception",
+      "stat": "Interception",
+      "line": "",
+      "odds": "+225",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g4_10",
+      "gameId": "g4",
+      "player": "Nick Cross",
+      "team": "Jets",
+      "category": "Tackles",
+      "stat": "Tackles Over",
+      "line": "7.5",
+      "odds": "-120",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g1_1",
+      "gameId": "g1",
+      "player": "JJ McCarthy",
+      "team": "Falcons",
+      "category": "Passing",
+      "stat": "Passing Yards Over",
+      "line": "312.5",
+      "odds": "-115",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g1_2",
+      "gameId": "g1",
+      "player": "JJ McCarthy",
+      "team": "Falcons",
+      "category": "Interceptions",
+      "stat": "Interceptions Over",
+      "line": "1.5",
+      "odds": "-135",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g1_3",
+      "gameId": "g1",
+      "player": "Ja'Marr Chase",
+      "team": "Falcons",
+      "category": "Receiving",
+      "stat": "Receiving Yards Over",
+      "line": "104.5",
+      "odds": "-110",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g1_4",
+      "gameId": "g1",
+      "player": "Patrick Queen",
+      "team": "Falcons",
+      "category": "Tackles",
+      "stat": "Tackles Over",
+      "line": "8.5",
+      "odds": "-118",
+      "sgpAllowed": true,
+      "active": true
+    },
+    {
+      "id": "prop_g1_5",
+      "gameId": "g1",
+      "player": "Jessie Bates III",
+      "team": "Falcons",
+      "category": "Interception",
+      "stat": "Interception",
+      "line": "",
+      "odds": "+220",
+      "sgpAllowed": true,
+      "active": true
+    }
+  ],
+  "bets": [
+    {
+      "id": "BET-005",
+      "user": "Tuane",
+      "week": 4,
+      "type": "Parlay",
+      "status": "OPEN",
+      "stake": 150,
+      "odds": "+705",
+      "payout": 1207.5,
+      "legs": [
+        "Justin Fields Over 1.5 Passing TD",
+        "Kyle Pitts Sr Anytime TD",
+        "Panthers Moneyline"
+      ]
+    },
+    {
+      "id": "BET-006",
+      "user": "Tuane",
+      "week": 4,
+      "type": "Parlay",
+      "status": "OPEN",
+      "stake": 50,
+      "odds": "+236",
+      "payout": 168.0,
+      "legs": [
+        "Bills Defense Over 1.5 Sacks",
+        "Derrick Henry Over 2.5 Rushing Attempts",
+        "Jonas Sanker Over 1.5 Tackles"
+      ]
+    }
+  ]
+}
