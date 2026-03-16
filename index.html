@@ -1,21 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Purplebook</title>
-
-<link rel="stylesheet" href="styles.css">
-
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+  <title>Purplebook Sportsbook</title>
+  <meta
+    name="description"
+    content="Private Madden League Sportsbook"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./styles.css" />
 </head>
-
 <body>
+  <div id="app-bg">
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-vignette"></div>
+  </div>
 
-<div id="app"></div>
+  <div id="app-shell">
+    <header class="topbar glass">
+      <div class="brand-wrap">
+        <button
+          id="menuToggle"
+          class="icon-btn mobile-only"
+          aria-label="Open navigation"
+          type="button"
+        >
+          ☰
+        </button>
 
-<script src="state.js"></script>
-<script src="app.js"></script>
+        <div class="brand-mark">PB</div>
 
+        <div class="brand-text">
+          <h1>Purplebook</h1>
+          <p>Private Madden League Sportsbook</p>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <div id="weekBadge" class="pill active-pill">Week 4</div>
+        <button id="openCreatealayBtn" class="pill-btn" type="button">
+          Createalay
+        </button>
+        <button id="openBetslipBtn" class="pill-btn" type="button">
+          Bet Slip
+        </button>
+        <button id="openAdminBtn" class="pill-btn admin-only hidden" type="button">
+          Admin
+        </button>
+        <button id="logoutBtn" class="pill-btn hidden" type="button">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <aside id="sidebar" class="sidebar glass">
+      <div class="sidebar-section">
+        <h2>Navigation</h2>
+        <button class="nav-btn active" data-view="home" type="button">Home</button>
+        <button class="nav-btn" data-view="games" type="button">Games</button>
+        <button class="nav-btn" data-view="myBets" type="button">My Bets</button>
+        <button class="nav-btn" data-view="bankroll" type="button">Bankroll</button>
+        <button class="nav-btn" data-view="leaderboard" type="button">Leaderboard</button>
+        <button class="nav-btn" data-view="createalay" type="button">Createalay</button>
+        <button class="nav-btn admin-only hidden" data-view="admin" type="button">Command Center</button>
+      </div>
+
+      <div class="sidebar-section">
+        <h2>Week 4 Locked Games</h2>
+        <div id="sidebarGames" class="mini-list"></div>
+      </div>
+
+      <div class="sidebar-section">
+        <h2>League Rules</h2>
+        <ul class="rules-list">
+          <li>$1000 starting bankroll</li>
+          <li>Season max: $400</li>
+          <li>Weekly max: $500</li>
+          <li>$150 max per parlay</li>
+          <li>Min 2 legs per parlay</li>
+          <li>Season max 3 legs</li>
+          <li>Weekly max 5 legs</li>
+          <li>No season parlays after Week 3</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main id="mainContent" class="main-content">
+      <!-- AUTH VIEW -->
+      <section id="view-auth" class="view active-view">
+        <div class="hero-card glass auth-card">
+          <div class="hero-copy">
+            <div class="eyebrow">Private Madden League</div>
+            <h2>Madden SportsBook</h2>
+            <p>
+              FanDuel-style private book for league games, same game parlays,
+              Createalay builder, locked bankroll rules, and admin command center.
+            </p>
+          </div>
+
+          <div id="authStage" class="auth-stage">
+            <div class="auth-panel">
+              <h3>Choose Your Name</h3>
+              <p>Select your profile to continue.</p>
+              <div id="userPicker" class="user-grid"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOME VIEW -->
+      <section id="view-home" class="view">
+        <div class="dashboard-grid">
+          <section class="hero-card glass">
+            <div>
+              <div class="eyebrow">Welcome Back</div>
+              <h2 id="welcomeName">Tuane</h2>
+              <p id="welcomeSubtext">Locked in for Week 4.</p>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat-box">
+                <span class="stat-label">Bankroll</span>
+                <strong id="heroBankroll">$0</strong>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">Open Bets</span>
+                <strong id="heroOpenBets">0</strong>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">Week Limit Left</span>
+                <strong id="heroWeeklyLeft">$0</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel glass">
+            <div class="panel-head">
+              <h3>Week 4 Games</h3>
+              <button class="text-btn" data-view-jump="games" type="button">Open All</button>
+            </div>
+            <div id="homeGames" class="game-card-list"></div>
+          </section>
+
+          <section class="panel glass">
+            <div class="panel-head">
+              <h3>Trending Props</h3>
+            </div>
+            <div id="trendingProps" class="prop-chip-grid"></div>
+          </section>
+
+          <section class="panel glass">
+            <div class="panel-head">
+              <h3>Quick Actions</h3>
+            </div>
+            <div class="quick-actions">
+              <button class="action-btn" data-view-jump="games" type="button">Browse Games</button>
+              <button class="action-btn" data-view-jump="createalay" type="button">Open Createalay</button>
+              <button class="action-btn" data-view-jump="myBets" type="button">My Slips</button>
+              <button class="action-btn admin-only hidden" data-view-jump="admin" type="button">Admin Center</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- GAMES VIEW -->
+      <section id="view-games" class="view">
+        <div class="panel glass">
+          <div class="panel-head">
+            <h3>Week 4 Board</h3>
+            <div class="panel-tools">
+              <button id="showOpenGamesBtn" class="small-btn active" type="button">Open</button>
+              <button id="showClosedGamesBtn" class="small-btn" type="button">Closed</button>
+              <button id="showAllGamesBtn" class="small-btn" type="button">All</button>
+            </div>
+          </div>
+
+          <div id="gamesBoard" class="games-board"></div>
+        </div>
+      </section>
+
+      <!-- MY BETS VIEW -->
+      <section id="view-myBets" class="view">
+        <div class="panel glass">
+          <div class="panel-head">
+            <h3>My Bets</h3>
+          </div>
+          <div id="myBetsList" class="bets-list"></div>
+        </div>
+      </section>
+
+      <!-- BANKROLL VIEW -->
+      <section id="view-bankroll" class="view">
+        <div class="panel glass">
+          <div class="panel-head">
+            <h3>League Bankroll</h3>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="bankrollTable">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Start</th>
+                  <th>Wagered</th>
+                  <th>Available</th>
+                  <th>Open Bets</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- LEADERBOARD VIEW -->
+      <section id="view-leaderboard" class="view">
+        <div class="panel glass">
+          <div class="panel-head">
+            <h3>League Leaderboard</h3>
+          </div>
+          <div id="leaderboardCards" class="leaderboard-grid"></div>
+        </div>
+      </section>
+
+      <!-- CREATEALAY VIEW -->
+      <section id="view-createalay" class="view">
+        <div class="panel glass">
+          <div class="panel-head">
+            <h3>Createalay</h3>
+            <span class="subtle-text">Buttons only. No text entry.</span>
+          </div>
+
+          <div class="createalay-layout">
+            <div class="createalay-step">
+              <h4>1. Pick Game</h4>
+              <div id="createalayGames" class="button-grid"></div>
+            </div>
+
+            <div class="createalay-step">
+              <h4>2. Pick Market</h4>
+              <div id="createalayMarkets" class="button-grid"></div>
+            </div>
+
+            <div class="createalay-step">
+              <h4>3. Pick Leg</h4>
+              <div id="createalayLegs" class="button-grid"></div>
+            </div>
+
+            <div class="createalay-step">
+              <h4>4. Suggested Odds</h4>
+              <div id="createalayOutput" class="createalay-output empty-state">
+                Select a game, market, and button-built leg.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADMIN VIEW -->
+      <section id="view-admin" class="view admin-only hidden">
+        <div class="panel glass">
+          <div class="panel-head">
+            <h3>Command Center</h3>
+            <span class="subtle-text">Admin visible only for Tuane</span>
+          </div>
+
+          <div class="admin-grid">
+            <div class="admin-card">
+              <h4>Paste Update Board</h4>
+              <textarea
+                id="commandCenterInput"
+                class="command-textarea"
+                placeholder="Paste command update block here..."
+              ></textarea>
+              <div class="admin-actions">
+                <button id="applyCommandBtn" class="action-btn" type="button">Apply Update</button>
+                <button id="clearCommandBtn" class="action-btn muted" type="button">Clear</button>
+              </div>
+            </div>
+
+            <div class="admin-card">
+              <h4>Bet Result Tools</h4>
+              <div class="result-action-grid">
+                <button id="adminMarkWin" class="result-btn win" type="button">Win</button>
+                <button id="adminMarkLoss" class="result-btn loss" type="button">Loss</button>
+                <button id="adminMarkPush" class="result-btn push" type="button">Push</button>
+                <button id="adminMarkVoid" class="result-btn void" type="button">Void</button>
+              </div>
+              <p class="helper-text">
+                Select a bet in admin mode, then apply result.
+              </p>
+            </div>
+
+            <div class="admin-card">
+              <h4>Game Controls</h4>
+              <div id="adminGameControls" class="admin-mini-list"></div>
+            </div>
+
+            <div class="admin-card">
+              <h4>Recent Command Log</h4>
+              <div id="commandLog" class="command-log"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- GAME MODAL -->
+  <div id="gameModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal="true"></div>
+    <div class="modal-card glass">
+      <div class="modal-head">
+        <div>
+          <div id="modalGameEyebrow" class="eyebrow">Game Board</div>
+          <h3 id="modalGameTitle">Game</h3>
+        </div>
+        <button id="closeGameModalBtn" class="icon-btn" type="button" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-content">
+        <div class="fanduel-board">
+          <div class="fd-header">
+            <div class="fd-team-col">Matchup</div>
+            <div class="fd-market-col">Spread</div>
+            <div class="fd-market-col">Moneyline</div>
+            <div class="fd-market-col">Total</div>
+          </div>
+
+          <div id="fdMainLines"></div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="sgp-section">
+          <div class="panel-head tight">
+            <h4>Same Game Parlay</h4>
+            <span class="subtle-text">Add legs from this game only</span>
+          </div>
+          <div id="sgpMarkets" class="market-group-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BETSLIP DRAWER -->
+  <div id="betslipDrawer" class="drawer hidden" aria-hidden="true">
+    <div class="drawer-backdrop" data-close-drawer="true"></div>
+    <div class="drawer-card glass">
+      <div class="drawer-head">
+        <h3>Bet Slip</h3>
+        <button id="closeBetslipBtn" class="icon-btn" type="button">✕</button>
+      </div>
+
+      <div class="drawer-content">
+        <div id="betslipLegs" class="betslip-legs empty-state">
+          No legs added yet.
+        </div>
+
+        <div class="betslip-controls">
+          <label class="field">
+            <span>Bet Type</span>
+            <select id="betTypeSelect">
+              <option value="weekly">Weekly</option>
+              <option value="season">Season</option>
+              <option value="sgp">Same Game Parlay</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Stake</span>
+            <input id="stakeInput" type="number" min="1" step="1" placeholder="0" />
+          </label>
+
+          <div class="slip-summary glass">
+            <div class="summary-row">
+              <span>Combined Odds</span>
+              <strong id="betslipOdds">+0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Potential Payout</span>
+              <strong id="betslipPayout">$0</strong>
+            </div>
+          </div>
+
+          <div class="drawer-actions">
+            <button id="clearBetslipBtn" class="action-btn muted" type="button">Clear Slip</button>
+            <button id="placeBetBtn" class="action-btn" type="button">Place Bet</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script type="module" src="./state.js"></script>
+  <script type="module" src="./app.js"></script>
 </body>
 </html>
