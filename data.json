@@ -1,0 +1,247 @@
+{
+  "users": [
+    {
+      "name": "Tuane",
+      "start": "$1000",
+      "bankroll": 1250
+    },
+    {
+      "name": "Des",
+      "start": "$1000",
+      "bankroll": 1000
+    },
+    {
+      "name": "Romeo",
+      "start": "$1000",
+      "bankroll": 1000
+    },
+    {
+      "name": "Rob",
+      "start": "$1000",
+      "bankroll": 1000
+    },
+    {
+      "name": "Don",
+      "start": "$1000",
+      "bankroll": 1000
+    }
+  ],
+  "games": [
+    {
+      "id": "g1",
+      "away": "Eagles",
+      "home": "Buccaneers",
+      "type": "User vs User",
+      "note": "Twan vs CPU-style board locked for app display"
+    },
+    {
+      "id": "g2",
+      "away": "Saints",
+      "home": "Bills",
+      "type": "User vs User",
+      "note": "Don @ Rob"
+    },
+    {
+      "id": "g3",
+      "away": "Jets",
+      "home": "Dolphins",
+      "type": "User vs CPU",
+      "note": "Des @ Dolphins"
+    },
+    {
+      "id": "g4",
+      "away": "Commanders",
+      "home": "Falcons",
+      "type": "Closed",
+      "note": "Romeo already played"
+    }
+  ],
+  "props": [
+    {
+      "id": "p1",
+      "gameId": "g1",
+      "player": "Trevor Lawrence",
+      "stat": "Passing Yards Over",
+      "line": "279.5",
+      "odds": "-115"
+    },
+    {
+      "id": "p2",
+      "gameId": "g1",
+      "player": "DK Metcalf",
+      "stat": "Receiving Yards Over",
+      "line": "89.5",
+      "odds": "+110"
+    },
+    {
+      "id": "p3",
+      "gameId": "g1",
+      "player": "Jonathan Taylor",
+      "stat": "Rushing Yards Over",
+      "line": "82.5",
+      "odds": "-120"
+    },
+    {
+      "id": "p4",
+      "gameId": "g1",
+      "player": "Jack Campbell",
+      "stat": "Tackles Over",
+      "line": "7.5",
+      "odds": "-125"
+    },
+    {
+      "id": "p5",
+      "gameId": "g1",
+      "player": "Riley Moss",
+      "stat": "Interception",
+      "line": "0.5",
+      "odds": "+260"
+    },
+    {
+      "id": "p6",
+      "gameId": "g2",
+      "player": "Lamar Jackson",
+      "stat": "Passing Yards Over",
+      "line": "249.5",
+      "odds": "-110"
+    },
+    {
+      "id": "p7",
+      "gameId": "g2",
+      "player": "Quinshon Judkins",
+      "stat": "Rushing Yards Over",
+      "line": "74.5",
+      "odds": "-118"
+    },
+    {
+      "id": "p8",
+      "gameId": "g2",
+      "player": "Laviska Shenault Jr",
+      "stat": "Receptions Over",
+      "line": "4.5",
+      "odds": "+105"
+    },
+    {
+      "id": "p9",
+      "gameId": "g2",
+      "player": "Kyle Dugger",
+      "stat": "Tackles Over",
+      "line": "6.5",
+      "odds": "-120"
+    },
+    {
+      "id": "p10",
+      "gameId": "g2",
+      "player": "Foyesade Oluokun",
+      "stat": "Interception",
+      "line": "0.5",
+      "odds": "+300"
+    },
+    {
+      "id": "p11",
+      "gameId": "g3",
+      "player": "Jaxson Dart",
+      "stat": "Passing Yards Over",
+      "line": "264.5",
+      "odds": "-112"
+    },
+    {
+      "id": "p12",
+      "gameId": "g3",
+      "player": "Cam Skattebo",
+      "stat": "Rushing Yards Over",
+      "line": "66.5",
+      "odds": "-115"
+    },
+    {
+      "id": "p13",
+      "gameId": "g3",
+      "player": "Elic Ayomanor",
+      "stat": "Receiving Yards Over",
+      "line": "69.5",
+      "odds": "+100"
+    },
+    {
+      "id": "p14",
+      "gameId": "g3",
+      "player": "Nick Cross",
+      "stat": "Tackles Over",
+      "line": "7.5",
+      "odds": "-118"
+    },
+    {
+      "id": "p15",
+      "gameId": "g3",
+      "player": "Kamari Lassiter",
+      "stat": "Interception",
+      "line": "0.5",
+      "odds": "+240"
+    },
+    {
+      "id": "p16",
+      "gameId": "g4",
+      "player": "JJ McCarthy",
+      "stat": "Passing Interceptions Over",
+      "line": "1.5",
+      "odds": "-130"
+    },
+    {
+      "id": "p17",
+      "gameId": "g4",
+      "player": "Ja'Marr Chase",
+      "stat": "Receiving TD Over",
+      "line": "0.5",
+      "odds": "+115"
+    },
+    {
+      "id": "p18",
+      "gameId": "g4",
+      "player": "Patrick Queen",
+      "stat": "Tackles Over",
+      "line": "7.5",
+      "odds": "-110"
+    },
+    {
+      "id": "p19",
+      "gameId": "g4",
+      "player": "Arden Key",
+      "stat": "Sacks Over",
+      "line": "0.5",
+      "odds": "+145"
+    },
+    {
+      "id": "p20",
+      "gameId": "g4",
+      "player": "Jessie Bates III",
+      "stat": "Interception",
+      "line": "0.5",
+      "odds": "+200"
+    }
+  ],
+  "openBets": [
+    {
+      "id": "BET-005",
+      "user": "Tuane",
+      "stake": 150,
+      "odds": "+705",
+      "status": "OPEN",
+      "legs": [
+        "Justin Fields Over 1.5 Passing TD",
+        "Kyle Pitts Anytime TD",
+        "Panthers Moneyline"
+      ]
+    },
+    {
+      "id": "BET-006",
+      "user": "Tuane",
+      "stake": 50,
+      "odds": "+236",
+      "status": "OPEN",
+      "legs": [
+        "Bills Defense Over 1.5 Sacks",
+        "Derrick Henry Over 2.5 Rushing Attempts",
+        "Jonas Sanker Over 1.5 Tackles"
+      ]
+    }
+  ]
+}

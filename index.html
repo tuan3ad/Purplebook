@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Madden SportsBook</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-overlay"></div>
+
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">Private League Sportsbook</div>
+      <h1>Madden SportsBook</h1>
+    </div>
+    <div class="bankroll-box">
+      <span>Tuane Bankroll</span>
+      <strong id="bankrollDisplay">$1250</strong>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <button class="nav-btn active" data-page="games">Games</button>
+    <button class="nav-btn" data-page="parlay">SGP Builder</button>
+    <button class="nav-btn" data-page="bets">My Bets</button>
+    <button class="nav-btn" data-page="leaderboard">Leaderboard</button>
+    <button class="nav-btn" data-page="admin">Command Center</button>
+  </nav>
+
+  <main class="container">
+    <section id="games" class="page">
+      <div class="section-title">
+        <h2>Week 4 Games</h2>
+        <p>Locked user and CPU board</p>
+      </div>
+      <div id="gamesList" class="grid"></div>
+    </section>
+
+    <section id="parlay" class="page hidden">
+      <div class="section-title">
+        <h2>Same Game Parlay Builder</h2>
+        <p>Tap a game, then add legs</p>
+      </div>
+      <div id="selectedGameBanner" class="banner">Select a game from Games first.</div>
+      <div class="two-col">
+        <div>
+          <h3>Available Legs</h3>
+          <div id="propList"></div>
+        </div>
+        <div>
+          <h3>Bet Slip</h3>
+          <div id="betSlip"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bets" class="page hidden">
+      <div class="section-title">
+        <h2>Open Bets</h2>
+        <p>Demo card list</p>
+      </div>
+      <div id="betsList"></div>
+    </section>
+
+    <section id="leaderboard" class="page hidden">
+      <div class="section-title">
+        <h2>League Bankrolls</h2>
+        <p>Starting point you can edit in command center</p>
+      </div>
+      <div id="leaderboardList" class="grid"></div>
+    </section>
+
+    <section id="admin" class="page hidden">
+      <div class="section-title">
+        <h2>Command Center</h2>
+        <p>Edit props, odds, bankrolls, and bet results</p>
+      </div>
+
+      <div class="admin-grid">
+        <div class="panel">
+          <h3>Add Prop</h3>
+          <input id="gameId" placeholder="Game ID (ex: g3)" />
+          <input id="player" placeholder="Player" />
+          <input id="stat" placeholder="Stat" />
+          <input id="line" placeholder="Line (ex: 1.5)" />
+          <input id="odds" placeholder="Odds (ex: +120)" />
+          <button onclick="addProp()">Add Prop</button>
+        </div>
+
+        <div class="panel">
+          <h3>Change Bankroll</h3>
+          <input id="userName" placeholder="User name" />
+          <input id="newBankroll" placeholder="New bankroll" />
+          <button onclick="updateBankroll()">Update Bankroll</button>
+        </div>
+
+        <div class="panel">
+          <h3>Settle Bet</h3>
+          <input id="betId" placeholder="Bet ID" />
+          <div class="admin-actions">
+            <button onclick="settleBet('win')">Win</button>
+            <button onclick="settleBet('loss')">Loss</button>
+            <button onclick="settleBet('push')">Push</button>
+            <button onclick="settleBet('void')">Void</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
