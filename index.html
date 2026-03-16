@@ -2,411 +2,1321 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  />
-  <title>Purplebook Sportsbook</title>
-  <meta
-    name="description"
-    content="Private Madden League Sportsbook"
-  />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="./styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Purplebook</title>
+  <style>
+    :root{
+      --bg1:#070b1a;
+      --bg2:#111a48;
+      --bg3:#3d1d72;
+      --card:rgba(31,32,80,.72);
+      --card2:rgba(16,18,49,.78);
+      --stroke:rgba(144,118,255,.28);
+      --text:#f4f2ff;
+      --muted:#beb6ea;
+      --chip:#2f2960;
+      --btn:#6f48f5;
+      --btn2:#2a2556;
+      --good:#1ea672;
+      --bad:#c44c6d;
+      --warn:#c99b2e;
+      --shadow:0 20px 50px rgba(0,0,0,.35);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;background:#060915;color:var(--text);min-height:100%}
+    body{overflow-x:hidden}
+
+    .app-bg{
+      position:fixed; inset:0; z-index:0;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(134,76,255,.30), transparent 28%),
+        radial-gradient(circle at 80% 18%, rgba(57,111,255,.18), transparent 24%),
+        linear-gradient(180deg, #1d1340 0%, #131942 30%, #0a102d 58%, #050915 100%);
+    }
+    .app-bg::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(transparent 0%, rgba(255,255,255,.02) 49%, transparent 50%, transparent 100%);
+      background-size:100% 14px;
+      opacity:.25;
+      pointer-events:none;
+    }
+
+    #app{position:relative; z-index:1; padding:14px; max-width:1500px; margin:0 auto}
+    .hidden{display:none !important}
+
+    .glass{
+      background:linear-gradient(180deg, rgba(73,52,145,.58), rgba(20,24,61,.78));
+      backdrop-filter: blur(16px);
+      border:1px solid var(--stroke);
+      box-shadow:var(--shadow);
+    }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      border-radius:28px; padding:14px 16px; margin-bottom:14px; position:sticky; top:8px; z-index:20;
+    }
+    .brand-wrap{display:flex; align-items:center; gap:14px; min-width:0}
+    .menu-btn{
+      width:54px;height:42px;border-radius:16px;border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.9); color:#111; font-size:22px; cursor:pointer;
+    }
+    .brand-mark{
+      width:70px;height:70px;border-radius:22px; display:grid; place-items:center;
+      background:linear-gradient(180deg,#8c5cff,#6739f0); font-weight:900; font-size:28px;
+      box-shadow:0 14px 30px rgba(111,72,245,.45)
+    }
+    .brand-text h1{margin:0;font-size:28px;line-height:1.05}
+    .brand-text p{margin:4px 0 0;color:var(--muted);font-size:17px}
+    .top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .chip{
+      border-radius:999px; padding:10px 16px; background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.08); color:var(--text)
+    }
+    .pill-btn,.btn{
+      border:0; cursor:pointer; color:#fff; border-radius:999px; padding:12px 18px;
+      font-size:16px; font-weight:700;
+    }
+    .pill-btn{background:rgba(110,87,210,.75); border:1px solid rgba(255,255,255,.08)}
+    .btn.primary{background:linear-gradient(180deg,#7f5cff,#633df0)}
+    .btn.secondary{background:var(--btn2); border:1px solid rgba(255,255,255,.09)}
+    .btn.good{background:var(--good)}
+    .btn.bad{background:var(--bad)}
+    .btn.warn{background:var(--warn); color:#17120a}
+    .btn.ghost{background:#3b355f}
+    .btn.small{padding:9px 12px;font-size:14px}
+    .btn:disabled{opacity:.45;cursor:not-allowed}
+
+    .layout{
+      display:grid;
+      grid-template-columns:300px minmax(0,1fr);
+      gap:14px;
+    }
+
+    .sidebar{
+      border-radius:28px; padding:16px; height:calc(100vh - 120px); overflow:auto; position:sticky; top:102px;
+    }
+    .sidebar h2{margin:0 0 10px;font-size:16px;color:#ddd4ff;text-transform:uppercase;letter-spacing:.05em}
+    .sidebar-section{margin-bottom:18px}
+    .nav-btn{
+      width:100%; text-align:left; margin-bottom:8px; background:rgba(255,255,255,.03); color:var(--text);
+      border:1px solid rgba(255,255,255,.06); border-radius:16px; padding:13px 14px; cursor:pointer; font-size:16px; font-weight:700
+    }
+    .nav-btn.active{background:linear-gradient(180deg,#7b57f2,#5f39ea)}
+    .list-item{
+      background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.06);
+      border-radius:18px; padding:14px; margin-bottom:10px;
+    }
+    .list-item h4{margin:0 0 6px;font-size:16px}
+    .list-item p{margin:0;color:var(--muted)}
+    .rules-list{padding-left:18px;margin:0;color:var(--muted)}
+    .rules-list li{margin-bottom:8px}
+
+    .main{min-width:0}
+    .view{display:block}
+    .hero{
+      border-radius:32px; padding:28px;
+    }
+    .eyebrow{font-size:14px; text-transform:uppercase; letter-spacing:.08em; color:#ded4ff}
+    .hero h2{margin:10px 0 0;font-size:56px;line-height:.95}
+    .hero p{margin:16px 0 0; font-size:22px; color:#ebe5ff; max-width:960px}
+    .card{
+      border-radius:30px; padding:22px; margin-top:14px;
+    }
+    .section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .section-head h3,.section-head h4,.section-title{margin:0}
+    .subtle,.muted{color:var(--muted)}
+    .stats-grid{
+      display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:14px;
+    }
+    .stat-box{
+      background:rgba(14,17,45,.8); border:1px solid rgba(255,255,255,.05);
+      border-radius:20px; padding:18px;
+    }
+    .stat-box .k{color:var(--muted);font-size:15px}
+    .stat-box .v{font-size:20px;font-weight:900;margin-top:6px}
+    .stack{display:block}
+    .chip-row{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-grid{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px;
+    }
+    .input,.select,.textarea{
+      width:100%; background:#0d1230; color:#fff; border:1px solid rgba(255,255,255,.08);
+      border-radius:16px; padding:14px 16px; font-size:16px;
+    }
+    .textarea{min-height:150px; resize:vertical}
+    .label{display:block; margin:0 0 8px; color:#d7cff9; font-weight:700}
+    .empty-state{
+      text-align:center; color:var(--muted); padding:22px;
+      background:rgba(255,255,255,.03); border:1px dashed rgba(255,255,255,.12); border-radius:18px;
+    }
+    .mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-14{margin-top:14px}.mt-16{margin-top:16px}.mt-20{margin-top:20px}
+
+    .game-card .top{
+      display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap
+    }
+    .status-open,.status-closed{
+      padding:8px 12px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:.06em
+    }
+    .status-open{background:rgba(30,166,114,.18);color:#9bf2cd;border:1px solid rgba(30,166,114,.35)}
+    .status-closed{background:rgba(196,76,109,.18);color:#ffb6c8;border:1px solid rgba(196,76,109,.35)}
+
+    .fanduel-board{
+      margin-top:14px; border:1px solid rgba(255,255,255,.08); border-radius:22px; overflow:hidden;
+      background:rgba(5,9,27,.55)
+    }
+    .fd-header,.fd-row{
+      display:grid;
+      grid-template-columns:1.45fr 1fr 1fr 1fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    .fd-header{
+      background:rgba(255,255,255,.04); color:#cabfff; font-size:13px; font-weight:800;
+      text-transform:uppercase; letter-spacing:.06em; padding:14px;
+    }
+    .fd-row{
+      padding:14px; border-top:1px solid rgba(255,255,255,.06);
+    }
+    .fd-team{
+      display:flex; align-items:center; gap:12px; font-weight:800; font-size:22px;
+    }
+    .team-dot{
+      width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:900;
+      background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.08)
+    }
+    .odd-cell button{
+      width:100%; height:100%; min-height:72px;
+      background:linear-gradient(180deg,#0a173f,#091333);
+      border:2px solid #447cff; color:#eef3ff; border-radius:22px; cursor:pointer;
+      font-size:20px; font-weight:900;
+    }
+    .odd-cell button small{display:block;font-size:16px;color:#b8caf7;font-weight:700}
+
+    .bet-leg{
+      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); border-radius:16px; padding:12px
+    }
+    .bet-leg-title{font-weight:800}
+    .bet-leg-copy{color:var(--muted);margin-top:4px;font-size:14px}
+    .pill{
+      padding:7px 10px; border-radius:999px; text-transform:uppercase; font-size:12px; font-weight:900;
+      background:rgba(255,255,255,.08)
+    }
+    .pill.open{color:#abf3d4}
+    .pill.win{color:#abf3d4}
+    .pill.loss{color:#ffc0cc}
+    .pill.push,.pill.void{color:#ffefae}
+    .kv{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}
+
+    .drawer,.modal{
+      position:fixed; inset:0; z-index:60; background:rgba(2,4,12,.72); backdrop-filter:blur(8px);
+      padding:14px;
+    }
+    .drawer .panel{
+      position:absolute; right:14px; bottom:14px; width:min(380px,calc(100vw - 28px)); max-height:86vh; overflow:auto
+    }
+    .modal .panel{
+      max-width:1180px; margin:0 auto; max-height:92vh; overflow:auto
+    }
+
+    .auth-users{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-top:14px
+    }
+    .user-pick{
+      border:none; border-radius:20px; padding:18px; cursor:pointer; color:#fff; font-size:20px; font-weight:900;
+      background:linear-gradient(180deg,#7c59f3,#603aeb)
+    }
+
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:14px 12px;text-align:left;border-bottom:1px solid rgba(255,255,255,.08)}
+    th{color:#d8d0ff;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+    td{color:#f6f4ff}
+    .table-wrap{overflow:auto}
+
+    .toast{
+      position:fixed; left:50%; transform:translateX(-50%); bottom:18px; z-index:100;
+      background:#151936; color:#fff; border:1px solid rgba(255,255,255,.1);
+      padding:12px 16px; border-radius:999px; box-shadow:var(--shadow)
+    }
+
+    @media (max-width: 980px){
+      .layout{grid-template-columns:1fr}
+      .sidebar{display:none}
+      .hero h2{font-size:42px}
+      .hero p{font-size:18px}
+      .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media (max-width: 700px){
+      #app{padding:10px}
+      .topbar{padding:12px}
+      .brand-mark{width:48px;height:48px;font-size:22px;border-radius:16px}
+      .brand-text h1{font-size:22px}
+      .brand-text p{font-size:14px}
+      .hero{padding:22px}
+      .hero h2{font-size:28px}
+      .hero p{font-size:16px}
+      .stats-grid{grid-template-columns:1fr 1fr}
+      .fd-header,.fd-row{grid-template-columns:1fr}
+      .fd-header{display:none}
+      .fd-row{gap:10px}
+      .fd-team{font-size:18px}
+      .odd-cell button{min-height:62px;font-size:18px}
+      .top-actions{justify-content:flex-start}
+    }
+  </style>
 </head>
 <body>
-  <div id="app-bg">
-    <div class="bg-glow glow-1"></div>
-    <div class="bg-glow glow-2"></div>
-    <div class="bg-grid"></div>
-    <div class="bg-vignette"></div>
-  </div>
+  <div class="app-bg"></div>
+  <div id="app"></div>
 
-  <div id="app-shell">
-    <header class="topbar glass">
-      <div class="brand-wrap">
-        <button
-          id="menuToggle"
-          class="icon-btn mobile-only"
-          aria-label="Open navigation"
-          type="button"
-        >
-          ☰
-        </button>
+  <script>
+    const PIN_KEY = "purplebook_singlefile_pins_v1";
 
-        <div class="brand-mark">PB</div>
+    const STATE = {
+      app: {
+        name: "Purplebook",
+        sportsbookName: "Madden SportsBook",
+        subtitle: "Private Madden League Sportsbook",
+        week: 4,
+        seasonWeekLock: 3
+      },
+      rules: {
+        startingBankroll: 1000,
+        maxSeason: 400,
+        maxWeekly: 500,
+        maxParlay: 150,
+        minLegs: 2,
+        maxSeasonLegs: 3,
+        maxWeeklyLegs: 5,
+        seasonParlaysAllowed: false
+      },
+      currentUser: null,
+      users: [
+        { id: "tuane", name: "Tuane", team: "Buccaneers", bankroll: 1250, start: 1000, wagered: 150, openBets: 1, admin: true },
+        { id: "des", name: "Des", team: "Jets", bankroll: 700, start: 1000, wagered: 300, openBets: 3, admin: false },
+        { id: "romeo", name: "Romeo", team: "Falcons", bankroll: 900, start: 1000, wagered: 100, openBets: 1, admin: false },
+        { id: "rob", name: "Rob", team: "Bills", bankroll: 850, start: 1000, wagered: 150, openBets: 3, admin: false },
+        { id: "don", name: "Don", team: "Saints", bankroll: 930, start: 1000, wagered: 70, openBets: 2, admin: false }
+      ],
+      games: [
+        {
+          id: "game1",
+          away: "Eagles",
+          home: "Buccaneers",
+          awayUser: null,
+          homeUser: "Tuane",
+          userGame: true,
+          status: "open",
+          lines: { spreadAway: "+2.5", spreadHome: "-2.5", mlAway: "+120", mlHome: "-140", totalOver: "50.5", totalUnder: "50.5" }
+        },
+        {
+          id: "game2",
+          away: "Saints",
+          home: "Bills",
+          awayUser: "Don",
+          homeUser: "Rob",
+          userGame: true,
+          status: "open",
+          lines: { spreadAway: "+4.0", spreadHome: "-4.0", mlAway: "+150", mlHome: "-170", totalOver: "49.0", totalUnder: "49.0" }
+        },
+        {
+          id: "game3",
+          away: "Jets",
+          home: "Dolphins",
+          awayUser: "Des",
+          homeUser: null,
+          userGame: true,
+          status: "open",
+          lines: { spreadAway: "+3.5", spreadHome: "-3.5", mlAway: "+135", mlHome: "-155", totalOver: "48.5", totalUnder: "48.5" }
+        },
+        {
+          id: "game4",
+          away: "Commanders",
+          home: "Falcons",
+          awayUser: null,
+          homeUser: "Romeo",
+          userGame: true,
+          status: "closed",
+          lines: { spreadAway: "+4.0", spreadHome: "-4.0", mlAway: "+150", mlHome: "-170", totalOver: "47.5", totalUnder: "47.5" }
+        }
+      ],
+      props: [
+        { id:"g1p1", gameId:"game1", player:"Trevor Lawrence", market:"Passing Yards", line:274.5, side:"Over", odds:-115, label:"Trevor Lawrence Over 274.5 Passing Yards" },
+        { id:"g1p2", gameId:"game1", player:"Trevor Lawrence", market:"Passing TDs", line:1.5, side:"Over", odds:-120, label:"Trevor Lawrence Over 1.5 Passing TDs" },
+        { id:"g1p3", gameId:"game1", player:"Jonathan Taylor", market:"Rushing Yards", line:84.5, side:"Over", odds:-118, label:"Jonathan Taylor Over 84.5 Rushing Yards" },
+        { id:"g1p4", gameId:"game1", player:"Jonathan Taylor", market:"Anytime TD", line:0.5, side:"Yes", odds:+115, label:"Jonathan Taylor Anytime TD" },
+        { id:"g1p5", gameId:"game1", player:"DK Metcalf", market:"Receiving Yards", line:74.5, side:"Over", odds:-115, label:"DK Metcalf Over 74.5 Receiving Yards" },
+        { id:"g1p6", gameId:"game1", player:"DK Metcalf", market:"Anytime TD", line:0.5, side:"Yes", odds:+135, label:"DK Metcalf Anytime TD" },
+        { id:"g1p7", gameId:"game1", player:"Christian Watson", market:"Receiving Yards", line:49.5, side:"Over", odds:-110, label:"Christian Watson Over 49.5 Receiving Yards" },
+        { id:"g1p8", gameId:"game1", player:"Tucker Kraft", market:"Receiving Yards", line:34.5, side:"Over", odds:-105, label:"Tucker Kraft Over 34.5 Receiving Yards" },
+        { id:"g1p9", gameId:"game1", player:"Jack Campbell", market:"Tackles", line:7.5, side:"Over", odds:-120, label:"Jack Campbell Over 7.5 Tackles" },
+        { id:"g1p10", gameId:"game1", player:"Bryce Huff", market:"Sacks", line:0.5, side:"Over", odds:+150, label:"Bryce Huff Over 0.5 Sacks" },
 
-        <div class="brand-text">
-          <h1>Purplebook</h1>
-          <p>Private Madden League Sportsbook</p>
-        </div>
-      </div>
+        { id:"g2p1", gameId:"game2", player:"Lamar Jackson", market:"Passing Yards", line:265.5, side:"Over", odds:-112, label:"Lamar Jackson Over 265.5 Passing Yards" },
+        { id:"g2p2", gameId:"game2", player:"Lamar Jackson", market:"Passing TDs", line:2.5, side:"Over", odds:+135, label:"Lamar Jackson Over 2.5 Passing TDs" },
+        { id:"g2p3", gameId:"game2", player:"Lamar Jackson", market:"Interceptions", line:0.5, side:"Over", odds:+120, label:"Lamar Jackson Over 0.5 Interceptions" },
+        { id:"g2p4", gameId:"game2", player:"Quinshon Judkins", market:"Rushing Yards", line:88.5, side:"Over", odds:-118, label:"Quinshon Judkins Over 88.5 Rushing Yards" },
+        { id:"g2p5", gameId:"game2", player:"Laviska Shenault Jr", market:"Receiving Yards", line:82.5, side:"Over", odds:-110, label:"Laviska Shenault Jr Over 82.5 Receiving Yards" },
+        { id:"g2p6", gameId:"game2", player:"Tee Higgins", market:"Receiving Yards", line:75.5, side:"Over", odds:-110, label:"Tee Higgins Over 75.5 Receiving Yards" },
+        { id:"g2p7", gameId:"game2", player:"Justin Fields", market:"Passing Yards", line:312.5, side:"Over", odds:-110, label:"Justin Fields Over 312.5 Passing Yards" },
+        { id:"g2p8", gameId:"game2", player:"Justin Fields", market:"Passing TDs", line:2.5, side:"Over", odds:+120, label:"Justin Fields Over 2.5 Passing TDs" },
+        { id:"g2p9", gameId:"game2", player:"Trey Benson", market:"Rushing Yards", line:88.5, side:"Over", odds:-115, label:"Trey Benson Over 88.5 Rushing Yards" },
+        { id:"g2p10", gameId:"game2", player:"Kyle Pitts", market:"Receiving Yards", line:82.5, side:"Over", odds:-112, label:"Kyle Pitts Over 82.5 Receiving Yards" },
+        { id:"g2p11", gameId:"game2", player:"Kyle Pitts", market:"Anytime TD", line:0.5, side:"Yes", odds:+145, label:"Kyle Pitts Anytime TD" },
+        { id:"g2p12", gameId:"game2", player:"Dont'e Thornton Jr", market:"Receiving Yards", line:44.5, side:"Over", odds:-108, label:"Dont'e Thornton Jr Over 44.5 Receiving Yards" },
+        { id:"g2p13", gameId:"game2", player:"Jonas Sanker", market:"Tackles", line:4.5, side:"Over", odds:-120, label:"Jonas Sanker Over 4.5 Tackles" },
+        { id:"g2p14", gameId:"game2", player:"Devin Lloyd", market:"Sacks", line:0.5, side:"Over", odds:+170, label:"Devin Lloyd Over 0.5 Sacks" },
+        { id:"g2p15", gameId:"game2", player:"Foyesade Oluokun", market:"Interceptions Defense", line:0.5, side:"Over", odds:+400, label:"Foyesade Oluokun To Record An Interception" },
 
-      <div class="topbar-actions">
-        <div id="weekBadge" class="pill active-pill">Week 4</div>
-        <button id="openCreatealayBtn" class="pill-btn" type="button">
-          Createalay
-        </button>
-        <button id="openBetslipBtn" class="pill-btn" type="button">
-          Bet Slip
-        </button>
-        <button id="openAdminBtn" class="pill-btn admin-only hidden" type="button">
-          Admin
-        </button>
-        <button id="logoutBtn" class="pill-btn hidden" type="button">
-          Logout
-        </button>
-      </div>
-    </header>
+        { id:"g3p1", gameId:"game3", player:"Jaxson Dart", market:"Passing Yards", line:302.5, side:"Over", odds:-112, label:"Jaxson Dart Over 302.5 Passing Yards" },
+        { id:"g3p2", gameId:"game3", player:"Jaxson Dart", market:"Passing TDs", line:2.5, side:"Over", odds:+120, label:"Jaxson Dart Over 2.5 Passing TDs" },
+        { id:"g3p3", gameId:"game3", player:"Cam Skattebo", market:"Rushing Yards", line:78.5, side:"Over", odds:-118, label:"Cam Skattebo Over 78.5 Rushing Yards" },
+        { id:"g3p4", gameId:"game3", player:"Cam Skattebo", market:"Anytime TD", line:0.5, side:"Yes", odds:+145, label:"Cam Skattebo Anytime TD" },
+        { id:"g3p5", gameId:"game3", player:"Elic Ayomanor", market:"Receiving Yards", line:88.5, side:"Over", odds:-115, label:"Elic Ayomanor Over 88.5 Receiving Yards" },
+        { id:"g3p6", gameId:"game3", player:"Parker Washington", market:"Receiving Yards", line:39.5, side:"Over", odds:-108, label:"Parker Washington Over 39.5 Receiving Yards" },
+        { id:"g3p7", gameId:"game3", player:"George Pickens", market:"Receiving Yards", line:49.5, side:"Over", odds:-112, label:"George Pickens Over 49.5 Receiving Yards" },
+        { id:"g3p8", gameId:"game3", player:"Nick Cross", market:"Tackles", line:7.5, side:"Over", odds:-120, label:"Nick Cross Over 7.5 Tackles" },
+        { id:"g3p9", gameId:"game3", player:"Kamari Lassiter", market:"Interceptions Defense", line:0.5, side:"Over", odds:+220, label:"Kamari Lassiter To Record An Interception" },
+        { id:"g3p10", gameId:"game3", player:"Tykee Williams", market:"Sacks", line:0.5, side:"Over", odds:+145, label:"Tyleik Williams Over 0.5 Sacks" },
+        { id:"g3p11", gameId:"game3", player:"Micah Parsons", market:"Sacks", line:0.5, side:"Over", odds:+115, label:"Micah Parsons Over 0.5 Sacks" },
+        { id:"g3p12", gameId:"game3", player:"Jordan Battle", market:"Tackles", line:6.0, side:"Over", odds:-115, label:"Jordan Battle Over 6.0 Tackles" },
 
-    <aside id="sidebar" class="sidebar glass">
-      <div class="sidebar-section">
-        <h2>Navigation</h2>
-        <button class="nav-btn active" data-view="home" type="button">Home</button>
-        <button class="nav-btn" data-view="games" type="button">Games</button>
-        <button class="nav-btn" data-view="myBets" type="button">My Bets</button>
-        <button class="nav-btn" data-view="bankroll" type="button">Bankroll</button>
-        <button class="nav-btn" data-view="leaderboard" type="button">Leaderboard</button>
-        <button class="nav-btn" data-view="createalay" type="button">Createalay</button>
-        <button class="nav-btn admin-only hidden" data-view="admin" type="button">Command Center</button>
-      </div>
+        { id:"g4p1", gameId:"game4", player:"JJ McCarthy", market:"Passing Yards", line:312.5, side:"Over", odds:-112, label:"JJ McCarthy Over 312.5 Passing Yards" },
+        { id:"g4p2", gameId:"game4", player:"JJ McCarthy", market:"Passing TDs", line:2.5, side:"Over", odds:+135, label:"JJ McCarthy Over 2.5 Passing TDs" },
+        { id:"g4p3", gameId:"game4", player:"JJ McCarthy", market:"Interceptions", line:1.5, side:"Over", odds:-140, label:"JJ McCarthy Over 1.5 Interceptions" },
+        { id:"g4p4", gameId:"game4", player:"Keaton Mitchell", market:"Rushing Yards", line:32.5, side:"Over", odds:-110, label:"Keaton Mitchell Over 32.5 Rushing Yards" },
+        { id:"g4p5", gameId:"game4", player:"Ja'Marr Chase", market:"Receiving Yards", line:104.5, side:"Over", odds:-110, label:"Ja'Marr Chase Over 104.5 Receiving Yards" },
+        { id:"g4p6", gameId:"game4", player:"Ja'Marr Chase", market:"Receptions", line:6.5, side:"Over", odds:-110, label:"Ja'Marr Chase Over 6.5 Receptions" },
+        { id:"g4p7", gameId:"game4", player:"Ja'Marr Chase", market:"Anytime TD", line:0.5, side:"Yes", odds:-120, label:"Ja'Marr Chase Anytime TD" },
+        { id:"g4p8", gameId:"game4", player:"Kayshon Boutte", market:"Receiving Yards", line:49.5, side:"Over", odds:-110, label:"Kayshon Boutte Over 49.5 Receiving Yards" },
+        { id:"g4p9", gameId:"game4", player:"Patrick Queen", market:"Tackles", line:8.5, side:"Over", odds:-120, label:"Patrick Queen Over 8.5 Tackles" },
+        { id:"g4p10", gameId:"game4", player:"Arden Key", market:"Sacks", line:0.5, side:"Over", odds:+170, label:"Arden Key Over 0.5 Sacks" },
+        { id:"g4p11", gameId:"game4", player:"Jessie Bates III", market:"Interceptions Defense", line:0.5, side:"Over", odds:+220, label:"Jessie Bates III To Record An Interception" }
+      ],
+      betSlip: { legs: [], betType: "weekly", stake: 0 },
+      bets: [
+        {
+          id: "BET-005",
+          user: "Tuane",
+          type: "Weekly Parlay",
+          stake: 150,
+          status: "open",
+          odds: "+705",
+          payout: 1207.5,
+          legs: [
+            "Justin Fields Over 1.5 Passing TD",
+            "Kyle Pitts Anytime TD",
+            "Panthers Moneyline"
+          ]
+        },
+        {
+          id: "BET-006",
+          user: "Tuane",
+          type: "Weekly Parlay",
+          stake: 50,
+          status: "open",
+          odds: "+236",
+          payout: 168,
+          legs: [
+            "Bills Defense Over 1.5 Sacks",
+            "Derrick Henry Over 2.5 Rushing Attempts",
+            "Jonas Sanker Over 1.5 Tackles"
+          ]
+        }
+      ],
+      commandLog: []
+    };
 
-      <div class="sidebar-section">
-        <h2>Week 4 Locked Games</h2>
-        <div id="sidebarGames" class="mini-list"></div>
-      </div>
+    const APP = {
+      state: JSON.parse(JSON.stringify(STATE)),
+      ui: {
+        view: "auth",
+        filter: "open",
+        currentGameId: null,
+        createalayGameId: null,
+        createalayMarket: null
+      }
+    };
 
-      <div class="sidebar-section">
-        <h2>League Rules</h2>
-        <ul class="rules-list">
-          <li>$1000 starting bankroll</li>
-          <li>Season max: $400</li>
-          <li>Weekly max: $500</li>
-          <li>$150 max per parlay</li>
-          <li>Min 2 legs per parlay</li>
-          <li>Season max 3 legs</li>
-          <li>Weekly max 5 legs</li>
-          <li>No season parlays after Week 3</li>
-        </ul>
-      </div>
-    </aside>
+    function getPins(){
+      try { return JSON.parse(localStorage.getItem(PIN_KEY) || "{}"); }
+      catch { return {}; }
+    }
+    function savePins(pins){ localStorage.setItem(PIN_KEY, JSON.stringify(pins)); }
+    function money(n){ return "$" + Number(n).toFixed(0); }
+    function currentUser(){ return APP.state.users.find(u => u.id === APP.state.currentUser) || null; }
+    function isAdmin(){ return !!currentUser()?.admin; }
+    function gameById(id){ return APP.state.games.find(g => g.id === id); }
+    function propsByGame(id){ return APP.state.props.filter(p => p.gameId === id); }
+    function oddsText(odds){ return typeof odds === "string" ? odds : (odds > 0 ? "+" + odds : "" + odds); }
+    function decimalOdds(odds){
+      const n = Number(odds);
+      if (Number.isNaN(n)) return 1;
+      if (n > 0) return 1 + n / 100;
+      return 1 + 100 / Math.abs(n);
+    }
+    function combinedOdds(legs){
+      if (!legs.length) return "+0";
+      const dec = legs.reduce((a,l)=>a*decimalOdds(l.odds),1);
+      const us = dec >= 2 ? Math.round((dec - 1) * 100) : Math.round(-100 / (dec - 1));
+      return us > 0 ? "+" + us : "" + us;
+    }
+    function payout(stake, odds){
+      const n = Number(odds);
+      if (!stake || Number.isNaN(n)) return 0;
+      if (n > 0) return stake + stake * n / 100;
+      return stake + stake * 100 / Math.abs(n);
+    }
+    function toast(msg){
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.remove("hidden");
+      clearTimeout(window.__toast);
+      window.__toast = setTimeout(()=>t.classList.add("hidden"), 2200);
+    }
 
-    <main id="mainContent" class="main-content">
-      <!-- AUTH VIEW -->
-      <section id="view-auth" class="view active-view">
-        <div class="hero-card glass auth-card">
-          <div class="hero-copy">
-            <div class="eyebrow">Private Madden League</div>
-            <h2>Madden SportsBook</h2>
-            <p>
-              FanDuel-style private book for league games, same game parlays,
-              Createalay builder, locked bankroll rules, and admin command center.
-            </p>
-          </div>
+    function setView(view){
+      APP.ui.view = view;
+      document.querySelectorAll(".view").forEach(v => v.classList.add("hidden"));
+      const active = document.getElementById("view-" + view);
+      if (active) active.classList.remove("hidden");
+      document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.toggle("active", btn.dataset.view === view));
+    }
 
-          <div id="authStage" class="auth-stage">
-            <div class="auth-panel">
-              <h3>Choose Your Name</h3>
-              <p>Select your profile to continue.</p>
-              <div id="userPicker" class="user-grid"></div>
+    function render(){
+      const root = document.getElementById("app");
+      root.innerHTML = `
+        <div class="topbar glass">
+          <div class="brand-wrap">
+            <button class="menu-btn" id="menuBtn">≡</button>
+            <div class="brand-mark">PB</div>
+            <div class="brand-text">
+              <h1>Purplebook</h1>
+              <p>Private Madden League Sportsbook</p>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- HOME VIEW -->
-      <section id="view-home" class="view">
-        <div class="dashboard-grid">
-          <section class="hero-card glass">
-            <div>
-              <div class="eyebrow">Welcome Back</div>
-              <h2 id="welcomeName">Tuane</h2>
-              <p id="welcomeSubtext">Locked in for Week 4.</p>
+          <div class="top-actions">
+            <div class="chip">Week ${APP.state.app.week}</div>
+            <button class="pill-btn" id="topCreatealay">Createalay</button>
+            <button class="pill-btn" id="topSlip">Bet Slip</button>
+            <button class="pill-btn ${isAdmin() ? "" : "hidden"}" id="topAdmin">Admin</button>
+            <button class="pill-btn ${APP.state.currentUser ? "" : "hidden"}" id="logoutBtn">Logout</button>
+          </div>
+        </div>
+
+        <div class="layout">
+          <aside class="sidebar glass" id="sidebar">
+            <div class="sidebar-section">
+              <h2>Navigation</h2>
+              <button class="nav-btn active" data-view="home">Home</button>
+              <button class="nav-btn" data-view="games">Games</button>
+              <button class="nav-btn" data-view="myBets">My Bets</button>
+              <button class="nav-btn" data-view="bankroll">Bankroll</button>
+              <button class="nav-btn" data-view="leaderboard">Leaderboard</button>
+              <button class="nav-btn" data-view="createalay">Createalay</button>
+              <button class="nav-btn ${isAdmin() ? "" : "hidden"}" data-view="admin">Command Center</button>
             </div>
 
-            <div class="hero-stats">
-              <div class="stat-box">
-                <span class="stat-label">Bankroll</span>
-                <strong id="heroBankroll">$0</strong>
+            <div class="sidebar-section">
+              <h2>Week 4 Locked Games</h2>
+              <div id="sidebarGames"></div>
+            </div>
+
+            <div class="sidebar-section">
+              <h2>League Rules</h2>
+              <ul class="rules-list">
+                <li>$1000 starting bankroll</li>
+                <li>Season max: $400</li>
+                <li>Weekly max: $500</li>
+                <li>$150 max per parlay</li>
+                <li>Min 2 legs</li>
+                <li>Season max 3 legs</li>
+                <li>Weekly max 5 legs</li>
+                <li>No season parlays after Week 3</li>
+              </ul>
+            </div>
+          </aside>
+
+          <main class="main">
+            <section class="view" id="view-auth">
+              <div class="hero glass">
+                <div class="eyebrow">Private Madden League</div>
+                <h2>Madden SportsBook</h2>
+                <p>FanDuel-style private book for league games, same game parlays, Createalay builder, locked bankroll rules, and admin command center.</p>
               </div>
-              <div class="stat-box">
-                <span class="stat-label">Open Bets</span>
-                <strong id="heroOpenBets">0</strong>
+              <div class="card glass" id="authStage"></div>
+            </section>
+
+            <section class="view hidden" id="view-home">
+              <div class="hero glass">
+                <div class="eyebrow">Welcome Back</div>
+                <h2 id="homeName">User</h2>
+                <p id="homeSub">Locked in for Week 4.</p>
               </div>
-              <div class="stat-box">
-                <span class="stat-label">Week Limit Left</span>
-                <strong id="heroWeeklyLeft">$0</strong>
+
+              <div class="stats-grid">
+                <div class="stat-box"><div class="k">Bankroll</div><div class="v" id="homeBankroll">$0</div></div>
+                <div class="stat-box"><div class="k">Open Bets</div><div class="v" id="homeOpenBets">0</div></div>
+                <div class="stat-box"><div class="k">Week Limit Left</div><div class="v" id="homeWeeklyLeft">$0</div></div>
+                <div class="stat-box"><div class="k">Season Parlays</div><div class="v">${APP.state.rules.seasonParlaysAllowed ? "Open" : "Closed"}</div></div>
               </div>
-            </div>
-          </section>
 
-          <section class="panel glass">
-            <div class="panel-head">
-              <h3>Week 4 Games</h3>
-              <button class="text-btn" data-view-jump="games" type="button">Open All</button>
-            </div>
-            <div id="homeGames" class="game-card-list"></div>
-          </section>
-
-          <section class="panel glass">
-            <div class="panel-head">
-              <h3>Trending Props</h3>
-            </div>
-            <div id="trendingProps" class="prop-chip-grid"></div>
-          </section>
-
-          <section class="panel glass">
-            <div class="panel-head">
-              <h3>Quick Actions</h3>
-            </div>
-            <div class="quick-actions">
-              <button class="action-btn" data-view-jump="games" type="button">Browse Games</button>
-              <button class="action-btn" data-view-jump="createalay" type="button">Open Createalay</button>
-              <button class="action-btn" data-view-jump="myBets" type="button">My Slips</button>
-              <button class="action-btn admin-only hidden" data-view-jump="admin" type="button">Admin Center</button>
-            </div>
-          </section>
-        </div>
-      </section>
-
-      <!-- GAMES VIEW -->
-      <section id="view-games" class="view">
-        <div class="panel glass">
-          <div class="panel-head">
-            <h3>Week 4 Board</h3>
-            <div class="panel-tools">
-              <button id="showOpenGamesBtn" class="small-btn active" type="button">Open</button>
-              <button id="showClosedGamesBtn" class="small-btn" type="button">Closed</button>
-              <button id="showAllGamesBtn" class="small-btn" type="button">All</button>
-            </div>
-          </div>
-
-          <div id="gamesBoard" class="games-board"></div>
-        </div>
-      </section>
-
-      <!-- MY BETS VIEW -->
-      <section id="view-myBets" class="view">
-        <div class="panel glass">
-          <div class="panel-head">
-            <h3>My Bets</h3>
-          </div>
-          <div id="myBetsList" class="bets-list"></div>
-        </div>
-      </section>
-
-      <!-- BANKROLL VIEW -->
-      <section id="view-bankroll" class="view">
-        <div class="panel glass">
-          <div class="panel-head">
-            <h3>League Bankroll</h3>
-          </div>
-          <div class="table-wrap">
-            <table class="data-table" id="bankrollTable">
-              <thead>
-                <tr>
-                  <th>User</th>
-                  <th>Start</th>
-                  <th>Wagered</th>
-                  <th>Available</th>
-                  <th>Open Bets</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- LEADERBOARD VIEW -->
-      <section id="view-leaderboard" class="view">
-        <div class="panel glass">
-          <div class="panel-head">
-            <h3>League Leaderboard</h3>
-          </div>
-          <div id="leaderboardCards" class="leaderboard-grid"></div>
-        </div>
-      </section>
-
-      <!-- CREATEALAY VIEW -->
-      <section id="view-createalay" class="view">
-        <div class="panel glass">
-          <div class="panel-head">
-            <h3>Createalay</h3>
-            <span class="subtle-text">Buttons only. No text entry.</span>
-          </div>
-
-          <div class="createalay-layout">
-            <div class="createalay-step">
-              <h4>1. Pick Game</h4>
-              <div id="createalayGames" class="button-grid"></div>
-            </div>
-
-            <div class="createalay-step">
-              <h4>2. Pick Market</h4>
-              <div id="createalayMarkets" class="button-grid"></div>
-            </div>
-
-            <div class="createalay-step">
-              <h4>3. Pick Leg</h4>
-              <div id="createalayLegs" class="button-grid"></div>
-            </div>
-
-            <div class="createalay-step">
-              <h4>4. Suggested Odds</h4>
-              <div id="createalayOutput" class="createalay-output empty-state">
-                Select a game, market, and button-built leg.
+              <div class="card glass">
+                <div class="section-head"><div><h3>Week 4 Games</h3><div class="subtle">Only the 4 locked matchups</div></div></div>
+                <div id="homeGames" class="stack"></div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- ADMIN VIEW -->
-      <section id="view-admin" class="view admin-only hidden">
-        <div class="panel glass">
-          <div class="panel-head">
-            <h3>Command Center</h3>
-            <span class="subtle-text">Admin visible only for Tuane</span>
-          </div>
-
-          <div class="admin-grid">
-            <div class="admin-card">
-              <h4>Paste Update Board</h4>
-              <textarea
-                id="commandCenterInput"
-                class="command-textarea"
-                placeholder="Paste command update block here..."
-              ></textarea>
-              <div class="admin-actions">
-                <button id="applyCommandBtn" class="action-btn" type="button">Apply Update</button>
-                <button id="clearCommandBtn" class="action-btn muted" type="button">Clear</button>
+              <div class="card glass">
+                <div class="section-head"><div><h3>Trending Props</h3></div></div>
+                <div id="trendingProps" class="chip-row mt-12"></div>
               </div>
-            </div>
+            </section>
 
-            <div class="admin-card">
-              <h4>Bet Result Tools</h4>
-              <div class="result-action-grid">
-                <button id="adminMarkWin" class="result-btn win" type="button">Win</button>
-                <button id="adminMarkLoss" class="result-btn loss" type="button">Loss</button>
-                <button id="adminMarkPush" class="result-btn push" type="button">Push</button>
-                <button id="adminMarkVoid" class="result-btn void" type="button">Void</button>
+            <section class="view hidden" id="view-games">
+              <div class="card glass">
+                <div class="section-head">
+                  <div><h3>Week 4 Board</h3><div class="subtle">FanDuel-style game layout</div></div>
+                  <div class="chip-row">
+                    <button class="btn secondary small" id="filterOpen">Open</button>
+                    <button class="btn secondary small" id="filterClosed">Closed</button>
+                    <button class="btn secondary small" id="filterAll">All</button>
+                  </div>
+                </div>
+                <div id="gamesBoard"></div>
               </div>
-              <p class="helper-text">
-                Select a bet in admin mode, then apply result.
-              </p>
+            </section>
+
+            <section class="view hidden" id="view-myBets">
+              <div class="card glass">
+                <div class="section-head"><div><h3>My Bets</h3></div></div>
+                <div id="myBetsList"></div>
+              </div>
+            </section>
+
+            <section class="view hidden" id="view-bankroll">
+              <div class="card glass">
+                <div class="section-head"><div><h3>League Bankroll</h3></div></div>
+                <div class="table-wrap"><table><thead><tr><th>User</th><th>Start</th><th>Wagered</th><th>Available</th><th>Open Bets</th></tr></thead><tbody id="bankrollBody"></tbody></table></div>
+              </div>
+            </section>
+
+            <section class="view hidden" id="view-leaderboard">
+              <div class="card glass">
+                <div class="section-head"><div><h3>League Leaderboard</h3></div></div>
+                <div id="leaderboardList"></div>
+              </div>
+            </section>
+
+            <section class="view hidden" id="view-createalay">
+              <div class="card glass">
+                <div class="section-head"><div><h3>Createalay</h3><div class="subtle">Buttons only. No text entry.</div></div></div>
+
+                <div class="mt-16">
+                  <h4 class="section-title">1. Pick Game</h4>
+                  <div id="createalayGames" class="btn-grid mt-12"></div>
+                </div>
+
+                <div class="mt-20">
+                  <h4 class="section-title">2. Pick Market</h4>
+                  <div id="createalayMarkets" class="btn-grid mt-12"></div>
+                </div>
+
+                <div class="mt-20">
+                  <h4 class="section-title">3. Pick Leg</h4>
+                  <div id="createalayLegs" class="btn-grid mt-12"></div>
+                </div>
+
+                <div class="mt-20">
+                  <h4 class="section-title">4. Output</h4>
+                  <div id="createalayOutput" class="empty-state mt-12">Select a game, market, and leg.</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="view hidden" id="view-admin">
+              <div class="card glass">
+                <div class="section-head"><div><h3>Command Center</h3><div class="subtle">Admin only for Tuane</div></div></div>
+
+                <div class="card glass mt-16">
+                  <h4 class="section-title">Paste Update Board</h4>
+                  <textarea id="commandInput" class="textarea mt-12" placeholder='Paste command JSON here...'></textarea>
+                  <div class="chip-row mt-12">
+                    <button class="btn primary" id="applyCommand">Apply Update</button>
+                    <button class="btn secondary" id="clearCommand">Clear</button>
+                  </div>
+                </div>
+
+                <div class="card glass mt-16">
+                  <h4 class="section-title">Grade Bet</h4>
+                  <select id="adminBetSelect" class="select mt-12"></select>
+                  <div class="btn-grid mt-12">
+                    <button class="btn good" id="gradeWin">Win</button>
+                    <button class="btn bad" id="gradeLoss">Loss</button>
+                    <button class="btn warn" id="gradePush">Push</button>
+                    <button class="btn ghost" id="gradeVoid">Void</button>
+                  </div>
+                </div>
+
+                <div class="card glass mt-16">
+                  <h4 class="section-title">Game Controls</h4>
+                  <div id="adminGamesList" class="mt-12"></div>
+                </div>
+
+                <div class="card glass mt-16">
+                  <h4 class="section-title">Command Log</h4>
+                  <div id="commandLog" class="mt-12"></div>
+                </div>
+              </div>
+            </section>
+          </main>
+        </div>
+
+        <div class="drawer hidden" id="slipDrawer">
+          <div class="panel glass card">
+            <div class="section-head">
+              <div><h3>Bet Slip</h3></div>
+              <button class="btn secondary small" id="closeSlip">Close</button>
             </div>
 
-            <div class="admin-card">
-              <h4>Game Controls</h4>
-              <div id="adminGameControls" class="admin-mini-list"></div>
+            <div id="betSlipLegs" class="empty-state mt-16">No legs added yet.</div>
+
+            <div class="mt-16">
+              <label class="label">Bet Type</label>
+              <select id="betTypeSelect" class="select">
+                <option value="weekly">Weekly</option>
+                <option value="season">Season</option>
+                <option value="sgp">Same Game Parlay</option>
+              </select>
             </div>
 
-            <div class="admin-card">
-              <h4>Recent Command Log</h4>
-              <div id="commandLog" class="command-log"></div>
+            <div class="mt-16">
+              <label class="label">Stake</label>
+              <input id="stakeInput" class="input" type="number" min="0" step="1" placeholder="0" />
+            </div>
+
+            <div class="card glass mt-16">
+              <div class="kv"><span>Combined Odds</span><strong id="slipOdds">+0</strong></div>
+              <div class="kv"><span>Potential Payout</span><strong id="slipPayout">$0</strong></div>
+            </div>
+
+            <div class="btn-grid mt-16">
+              <button class="btn secondary" id="clearSlip">Clear Slip</button>
+              <button class="btn primary" id="placeBet">Place Bet</button>
             </div>
           </div>
         </div>
-      </section>
-    </main>
-  </div>
 
-  <!-- GAME MODAL -->
-  <div id="gameModal" class="modal hidden" aria-hidden="true">
-    <div class="modal-backdrop" data-close-modal="true"></div>
-    <div class="modal-card glass">
-      <div class="modal-head">
-        <div>
-          <div id="modalGameEyebrow" class="eyebrow">Game Board</div>
-          <h3 id="modalGameTitle">Game</h3>
+        <div class="modal hidden" id="gameModal">
+          <div class="panel glass card">
+            <div class="section-head">
+              <div><div class="eyebrow">Game Board</div><h3 id="modalTitle">Game</h3></div>
+              <button class="btn secondary small" id="closeModal">Close</button>
+            </div>
+
+            <div id="modalBoard" class="mt-16"></div>
+
+            <div class="mt-20">
+              <div class="section-head"><div><h4>Same Game Parlay</h4><div class="subtle">Add legs from this game only</div></div></div>
+              <div id="modalProps" class="mt-12"></div>
+            </div>
+          </div>
         </div>
-        <button id="closeGameModalBtn" class="icon-btn" type="button" aria-label="Close modal">✕</button>
-      </div>
 
-      <div class="modal-content">
+        <div id="toast" class="toast hidden"></div>
+      `;
+
+      bindBase();
+      renderSidebarGames();
+      renderAuth();
+    }
+
+    function bindBase(){
+      document.getElementById("menuBtn").onclick = () => {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.style.display = sidebar.style.display === "block" ? "" : "block";
+      };
+
+      document.getElementById("topCreatealay").onclick = () => setView("createalay");
+      document.getElementById("topSlip").onclick = () => toggleSlip(true);
+      const topAdmin = document.getElementById("topAdmin");
+      if (topAdmin) topAdmin.onclick = () => setView("admin");
+      const logout = document.getElementById("logoutBtn");
+      if (logout) logout.onclick = logoutUser;
+
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.onclick = () => {
+          const v = btn.dataset.view;
+          if (v === "admin" && !isAdmin()) return;
+          setView(v);
+        };
+      });
+
+      document.getElementById("filterOpen").onclick = () => { APP.ui.filter = "open"; renderGames(); };
+      document.getElementById("filterClosed").onclick = () => { APP.ui.filter = "closed"; renderGames(); };
+      document.getElementById("filterAll").onclick = () => { APP.ui.filter = "all"; renderGames(); };
+
+      document.getElementById("closeSlip").onclick = () => toggleSlip(false);
+      document.getElementById("clearSlip").onclick = clearSlip;
+      document.getElementById("placeBet").onclick = placeBet;
+      document.getElementById("stakeInput").oninput = renderSlip;
+      document.getElementById("betTypeSelect").onchange = renderSlip;
+
+      document.getElementById("closeModal").onclick = closeModal;
+
+      document.getElementById("applyCommand").onclick = applyCommand;
+      document.getElementById("clearCommand").onclick = () => document.getElementById("commandInput").value = "";
+      document.getElementById("gradeWin").onclick = () => gradeBet("win");
+      document.getElementById("gradeLoss").onclick = () => gradeBet("loss");
+      document.getElementById("gradePush").onclick = () => gradeBet("push");
+      document.getElementById("gradeVoid").onclick = () => gradeBet("void");
+    }
+
+    function renderSidebarGames(){
+      const wrap = document.getElementById("sidebarGames");
+      wrap.innerHTML = "";
+      APP.state.games.forEach(g => {
+        const el = document.createElement("div");
+        el.className = "list-item";
+        el.innerHTML = "<h4>" + g.away + " @ " + g.home + "</h4><p>" + g.status.toUpperCase() + "</p>";
+        wrap.appendChild(el);
+      });
+    }
+
+    function renderAuth(){
+      setView("auth");
+      const stage = document.getElementById("authStage");
+      stage.innerHTML = `
+        <h3 class="section-title">Choose Your Name</h3>
+        <p class="subtle mt-8">Select your profile to continue.</p>
+        <div class="auth-users" id="authUsers"></div>
+      `;
+      const users = document.getElementById("authUsers");
+      APP.state.users.forEach(user => {
+        const btn = document.createElement("button");
+        btn.className = "user-pick";
+        btn.textContent = user.name;
+        btn.onclick = () => {
+          const pins = getPins();
+          if (pins[user.id]) renderPinEntry(user);
+          else renderPinCreate(user);
+        };
+        users.appendChild(btn);
+      });
+    }
+
+    function renderPinCreate(user){
+      const stage = document.getElementById("authStage");
+      stage.innerHTML = `
+        <h3 class="section-title">Create PIN</h3>
+        <p class="subtle mt-8">${user.name}, create and confirm your 4-digit PIN.</p>
+        <div class="mt-16">
+          <input id="pin1" class="input" maxlength="4" placeholder="Create PIN" />
+        </div>
+        <div class="mt-12">
+          <input id="pin2" class="input" maxlength="4" placeholder="Confirm PIN" />
+        </div>
+        <div class="btn-grid mt-16">
+          <button class="btn secondary" id="backUsers">Back</button>
+          <button class="btn primary" id="savePin">Confirm</button>
+        </div>
+      `;
+      document.getElementById("backUsers").onclick = renderAuth;
+      document.getElementById("savePin").onclick = () => {
+        const p1 = document.getElementById("pin1").value.trim();
+        const p2 = document.getElementById("pin2").value.trim();
+        if (!/^\\d{4}$/.test(p1)) return toast("PIN must be 4 digits");
+        if (p1 !== p2) return toast("PINs do not match");
+        const pins = getPins();
+        pins[user.id] = p1;
+        savePins(pins);
+        login(user.id);
+      };
+    }
+
+    function renderPinEntry(user){
+      const stage = document.getElementById("authStage");
+      stage.innerHTML = `
+        <h3 class="section-title">Enter PIN</h3>
+        <p class="subtle mt-8">${user.name}, enter your 4-digit PIN.</p>
+        <div class="mt-16">
+          <input id="pinEntry" class="input" maxlength="4" placeholder="Enter PIN" />
+        </div>
+        <div class="btn-grid mt-16">
+          <button class="btn secondary" id="backUsers">Back</button>
+          <button class="btn primary" id="enterPin">Enter</button>
+        </div>
+      `;
+      document.getElementById("backUsers").onclick = renderAuth;
+      document.getElementById("enterPin").onclick = () => {
+        const pins = getPins();
+        if (pins[user.id] !== document.getElementById("pinEntry").value.trim()) return toast("Wrong PIN");
+        login(user.id);
+      };
+    }
+
+    function login(userId){
+      APP.state.currentUser = userId;
+      render();
+      renderHome();
+      renderGames();
+      renderMyBets();
+      renderBankroll();
+      renderLeaderboard();
+      renderCreatealay();
+      renderAdmin();
+      setView("home");
+      toast("Welcome " + currentUser().name);
+    }
+
+    function logoutUser(){
+      APP.state.currentUser = null;
+      APP.state.betSlip.legs = [];
+      APP.state.betSlip.stake = 0;
+      render();
+      toast("Logged out");
+    }
+
+    function renderHome(){
+      const user = currentUser();
+      if (!user) return;
+      document.getElementById("homeName").textContent = user.name;
+      document.getElementById("homeBankroll").textContent = money(user.bankroll);
+      document.getElementById("homeOpenBets").textContent = user.openBets;
+      document.getElementById("homeWeeklyLeft").textContent = money(APP.state.rules.maxWeekly - user.wagered);
+
+      const homeGames = document.getElementById("homeGames");
+      homeGames.innerHTML = "";
+      APP.state.games.forEach(g => homeGames.appendChild(buildGameCard(g)));
+
+      const trending = document.getElementById("trendingProps");
+      trending.innerHTML = "";
+      APP.state.props.slice(0,10).forEach(p => {
+        const chip = document.createElement("div");
+        chip.className = "chip";
+        chip.textContent = p.player + " • " + p.market;
+        trending.appendChild(chip);
+      });
+    }
+
+    function buildGameCard(game){
+      const card = document.createElement("div");
+      card.className = "card glass game-card";
+      card.innerHTML = `
+        <div class="top">
+          <div>
+            <h3 style="margin:0">${game.away} @ ${game.home}</h3>
+            <div class="subtle mt-8">Tracked matchup</div>
+          </div>
+          <div class="${game.status === "open" ? "status-open" : "status-closed"}">${game.status.toUpperCase()}</div>
+        </div>
+
         <div class="fanduel-board">
           <div class="fd-header">
-            <div class="fd-team-col">Matchup</div>
-            <div class="fd-market-col">Spread</div>
-            <div class="fd-market-col">Moneyline</div>
-            <div class="fd-market-col">Total</div>
+            <div>Matchup</div>
+            <div>Spread</div>
+            <div>Moneyline</div>
+            <div>Total</div>
           </div>
 
-          <div id="fdMainLines"></div>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="sgp-section">
-          <div class="panel-head tight">
-            <h4>Same Game Parlay</h4>
-            <span class="subtle-text">Add legs from this game only</span>
+          <div class="fd-row">
+            <div class="fd-team"><div class="team-dot">${game.away.slice(0,2).toUpperCase()}</div>${game.away}</div>
+            <div class="odd-cell"><button data-type="line" data-label="${game.away} ${game.lines.spreadAway}" data-odds="-110">${game.lines.spreadAway}<small>-110</small></button></div>
+            <div class="odd-cell"><button data-type="line" data-label="${game.away} ML ${game.lines.mlAway}" data-odds="${game.lines.mlAway}">${game.lines.mlAway}</button></div>
+            <div class="odd-cell"><button data-type="line" data-label="Over ${game.lines.totalOver}" data-odds="-110">O ${game.lines.totalOver}<small>-110</small></button></div>
           </div>
-          <div id="sgpMarkets" class="market-group-list"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- BETSLIP DRAWER -->
-  <div id="betslipDrawer" class="drawer hidden" aria-hidden="true">
-    <div class="drawer-backdrop" data-close-drawer="true"></div>
-    <div class="drawer-card glass">
-      <div class="drawer-head">
-        <h3>Bet Slip</h3>
-        <button id="closeBetslipBtn" class="icon-btn" type="button">✕</button>
-      </div>
-
-      <div class="drawer-content">
-        <div id="betslipLegs" class="betslip-legs empty-state">
-          No legs added yet.
+          <div class="fd-row">
+            <div class="fd-team"><div class="team-dot">${game.home.slice(0,2).toUpperCase()}</div>${game.home}</div>
+            <div class="odd-cell"><button data-type="line" data-label="${game.home} ${game.lines.spreadHome}" data-odds="-110">${game.lines.spreadHome}<small>-110</small></button></div>
+            <div class="odd-cell"><button data-type="line" data-label="${game.home} ML ${game.lines.mlHome}" data-odds="${game.lines.mlHome}">${game.lines.mlHome}</button></div>
+            <div class="odd-cell"><button data-type="line" data-label="Under ${game.lines.totalUnder}" data-odds="-110">U ${game.lines.totalUnder}<small>-110</small></button></div>
+          </div>
         </div>
 
-        <div class="betslip-controls">
-          <label class="field">
-            <span>Bet Type</span>
-            <select id="betTypeSelect">
-              <option value="weekly">Weekly</option>
-              <option value="season">Season</option>
-              <option value="sgp">Same Game Parlay</option>
-            </select>
-          </label>
+        <div class="chip-row mt-16">
+          <button class="btn primary openGame">Open Game</button>
+          <button class="btn secondary openCreatealay">Createalay</button>
+        </div>
+      `;
 
-          <label class="field">
-            <span>Stake</span>
-            <input id="stakeInput" type="number" min="1" step="1" placeholder="0" />
-          </label>
+      card.querySelectorAll('button[data-type="line"]').forEach(btn => {
+        btn.onclick = () => addLeg({
+          id: "line-" + btn.dataset.label,
+          label: btn.dataset.label,
+          odds: btn.dataset.odds
+        });
+      });
 
-          <div class="slip-summary glass">
-            <div class="summary-row">
-              <span>Combined Odds</span>
-              <strong id="betslipOdds">+0</strong>
+      card.querySelector(".openGame").onclick = () => openGameModal(game.id);
+      card.querySelector(".openCreatealay").onclick = () => {
+        APP.ui.createalayGameId = game.id;
+        APP.ui.createalayMarket = null;
+        renderCreatealay();
+        setView("createalay");
+      };
+
+      return card;
+    }
+
+    function renderGames(){
+      const board = document.getElementById("gamesBoard");
+      if (!board) return;
+      board.innerHTML = "";
+      let games = [...APP.state.games];
+      if (APP.ui.filter === "open") games = games.filter(g => g.status === "open");
+      if (APP.ui.filter === "closed") games = games.filter(g => g.status === "closed");
+      games.forEach(g => board.appendChild(buildGameCard(g)));
+    }
+
+    function openGameModal(gameId){
+      const game = gameById(gameId);
+      const props = propsByGame(gameId);
+      document.getElementById("modalTitle").textContent = game.away + " @ " + game.home;
+
+      const board = document.getElementById("modalBoard");
+      board.innerHTML = "";
+      board.appendChild(buildGameCard(game));
+
+      const modalProps = document.getElementById("modalProps");
+      modalProps.innerHTML = "";
+      props.forEach(prop => {
+        const row = document.createElement("div");
+        row.className = "list-item";
+        row.innerHTML = "<h4>" + prop.label + "</h4><p>" + oddsText(prop.odds) + "</p>";
+        row.onclick = () => addLeg({ id: prop.id, label: prop.label, odds: prop.odds });
+        modalProps.appendChild(row);
+      });
+
+      document.getElementById("gameModal").classList.remove("hidden");
+    }
+
+    function closeModal(){
+      document.getElementById("gameModal").classList.add("hidden");
+    }
+
+    function renderMyBets(){
+      const wrap = document.getElementById("myBetsList");
+      if (!wrap || !currentUser()) return;
+      wrap.innerHTML = "";
+      const bets = APP.state.bets.filter(b => b.user === currentUser().name);
+      if (!bets.length){
+        wrap.innerHTML = '<div class="empty-state">No bets yet.</div>';
+        return;
+      }
+      bets.forEach(bet => {
+        const card = document.createElement("div");
+        card.className = "card glass";
+        card.innerHTML = `
+          <div class="section-head">
+            <div><h4 style="margin:0">${bet.id}</h4><div class="subtle mt-8">${bet.type}</div></div>
+            <div class="pill ${bet.status}">${bet.status}</div>
+          </div>
+          <div class="stats-grid mt-16">
+            <div class="stat-box"><div class="k">Stake</div><div class="v">${money(bet.stake)}</div></div>
+            <div class="stat-box"><div class="k">Odds</div><div class="v">${bet.odds}</div></div>
+          </div>
+          <div class="mt-16">${bet.legs.map(l => '<div class="bet-leg"><div class="bet-leg-title">'+l+'</div></div>').join("")}</div>
+        `;
+        wrap.appendChild(card);
+      });
+    }
+
+    function renderBankroll(){
+      const body = document.getElementById("bankrollBody");
+      if (!body) return;
+      body.innerHTML = "";
+      APP.state.users.forEach(u => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${u.name}</td><td>${money(u.start)}</td><td>${money(u.wagered)}</td><td>${money(u.bankroll)}</td><td>${u.openBets}</td>`;
+        body.appendChild(tr);
+      });
+    }
+
+    function renderLeaderboard(){
+      const wrap = document.getElementById("leaderboardList");
+      if (!wrap) return;
+      wrap.innerHTML = "";
+      [...APP.state.users].sort((a,b)=>b.bankroll-a.bankroll).forEach((u,i) => {
+        const row = document.createElement("div");
+        row.className = "list-item";
+        row.innerHTML = `<h4>#${i+1} ${u.name}</h4><p>${u.team} • ${money(u.bankroll)}</p>`;
+        wrap.appendChild(row);
+      });
+    }
+
+    function renderCreatealay(){
+      const gamesWrap = document.getElementById("createalayGames");
+      const marketsWrap = document.getElementById("createalayMarkets");
+      const legsWrap = document.getElementById("createalayLegs");
+      const output = document.getElementById("createalayOutput");
+      if (!gamesWrap) return;
+
+      gamesWrap.innerHTML = "";
+      marketsWrap.innerHTML = "";
+      legsWrap.innerHTML = "";
+      output.innerHTML = "Select a game, market, and leg.";
+
+      APP.state.games.forEach(g => {
+        const btn = document.createElement("button");
+        btn.className = "btn secondary";
+        btn.textContent = `${g.away} @ ${g.home}${g.status === "closed" ? " (Closed)" : ""}`;
+        btn.disabled = g.status === "closed";
+        btn.onclick = () => {
+          APP.ui.createalayGameId = g.id;
+          APP.ui.createalayMarket = null;
+          renderCreatealay();
+        };
+        gamesWrap.appendChild(btn);
+      });
+
+      if (!APP.ui.createalayGameId) return;
+
+      const props = propsByGame(APP.ui.createalayGameId);
+      const markets = [...new Set(props.map(p => p.market))];
+
+      markets.forEach(m => {
+        const btn = document.createElement("button");
+        btn.className = "btn secondary";
+        btn.textContent = m;
+        btn.onclick = () => {
+          APP.ui.createalayMarket = m;
+          renderCreatealay();
+        };
+        marketsWrap.appendChild(btn);
+      });
+
+      if (!APP.ui.createalayMarket) return;
+
+      props.filter(p => p.market === APP.ui.createalayMarket).forEach(leg => {
+        const btn = document.createElement("button");
+        btn.className = "btn secondary";
+        btn.textContent = `${leg.player} • ${oddsText(leg.odds)}`;
+        btn.onclick = () => {
+          output.innerHTML = `
+            <div class="bet-leg">
+              <div class="bet-leg-title">${leg.label}</div>
+              <div class="bet-leg-copy">Suggested Odds: ${oddsText(leg.odds)}</div>
             </div>
-            <div class="summary-row">
-              <span>Potential Payout</span>
-              <strong id="betslipPayout">$0</strong>
-            </div>
+            <div class="mt-12"><button class="btn primary" id="addCreatealayLeg">Add To Slip</button></div>
+          `;
+          document.getElementById("addCreatealayLeg").onclick = () => {
+            addLeg({ id: leg.id, label: leg.label, odds: leg.odds });
+            toast("Createalay leg added");
+          };
+        };
+        legsWrap.appendChild(btn);
+      });
+    }
+
+    function toggleSlip(show){
+      document.getElementById("slipDrawer").classList.toggle("hidden", !show);
+      renderSlip();
+    }
+
+    function addLeg(leg){
+      if (APP.state.betSlip.legs.some(l => l.id === leg.id)) return toast("Leg already added");
+      APP.state.betSlip.legs.push(leg);
+      renderSlip();
+      toggleSlip(true);
+    }
+
+    function clearSlip(){
+      APP.state.betSlip.legs = [];
+      APP.state.betSlip.stake = 0;
+      const stake = document.getElementById("stakeInput");
+      if (stake) stake.value = "";
+      renderSlip();
+    }
+
+    function renderSlip(){
+      const wrap = document.getElementById("betSlipLegs");
+      if (!wrap) return;
+
+      APP.state.betSlip.betType = document.getElementById("betTypeSelect").value;
+      APP.state.betSlip.stake = Number(document.getElementById("stakeInput").value || 0);
+
+      if (!APP.state.betSlip.legs.length){
+        wrap.className = "empty-state mt-16";
+        wrap.textContent = "No legs added yet.";
+      } else {
+        wrap.className = "mt-16";
+        wrap.innerHTML = APP.state.betSlip.legs.map(l => `
+          <div class="bet-leg">
+            <div class="bet-leg-title">${l.label}</div>
+            <div class="bet-leg-copy">${oddsText(l.odds)}</div>
           </div>
+        `).join("");
+      }
 
-          <div class="drawer-actions">
-            <button id="clearBetslipBtn" class="action-btn muted" type="button">Clear Slip</button>
-            <button id="placeBetBtn" class="action-btn" type="button">Place Bet</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      const odds = combinedOdds(APP.state.betSlip.legs);
+      document.getElementById("slipOdds").textContent = odds;
+      document.getElementById("slipPayout").textContent = money(payout(APP.state.betSlip.stake, Number(odds)));
+    }
 
-  <!-- TOAST -->
-  <div id="toast" class="toast hidden"></div>
+    function placeBet(){
+      const user = currentUser();
+      if (!user) return toast("Log in first");
 
-  <script type="module" src="./state.js"></script>
-  <script type="module" src="./app.js"></script>
+      const legs = APP.state.betSlip.legs;
+      const stake = APP.state.betSlip.stake;
+      const type = APP.state.betSlip.betType;
+
+      if (legs.length < APP.state.rules.minLegs) return toast("Need at least 2 legs");
+      if (type === "season" && !APP.state.rules.seasonParlaysAllowed) return toast("Season parlays are closed");
+      if (legs.length > (type === "season" ? APP.state.rules.maxSeasonLegs : APP.state.rules.maxWeeklyLegs)) return toast("Too many legs");
+      if (!stake || stake > APP.state.rules.maxParlay) return toast("Invalid stake");
+      if (stake > user.bankroll) return toast("Not enough bankroll");
+
+      const odds = combinedOdds(legs);
+      const pay = payout(stake, Number(odds));
+
+      APP.state.bets.push({
+        id: "BET-" + String(APP.state.bets.length + 1).padStart(3,"0"),
+        user: user.name,
+        type: type === "sgp" ? "Same Game Parlay" : type.charAt(0).toUpperCase() + type.slice(1) + " Parlay",
+        stake,
+        status: "open",
+        odds,
+        payout: pay,
+        legs: legs.map(l => l.label)
+      });
+
+      user.bankroll -= stake;
+      user.wagered += stake;
+      user.openBets += 1;
+
+      clearSlip();
+      renderHome();
+      renderMyBets();
+      renderBankroll();
+      renderLeaderboard();
+      renderAdmin();
+      toast("Bet placed");
+    }
+
+    function renderAdmin(){
+      if (!isAdmin()) return;
+
+      const select = document.getElementById("adminBetSelect");
+      const gamesWrap = document.getElementById("adminGamesList");
+      const logWrap = document.getElementById("commandLog");
+      if (!select || !gamesWrap || !logWrap) return;
+
+      select.innerHTML = "";
+      APP.state.bets.forEach(b => {
+        const opt = document.createElement("option");
+        opt.value = b.id;
+        opt.textContent = `${b.id} • ${b.user} • ${b.status}`;
+        select.appendChild(opt);
+      });
+
+      gamesWrap.innerHTML = "";
+      APP.state.games.forEach(g => {
+        const box = document.createElement("div");
+        box.className = "list-item";
+        box.innerHTML = `<h4>${g.away} @ ${g.home}</h4><p>Status: ${g.status}</p>`;
+        const row = document.createElement("div");
+        row.className = "chip-row mt-12";
+
+        const open = document.createElement("button");
+        open.className = "btn good small";
+        open.textContent = "Open";
+        open.onclick = () => {
+          g.status = "open";
+          logCommand(`Opened ${g.away} @ ${g.home}`);
+          renderGames(); renderCreatealay(); renderAdmin(); renderSidebarGames();
+        };
+
+        const close = document.createElement("button");
+        close.className = "btn bad small";
+        close.textContent = "Close";
+        close.onclick = () => {
+          g.status = "closed";
+          logCommand(`Closed ${g.away} @ ${g.home}`);
+          renderGames(); renderCreatealay(); renderAdmin(); renderSidebarGames();
+        };
+
+        row.appendChild(open); row.appendChild(close); box.appendChild(row); gamesWrap.appendChild(box);
+      });
+
+      logWrap.innerHTML = APP.state.commandLog.length
+        ? APP.state.commandLog.map(item => `<div class="list-item"><h4>${item}</h4></div>`).join("")
+        : `<div class="empty-state">No command log yet.</div>`;
+    }
+
+    function gradeBet(result){
+      const select = document.getElementById("adminBetSelect");
+      const bet = APP.state.bets.find(b => b.id === select.value);
+      if (!bet) return;
+      const user = APP.state.users.find(u => u.name === bet.user);
+      bet.status = result;
+      if (user){
+        if (result === "win") user.bankroll += bet.payout;
+        if (result === "push" || result === "void") user.bankroll += bet.stake;
+        user.openBets = Math.max(0, user.openBets - 1);
+      }
+      logCommand(`Marked ${bet.id} as ${result.toUpperCase()}`);
+      renderHome(); renderMyBets(); renderBankroll(); renderLeaderboard(); renderAdmin();
+      toast(`${bet.id} marked ${result}`);
+    }
+
+    function applyCommand(){
+      const raw = document.getElementById("commandInput").value.trim();
+      if (!raw) return toast("Paste a command first");
+
+      let cmd;
+      try { cmd = JSON.parse(raw); }
+      catch { return toast("Invalid JSON"); }
+
+      if (cmd.type === "updateBankroll"){
+        const user = APP.state.users.find(u => u.name === cmd.user);
+        if (user && typeof cmd.amount === "number"){
+          user.bankroll = cmd.amount;
+          logCommand(`Updated bankroll for ${cmd.user} to ${cmd.amount}`);
+        }
+      }
+
+      if (cmd.type === "openGame"){
+        const game = gameById(cmd.gameId);
+        if (game){
+          game.status = "open";
+          logCommand(`Opened ${game.away} @ ${game.home}`);
+        }
+      }
+
+      if (cmd.type === "closeGame"){
+        const game = gameById(cmd.gameId);
+        if (game){
+          game.status = "closed";
+          logCommand(`Closed ${game.away} @ ${game.home}`);
+        }
+      }
+
+      if (cmd.type === "addProp" && cmd.prop){
+        APP.state.props.push(cmd.prop);
+        logCommand(`Added prop ${cmd.prop.label}`);
+      }
+
+      if (cmd.type === "removeProp" && cmd.propId){
+        APP.state.props = APP.state.props.filter(p => p.id !== cmd.propId);
+        logCommand(`Removed prop ${cmd.propId}`);
+      }
+
+      document.getElementById("commandInput").value = "";
+      renderHome(); renderGames(); renderCreatealay(); renderAdmin();
+      toast("Command applied");
+    }
+
+    function logCommand(text){
+      APP.state.commandLog.unshift(text);
+    }
+
+    render();
+  </script>
 </body>
 </html>
